@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import {focusCard, blurCard} from '../../actions.js';
 
 const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, rating, title, type,
-    preview_image: src, id},onMouseEnter, onMouseLeave, isHovered}) => {
+    preview_image: src, id},cardMouseEnterHandler, cardMouseLeaveHandler}) => {
 
     const btnClassName = (isFavourite)
         ? `place-card__bookmark-button place-card__bookmark-button--active button`
         : `place-card__bookmark-button button`;
         
     return (
-        <article className="cities__place-card place-card" onMouseEnter={() => onMouseEnter(id)}
-            onMouseLeave={onMouseLeave}
+        <article className="cities__place-card place-card" onMouseEnter={() => cardMouseEnterHandler(id)}
+            onMouseLeave={cardMouseLeaveHandler}
         >
             {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
 
@@ -29,7 +32,7 @@ const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, r
                     </div>
                     <button className={btnClassName} type="button">
                         <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref={(isHovered) ? '#icon-bookmark-active' :'#icon-bookmark'}></use>
+                            <use xlinkHref="#icon-bookmark"></use>
                         </svg>
                         <span className="visually-hidden">{(isFavourite) ? `In bookmarks` : `To bookmarks`}</span>
                     </button>
@@ -50,9 +53,8 @@ const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, r
 }
 
 Card.propTypes = {
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-    isHovered: PropTypes.bool.isRequired,
+    cardMouseEnterHandler: PropTypes.func.isRequired,
+    cardMouseLeaveHandler: PropTypes.func.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -65,4 +67,12 @@ Card.propTypes = {
     })
 }
 
-export default Card;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        cardMouseEnterHandler: (id) => dispatch(focusCard(id)),
+        cardMouseLeaveHandler: () => dispatch(blurCard())
+    }
+}
+
+export {Card};
+export default connect(() => ({}), mapDispatchToProps)(Card);

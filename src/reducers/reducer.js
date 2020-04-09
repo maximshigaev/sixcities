@@ -1,34 +1,101 @@
+import sortOffers from '../utils/sortOffers.js';
+
 const initialState = {
-    offers: null,
-    isLoggedIn: false,
+    offers: [],
     isLoading: true,
-    isError: false
+    isError: false,
+    isLoggedIn: false,
+    currentSorting: `Popular`,
+    email: null,
+    isAuthLoading: false,
+    isAuthError: false,
+    activeCity: null,
+    focusedCard: null
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-    case `FETCH_OFFERS_REQUEST`:
-        return {
-            ...state,
-            isLoading: true,
-            isError: false
-        }
-    
-    case `FETCH_OFFERS_SUCCESS`:
-        return {
-            ...state,
-            isLoading: false,
-            offers: action.payload
-        }
+        case `FETCH_OFFERS_REQUEST`:
+            return {
+                ...state,
+                offers: [],
+                isLoading: true,
+                isError: false
+            }
+        
+        case `FETCH_OFFERS_SUCCESS`:
+            console.log(action.payload.offers);
+            
+            return {
+                ...state,
+                isError: false,
+                isLoading: false,
+                activeCity: action.payload.activeCity,
+                offers: action.payload.offers,
+            }
 
-    case `FETCH_OFFERS_FAIL`:
-        return {
-            ...state,
-            isLoading: false,
-            isError: true,
-        }
-    default:
-        return state;
+        case `FETCH_OFFERS_FAIL`:
+            return {
+                ...state,
+                offers: [],
+                isLoading: false,
+                isError: true,
+            }
+
+        case `SORT_BY`:
+            return {
+                ...state,
+                offers: sortOffers(state.offers, action.payload),
+                currentSorting: action.payload
+            }
+
+        case `ACTIVE_CITY_CHANGE`:
+            return {
+                ...state,
+                activeCity: action.payload
+            }
+
+        case `FETCH_AUTH_REQUEST`:
+            return {
+                ...state,
+                email: null,
+                isAuthLoading: true,
+                isAuthError: false,
+                isLoggedIn: false
+            }
+
+        case `FETCH_AUTH_SUCCESS`:
+            return {
+                ...state,
+                email: action.payload,
+                isAuthLoading: false,
+                isAuthError: false,
+                isLoggedIn: true
+            }
+
+        case `FETCH_AUTH_FAIL`:
+            return {
+                ...state,
+                email: null,
+                isAuthLoading: false,
+                isAuthError: true,
+                isLoggedIn: false
+            }
+
+        case `FOCUS_CARD`:            
+            return {
+                ...state,
+                focusedCard: action.payload
+            }
+
+         case `BLUR_CARD`:
+            return {
+                ...state,
+                focusedCard: null
+            }
+
+        default:
+            return state;
     }
 }
 

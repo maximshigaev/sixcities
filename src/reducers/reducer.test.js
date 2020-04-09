@@ -1,44 +1,49 @@
-// import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import reducer from './reducer.js';
+import sortOffers from '../utils/sortOffers.js';
 
 Enzyme.configure({adapter: new Adapter()});
 
 const initialState = {
-    offers: null,
+    offers: [],
     isLoggedIn: false,
     isLoading: true,
-    isError: false
+    isError: false,
+    currentSorting: `Popular`,
+    email: null,
+    isAuthLoading: false
 }
 
 const currentState = {
     offers: [],
     isLoggedIn: true,
     isLoading: false,
-    isError: false 
+    isError: false,
+    currentSorting: `Popular`,
+    isAuthLoading: false
 }
 
 const offers = [
     {
         price: 120,
-        isPinned: false,
-        isPremium: true,
         rating: 4,
-        title: `Beautiful luxurious apartment at great location`,
-        type: `Apartment`,
-        src: `img/apartment-01.jpg`,
-        id: 0
+        id: 1
     },
     {
         price: 80,
-        isPinned: true,
-        isPremium: false,
-        rating: 4,
-        title: `Wood and stone place`,
-        type: `Private room`,
-        src: `img/room.jpg`,
-        id: 1
+        rating: 5,
+        id: 4
+    },
+    {
+        price: 100,
+        rating: 3,
+        id: 3
+    },
+    {
+        price: 140,
+        rating: 2,
+        id: 2
     }
 ];
 
@@ -62,7 +67,10 @@ describe(`Logic of reducer is correct`, () => {
             offers: [],
             isLoggedIn: true,
             isLoading: true,
-            isError: false 
+            isError: false,
+            currentSorting: `Popular`,
+            email: null,
+            isAuthLoading: false
         });
     });
 
@@ -74,7 +82,10 @@ describe(`Logic of reducer is correct`, () => {
             offers,
             isLoading: false,
             isLoggedIn: true,
-            isError: false 
+            isError: false,
+            currentSorting: `Popular`,
+            email: null,
+            isAuthLoading: false
         });
     });
 
@@ -85,7 +96,114 @@ describe(`Logic of reducer is correct`, () => {
             offers: [],
             isLoggedIn: true,
             isLoading: false,
-            isError: true 
+            isError: true,
+            currentSorting: `Popular`,
+            email: null,
+            isAuthLoading: false
         });
+    });
+
+    it(`Sorting function returns the right value given 'Popular' sorting type`, () => {
+        expect(sortOffers(offers, `Popular`))
+            .toEqual([
+                {
+                    price: 120,
+                    rating: 4,
+                    id: 1
+                },
+                {
+                    price: 140,
+                    rating: 2,
+                    id: 2
+                },
+                {
+                    price: 100,
+                    rating: 3,
+                    id: 3
+                },
+                {
+                    price: 80,
+                    rating: 5,
+                    id: 4
+                }
+            ]);
+    });
+
+    it(`Sorting function returns the right value given 'Price: low to high' sorting type`, () => {
+        expect(sortOffers(offers, `Price: low to high`))
+            .toEqual([
+                {
+                    price: 80,
+                    rating: 5,
+                    id: 4
+                },
+                {
+                    price: 100,
+                    rating: 3,
+                    id: 3
+                },
+                {
+                    price: 120,
+                    rating: 4,
+                    id: 1
+                },
+                                {
+                    price: 140,
+                    rating: 2,
+                    id: 2
+                }
+            ]);
+    });
+
+    it(`Sorting function returns the right value given 'Price: high to low' sorting type`, () => {
+        expect(sortOffers(offers, `Price: high to low`))
+            .toEqual([                     
+                {
+                    price: 140,
+                    rating: 2,
+                    id: 2
+                },
+                {
+                    price: 120,
+                    rating: 4,
+                    id: 1
+                },
+                {
+                    price: 100,
+                    rating: 3,
+                    id: 3
+                },
+                {
+                    price: 80,
+                    rating: 5,
+                    id: 4
+                }
+            ]);
+    });
+
+    it(`Sorting function returns the right value given 'Top rated first' sorting type`, () => {
+        expect(sortOffers(offers, `Top rated first`))
+            .toEqual([                     
+                {
+                    price: 80,
+                    rating: 5,
+                    id: 4
+                },
+                {
+                    price: 120,
+                    rating: 4,
+                    id: 1
+                },
+                {
+                    price: 100,
+                    rating: 3,
+                    id: 3
+                },
+                {
+                    price: 140,
+                    rating: 2,
+                    id: 2
+                }
+            ]);
     });
 });

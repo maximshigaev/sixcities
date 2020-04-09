@@ -9,35 +9,29 @@ import Spinner from '../spinner/spinner.jsx';
 import {hasOffers, hotelsByCity} from '../../selectors.js';
 
 class CardList extends React.PureComponent {
-    state = {
-        hoveredCard: null
-    }
-
     static propTypes = {
-        offers: PropTypes.arrayOf(PropTypes.object),
+        offers: PropTypes.arrayOf(PropTypes.shape({
+            price: PropTypes.number.isRequired,
+            is_favorite: PropTypes.bool.isRequired,
+            is_premium: PropTypes.bool.isRequired,
+            rating: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired,
+            preview_image: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired
+        })),
         isLoading: PropTypes.bool.isRequired,
         hasOffers: PropTypes.bool.isRequired,
-        fetchOffers: PropTypes.func.isRequired
+        fetchOffers: PropTypes.func.isRequired,
+        activeCity: PropTypes.string
     }
 
     componentDidMount() {
         this.props.fetchOffers();
     }
 
-    mouseEnterHandler = (id) => {
-        this.setState({
-            hoveredCard: id
-        });
-    }
-
-    mouseLeaveHandler = () => {
-        this.setState({
-            hoveredCard: null
-        });
-    }
-
     render() {
-        const {offers, isLoading, hasOffers} = this.props;
+        const {offers, isLoading, hasOffers, activeCity} = this.props;
 
         if (isLoading) {
             return <Spinner />
@@ -48,7 +42,7 @@ class CardList extends React.PureComponent {
                 <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">No places to stay available</b>
                     <p className="cities__status-description">We could not find any property available at the
-                        moment in Dusseldorf
+                        moment in {activeCity}
                     </p>
                 </div>
             );
@@ -57,11 +51,9 @@ class CardList extends React.PureComponent {
         return (
             <div className="cities__places-list places__list tabs__content">
                 {
-                    offers.map((offer, ind) => {
+                    offers.map((offer) => {
                         return (
-                            <Card key={offer.id} offer={offer} onMouseEnter={this.mouseEnterHandler}
-                                onMouseLeave={this.mouseLeaveHandler} isHovered={ind === this.state.hoveredCard}
-                            />
+                            <Card key={offer.id} offer={offer} />
                         );
                     })
                 }
@@ -74,9 +66,11 @@ const mapStateToProps = (state) => {
     return {
         offers: hotelsByCity(state),
         isLoading: state.isLoading,
-        hasOffers: hasOffers(state)
+        hasOffers: hasOffers(state),
+        activeCity: state.activeCity
     };
 };
+
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchOffers: bindActionCreators(fetchOffers, dispatch)
