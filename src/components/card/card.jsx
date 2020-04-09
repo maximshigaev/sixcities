@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Card = ({offer: {price, isPinned, isPremium, rating, title, type, src, id},
-    onMouseEnter, onMouseLeave, isHovered}) => {
+const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, rating, title, type,
+    preview_image: src, id},onMouseEnter, onMouseLeave, isHovered}) => {
 
-    const btnClassName = (isPinned)
+    const btnClassName = (isFavourite)
         ? `place-card__bookmark-button place-card__bookmark-button--active button`
         : `place-card__bookmark-button button`;
         
@@ -13,6 +13,7 @@ const Card = ({offer: {price, isPinned, isPremium, rating, title, type, src, id}
             onMouseLeave={onMouseLeave}
         >
             {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
+
             <div className="cities__image-wrapper place-card__image-wrapper">
                 <a href="#">
                     <img className="place-card__image" src={src} width="260" height="200"
@@ -28,10 +29,9 @@ const Card = ({offer: {price, isPinned, isPremium, rating, title, type, src, id}
                     </div>
                     <button className={btnClassName} type="button">
                         <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref={(isHovered) ? '#icon-bookmark-active' :'#icon-bookmark'}>
-                            </use>
+                            <use xlinkHref={(isHovered) ? '#icon-bookmark-active' :'#icon-bookmark'}></use>
                         </svg>
-                        <span className="visually-hidden">{(isPinned) ? `In bookmarks` : `To bookmarks`}</span>
+                        <span className="visually-hidden">{(isFavourite) ? `In bookmarks` : `To bookmarks`}</span>
                     </button>
                 </div>
                 <div className="place-card__rating rating">
@@ -55,12 +55,12 @@ Card.propTypes = {
     isHovered: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
-        isPinned: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
+        is_favorite: PropTypes.bool.isRequired,
+        is_premium: PropTypes.bool.isRequired,
         rating: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
+        preview_image: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired
     })
 }

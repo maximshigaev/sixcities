@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the Filter component 1`] = `
+Array [
+  <h2
+    className="visually-hidden"
+  >
+    Places
+  </h2>,
+  <b
+    className="places__found"
+  >
+    312 places to stay in Amsterdam
+  </b>,
+  <form
+    action="#"
+    className="places__sorting"
+    method="get"
+  >
+    <span
+      className="places__sorting-caption"
+    >
+      Sort by
+    </span>
+    <span
+      className="places__sorting-type"
+      onClick={[Function]}
+      tabIndex="0"
+    >
+      Popular
+      <svg
+        className="places__sorting-arrow"
+        height="4"
+        width="7"
+      >
+        <use
+          xlinkHref="#icon-arrow-select"
+        />
+      </svg>
+    </span>
+  </form>,
+]
+`;

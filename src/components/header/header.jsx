@@ -1,6 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-const Header = () => {
+const Header = ({isLoggedIn, email}) => {
+    const className = (isLoggedIn) ? `header__user-name user__name` : `header__login`;
+
     return (
         <header className="header">
             <div className="container">
@@ -15,10 +20,12 @@ const Header = () => {
                     <nav className="header__nav">
                         <ul className="header__nav-list">
                             <li className="header__nav-item user">
-                                <a className="header__nav-link header__nav-link--profile" href="#">
+                                <Link to="/login" className="header__nav-link header__nav-link--profile">
                                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                                </a>
+                                    <span className={className}>
+                                        {(isLoggedIn) ? email : `Sign in`}
+                                    </span>
+                                </Link>
                             </li>
                         </ul>
                     </nav>
@@ -28,4 +35,17 @@ const Header = () => {
     );
 }
 
-export default Header;
+Header.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    email: PropTypes.string
+}
+
+const mapStateToProps = ({isLoggedIn, email}) => {
+    return {
+        isLoggedIn,
+        email
+    }
+}
+
+export {Header};
+export default connect(mapStateToProps, () => ({}))(Header);

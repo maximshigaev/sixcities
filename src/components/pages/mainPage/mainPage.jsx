@@ -1,12 +1,21 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CardList from '../../cardList/cardList.jsx';
 import Header from '../../header/header.jsx';
 import Navigation from '../../navigation/navigation.jsx';
 import Filter from '../../filter/filter.jsx';
-import offers from '../../../mocks/offers.js';
+import {hasOffers} from '../../../selectors.js';
 
-const MainPage = () => {
+const MainPage = ({hasOffers}) => {
+    const divClassName = (!hasOffers)
+        ? `cities__places-container container cities__places-container--empty`
+        : `cities__places-container container`;
+    const sectionClassName = (!hasOffers)
+        ? `cities__no-places`
+        : `cities__places places`;
+
     return (
         <div className="page page--gray page--main">
             <Header />
@@ -15,11 +24,11 @@ const MainPage = () => {
                 <Navigation />
 
                 <div className="cities">
-                    <div className="cities__places-container container">
-                        <section className="cities__places places">
-                            <Filter />
+                    <div className={divClassName}>
+                        <section className={sectionClassName}>
+                            {(!hasOffers) ? null : <Filter />}
                             
-                            <CardList offers={offers} />
+                            <CardList />
                         </section>
                     </div>
                 </div>
@@ -28,4 +37,15 @@ const MainPage = () => {
     );
 }
 
-export default MainPage;
+MainPage.propTypes = {
+    hasOffers: PropTypes.bool.isRequired
+}
+
+const mapStateToProps = (state) => {
+    return {
+        hasOffers: hasOffers(state)
+    };
+}
+
+export {MainPage};
+export default connect(mapStateToProps, () => ({}))(MainPage);

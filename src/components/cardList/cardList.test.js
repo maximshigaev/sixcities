@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import CardList from './cardList.jsx';
+import {CardList} from './cardList.jsx';
 
 const offers = [
     {
@@ -46,9 +46,34 @@ const offers = [
     }
 ];
 
-it(`Correctly renders the CardList component`, () => {
-        const tree = renderer.create(<CardList offers={offers} />)
-            .toJSON();
+describe(`Correctly renders the CardList component`, () => {
+    it(`Correctly renders the CardList component when offers are loaded`, () => {
+        const tree = renderer.create(
+            <CardList isLoading={false} isError={false} fetchOffers={jest.fn()}
+                offers={offers}
+            />)
+        .toJSON();
 
         expect(tree).toMatchSnapshot();
     });
+
+    it(`Correctly renders the CardList component when offers are loading`, () => {
+        const tree = renderer.create(
+            <CardList isLoading={true} isError={false} fetchOffers={jest.fn()}
+                offers={[]}
+            />)
+        .toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it(`Correctly renders the CardList component when an error occured`, () => {
+        const tree = renderer.create(
+            <CardList isLoading={false} isError={true} fetchOffers={jest.fn()}
+                offers={[]}
+            />)
+        .toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+});

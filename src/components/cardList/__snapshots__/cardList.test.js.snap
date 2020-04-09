@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the CardList component Correctly renders the CardList component when an error occured 1`] = `
+<div
+  className="cities__status-wrapper tabs__content"
+>
+  <b
+    className="cities__status"
+  >
+    No places to stay available
+  </b>
+  <p
+    className="cities__status-description"
+  >
+    We could not find any property available at the moment in Dusseldorf
+  </p>
+</div>
+`;
+
+exports[`Correctly renders the CardList component Correctly renders the CardList component when offers are loaded 1`] = `
+<div
+  className="cities__status-wrapper tabs__content"
+>
+  <b
+    className="cities__status"
+  >
+    No places to stay available
+  </b>
+  <p
+    className="cities__status-description"
+  >
+    We could not find any property available at the moment in Dusseldorf
+  </p>
+</div>
+`;
+
+exports[`Correctly renders the CardList component Correctly renders the CardList component when offers are loading 1`] = `
+<div
+  className="spinner"
+>
+  <div
+    className="spinnerContent"
+  >
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;

@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Provider} from 'react-redux';
 
+import store from './store.js';
 import App from './components/app/app.jsx';
 
-fetch(`https://htmlacademy-react-3.appspot.com/six-cities`)
-	.then((res) => res.json())
-	.then((data) => console.log(data))
-
 ReactDOM.render(
-	<App onClick={() => {alert(`dsd`)}}/>,
+	<Provider store={store}>
+		<Router>
+			<App />
+		</Router>
+	</Provider>,
 	document.querySelector(`#root`)
 );
