@@ -1,11 +1,16 @@
-const hasOffers = (state) => !!state.offers.length && !state.isError;
+const hasOffers = ({offers, isError}) => !!offers.length && !isError;
 
-const citiesNames = (state) => Array.from(new Set(state.offers.map((item) => item.city.name)));
+const citiesNames = ({offers}) => Array.from(new Set(offers.map((item) => item.city.name)));
 
-const hotelsByCity = (state) => state.offers.filter((item) => item.city.name === state.activeCity);
+const hotelsByCity = ({offers, activeCity}) => offers.filter((item) => item.city.name === activeCity);
 
-const activeCityCoords = (state) => {
-    const cityHotel = state.offers.find((item) => item.city.name === state.activeCity);
+const hotelsByCurrentHotel = ({currentHotel, offers}) => {
+    return offers.filter((item) => item.city.name === currentHotel.city.name && item.id !== currentHotel.id)
+        .slice(0, 3);
+}
+
+const activeCityCoords = ({offers, activeCity}) => {
+    const cityHotel = offers.find((item) => item.city.name === activeCity);
 
     if (!cityHotel) {
         return;
@@ -14,4 +19,4 @@ const activeCityCoords = (state) => {
     return [cityHotel.city.location.latitude, cityHotel.city.location.longitude];
 }
 
-export {hasOffers, citiesNames, hotelsByCity, activeCityCoords};
+export {hasOffers, citiesNames, hotelsByCity, activeCityCoords, hotelsByCurrentHotel};

@@ -7,6 +7,7 @@ import Header from '../../header/header.jsx';
 import Navigation from '../../navigation/navigation.jsx';
 import Filter from '../../filter/filter.jsx';
 import {hasOffers} from '../../../selectors.js';
+import Map from '../../map/map.jsx';
 
 const MainPage = ({hasOffers}) => {
     const divClassName = (!hasOffers)
@@ -30,6 +31,7 @@ const MainPage = ({hasOffers}) => {
                             
                             <CardList />
                         </section>
+                        <Map />
                     </div>
                 </div>
             </main> 

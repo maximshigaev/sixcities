@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
-import {fetchOffers} from '../../actions.js';
 import Card from '../card/card.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import {hasOffers, hotelsByCity} from '../../selectors.js';
@@ -22,12 +20,7 @@ class CardList extends React.PureComponent {
         })),
         isLoading: PropTypes.bool.isRequired,
         hasOffers: PropTypes.bool.isRequired,
-        fetchOffers: PropTypes.func.isRequired,
         activeCity: PropTypes.string
-    }
-
-    componentDidMount() {
-        this.props.fetchOffers();
     }
 
     render() {
@@ -53,7 +46,7 @@ class CardList extends React.PureComponent {
                 {
                     offers.map((offer) => {
                         return (
-                            <Card key={offer.id} offer={offer} />
+                            <Card key={offer.id} offer={offer} isNearby={false} />
                         );
                     })
                 }
@@ -71,11 +64,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchOffers: bindActionCreators(fetchOffers, dispatch)
-    }
-}
-
 export {CardList};
-export default connect(mapStateToProps, mapDispatchToProps)(CardList);
+export default connect(mapStateToProps, () => ({}))(CardList);

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import Spinner from '../spinner/spinner.jsx';
 import {activeCityCoords, hotelsByCity} from '../../selectors.js';
+import getHotelsCoords from '../../utils/getHotelsCoords';
+
 import activeIcon from './pin-active.svg';
 import icon from './pin.svg';
 
@@ -14,6 +16,7 @@ class Map extends React.PureComponent {
         activeCity: PropTypes.string,
         focusedCard: PropTypes.number,
         isLoading: PropTypes.bool.isRequired,
+        isError: PropTypes.bool.isRequired,
         hotels: PropTypes.arrayOf(PropTypes.shape({
             price: PropTypes.number.isRequired,
             is_favorite: PropTypes.bool.isRequired,
@@ -42,6 +45,11 @@ class Map extends React.PureComponent {
             iconSize: [30, 30]
         });
 
+        const activePin = leaflet.icon({
+            iconUrl: activeIcon,
+            iconSize: [30, 30]
+        });
+
         const zoom = 13;
 
         const map = leaflet.map(`map`, {
@@ -59,7 +67,7 @@ class Map extends React.PureComponent {
             })
             .addTo(map);
 
-        const hotelsCoords = this.getHotelsCoords(hotels);
+        const hotelsCoords = getHotelsCoords(hotels);
         let focusedHotel = null;
             
         if(focusedCard) {
@@ -70,11 +78,6 @@ class Map extends React.PureComponent {
             if(focusedHotel
                 && coords[0] === focusedHotel.location.latitude && coords[1] === focusedHotel.location.longitude
             ) {
-                const activePin = leaflet.icon({
-                    iconUrl: activeIcon,
-                    iconSize: [30, 30]
-                });
-
                 map.setView(coords, zoom);
 
                 leaflet.marker(coords, {icon: activePin})
@@ -88,10 +91,10 @@ class Map extends React.PureComponent {
         this.map = map;
     }
 
-    getHotelsCoords = (hotels) => hotels.map((item) => [item.location.latitude, item.location.longitude]);
-
     render() {
-        if(this.props.isLoading) {
+        const {isLoading, isError} = this.props;
+
+        if(isLoading) {
             return <Spinner />;
         }
 
@@ -109,6 +112,7 @@ const mapStateToProps = (state) => {
     return {
         activeCityCoords: activeCityCoords(state),
         isLoading: state.isLoading,
+        isError: state.isError,
         activeCity: state.activeCity,
         hotels: hotelsByCity(state),
         focusedCard: state.focusedCard

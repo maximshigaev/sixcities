@@ -1,23 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {focusCard, blurCard} from '../../actions.js';
 
 const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, rating, title, type,
-    preview_image: src, id},cardMouseEnterHandler, cardMouseLeaveHandler}) => {
+    preview_image: src, id},cardMouseEnterHandler, cardMouseLeaveHandler}, isNearby) => {
 
     const btnClassName = (isFavourite)
         ? `place-card__bookmark-button place-card__bookmark-button--active button`
         : `place-card__bookmark-button button`;
+    const articleClassName = (isNearby)
+        ? `near-places__card place-card`
+        : `cities__place-card place-card`;
+    const divClassName = (isNearby)
+        ? `near-places__image-wrapper place-card__image-wrapper`
+        : `cities__image-wrapper place-card__image-wrapper`;
         
     return (
-        <article className="cities__place-card place-card" onMouseEnter={() => cardMouseEnterHandler(id)}
+        <article className={articleClassName} onMouseEnter={() => cardMouseEnterHandler(id)}
             onMouseLeave={cardMouseLeaveHandler}
         >
             {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
 
-            <div className="cities__image-wrapper place-card__image-wrapper">
+            <div className={divClassName}>
                 <a href="#">
                     <img className="place-card__image" src={src} width="260" height="200"
                         alt="Place pic"
@@ -44,7 +51,7 @@ const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, r
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{title}</a>
+                    <Link to={`/offer/${id}`}>{title}</Link>
                 </h2>
                 <p className="place-card__type">{type}</p>
             </div>
@@ -53,8 +60,9 @@ const Card = ({offer: {price, is_favorite: isFavourite, is_premium: isPremium, r
 }
 
 Card.propTypes = {
-    cardMouseEnterHandler: PropTypes.func.isRequired,
-    cardMouseLeaveHandler: PropTypes.func.isRequired,
+    cardMouseEnterHandler: PropTypes.func,
+    cardMouseLeaveHandler: PropTypes.func,
+    isNearby: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,

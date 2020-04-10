@@ -2,6 +2,8 @@ import sortOffers from '../utils/sortOffers.js';
 
 const initialState = {
     offers: [],
+    comments: [],
+    currentHotel: null,
     isLoading: true,
     isError: false,
     isLoggedIn: false,
@@ -10,7 +12,9 @@ const initialState = {
     isAuthLoading: false,
     isAuthError: false,
     activeCity: null,
-    focusedCard: null
+    focusedCard: null,
+    isCommentsLoading: false,
+    isCommentsError: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,9 +26,9 @@ const reducer = (state = initialState, action) => {
                 isLoading: true,
                 isError: false
             }
-        
+
         case `FETCH_OFFERS_SUCCESS`:
-            console.log(action.payload.offers);
+            console.log(action.payload.offers);            
             
             return {
                 ...state,
@@ -92,6 +96,36 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 focusedCard: null
+            }
+        
+        case `FETCH_COMMENTS_REQUEST`:
+            return {
+                ...state,
+                comments: [],
+                isCommentsLoading: true,
+                isCommentsError: false
+            }
+
+        case `FETCH_COMMENTS_SUCCESS`:
+            return {
+                ...state,
+                comments: action.payload,
+                isCommentsLoading: false,
+                isCommentsError: false
+            }
+
+        case `FETCH_COMMENTS_FAIL`:
+            return {
+                ...state,
+                comments: [],
+                isCommentsLoading: false,
+                isCommentsError: true
+            }
+
+        case `SET_CURRENT_HOTEL`:
+            return {
+                ...state,
+                currentHotel: action.payload
             }
 
         default:

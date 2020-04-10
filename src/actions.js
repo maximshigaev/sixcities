@@ -1,4 +1,4 @@
-import {getOffers, sendUserData} from './api.js';
+import {getOffers, sendUserData, getComments} from './api.js';
 
 const fetchOffersRequest = () => {
     return {
@@ -26,7 +26,13 @@ const fetchOffers = () => (dispatch) => {
     dispatch(fetchOffersRequest());
 
     getOffers()
-        .then((res) => dispatch(fetchOffersSuccess(res.data)))
+        .then((res) => {
+            if(res.status === 200) {
+                dispatch(fetchOffersSuccess(res.data));
+            } else {
+                dispatch(fetchOffersFail());
+            }
+        })
         .catch(() => dispatch(fetchOffersFail()))
 }
 
@@ -50,10 +56,10 @@ const fetchAuthRequest = () => {
     };
 }
 
-const fetchAuthSuccess = (data) => {
+const fetchAuthSuccess = (email) => {
     return {
         type: `FETCH_AUTH_SUCCESS`,
-        payload: data
+        payload: email
     };
 }
 
@@ -63,13 +69,72 @@ const fetchAuthFail = () => {
     };
 }
 
-const fetchAuth = (email, password) => (dispatch) => {
+const fetchAuth = (userData) => (dispatch) => {
     dispatch(fetchAuthRequest());
-
-    sendUserData(email, password)
-        .then((res) => res)
-        .then((data) => dispatch(fetchAuthSuccess(data)))
+    
+    sendUserData(userData)
+        .then((res) => {    
+            if(res.status === 200) {
+                dispatch(fetchAuthSuccess(res.data.email));
+            } else {
+                dispatch(fetchAuthFail());
+            }
+        })
         .catch(() => dispatch(fetchAuthFail()))
 }
 
-export {fetchOffers, sortBy, fetchAuth, activeCityChange};
+const focusCard = (id) => {
+    return {
+        type: `FOCUS_CARD`,
+        payload: id
+    }
+}
+
+const blurCard = () => {
+    return {
+        type: `BLUR_CARD`
+    }
+}
+
+const fetchCommentsRequest = () => {
+    return {
+        type: `FETCH_COMMENTS_REQUEST`
+    }
+}
+
+const fetchCommentsSuccess = (comments) => {
+    return {
+        type: `FETCH_COMMENTS_SUCCESS`,
+        payload: comments
+    }
+}
+
+const fetchCommentsFail = () => {
+    return {
+        type: `FETCH_COMMENTS_FAIL`
+    }
+}
+
+const fetchComments = (id) => (dispatch) => {
+    dispatch(fetchCommentsRequest());
+
+    getComments(id)
+        .then((res) => {
+            if(res.status === 200) {
+                dispatch(fetchCommentsSuccess(res.data));
+            } else {
+                dispatch(fetchCommentsFail());
+            }
+        })
+        .catch(() => dispatch(fetchCommentsFail()))
+}
+
+const setCurrentHotel = (hotel) => {
+
+    return {
+        type: `SET_CURRENT_HOTEL`,
+        payload: hotel
+    }
+}
+
+export {fetchOffers, sortBy, fetchAuth, activeCityChange, focusCard, blurCard, fetchComments, setCurrentHotel};

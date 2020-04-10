@@ -16,4 +16,8 @@ const sendUserData = (userData) => {
     return api.post(`/login`, userData)
 }
 
-export  {getOffers, sendUserData};
+const getComments = (id) => {
+    return api.get(`/comments/${id}`)
+}
+
+export  {getOffers, sendUserData, getComments};
