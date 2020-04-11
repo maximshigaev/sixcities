@@ -19,7 +19,7 @@ class App extends React.PureComponent {
 			<Switch>
 				<Route path="/" component={MainPage} exact />
 				<Route path="/login" component={LoginPage} exact />
-				{/* <Route path="/favorites" component={FavoritesPage} exact /> */}
+				<Route path="/favorites" component={FavoritesPage} exact />
 				<Route path="/offer/:id" component={OfferPage} exact />
 				<Redirect to="/" />
 			</Switch>

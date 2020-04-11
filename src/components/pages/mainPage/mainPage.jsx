@@ -19,7 +19,7 @@ const MainPage = ({hasOffers}) => {
 
     return (
         <div className="page page--gray page--main">
-            <Header />
+            <Header isMain={true} />
 
             <main className="page__main page__main--index">
                 <Navigation />

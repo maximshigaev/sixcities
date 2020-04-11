@@ -1,14 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import Reviews from '../reviews/reviews.jsx';
 import ReviewsMap from '../reviewsMap/reviewsMap.jsx';
+import {fetchFavorite} from '../../actions.js';
 
-const Offer = ({offer:{images, is_premium: isPremium, title, is_favorite: isFavorite, rating, max_adults: maxAdults,
-    type, bedrooms, price, goods, id, host, description}}) => {
-    const className = (host.is_pro)
+const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
+    const {images, is_premium: isPremium, title, is_favorite: isFavorite, rating, max_adults: maxAdults, type, bedrooms,
+            price, goods, id, host, description
+        } = offer;
+    const divClassName = (host.is_pro)
         ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper`
         : `property__avatar-wrapper user__avatar-wrapper`;
+    const btnClassName = (isFavorite)
+        ? `property__bookmark-button property__bookmark-button--active button`
+        : `property__bookmark-button button`;
+    const buttonClickHandler = () => {
+        if(!isLoggedIn) {
+            history.push(`/login`);
+        } else {
+            fetchFavorite(id, isFavorite);
+        }
+    }
 
     return (
         <section className="property">
@@ -17,12 +32,12 @@ const Offer = ({offer:{images, is_premium: isPremium, title, is_favorite: isFavo
                     {
                         images.slice(0, 6)
                             .map((src) => {
-                            return (
-                                <div key={src} className="property__image-wrapper">
-                                    <img className="property__image" src={src} alt="Photo studio" />
-                                </div>
-                            );
-                        })
+                                return (
+                                    <div key={src} className="property__image-wrapper">
+                                        <img className="property__image" src={src} alt="Photo studio" />
+                                    </div>
+                                );
+                            })
                     }
                 </div>
             </div>
@@ -34,11 +49,13 @@ const Offer = ({offer:{images, is_premium: isPremium, title, is_favorite: isFavo
                         <h1 className="property__name">
                             {title}
                         </h1>
-                        <button className="property__bookmark-button button" type="button">
+                        <button className={btnClassName} type="button" onClick={buttonClickHandler}>
                             <svg className="property__bookmark-icon" width="31" height="33">
                                 <use xlinkHref="#icon-bookmark"></use>
                             </svg>
-                            <span className="visually-hidden">To bookmarks</span>
+                            <span className="visually-hidden">
+                                {(isFavorite) ? `In bookmarks` : `To bookmarks`}
+                            </span>
                         </button>
                     </div>
                     <div className="property__rating rating">
@@ -80,7 +97,7 @@ const Offer = ({offer:{images, is_premium: isPremium, title, is_favorite: isFavo
                     <div className="property__host">
                         <h2 className="property__host-title">Meet the host</h2>
                         <div className="property__host-user user">
-                            <div className={className}>
+                            <div className={divClassName}>
                                 <img className="property__avatar user__avatar" src={host.avatar_url} width="74"
                                     height="74" alt="Host avatar"
                                 />
@@ -105,6 +122,9 @@ const Offer = ({offer:{images, is_premium: isPremium, title, is_favorite: isFavo
 }
 
 Offer.propTypes = {
+    fetchFavorite: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -133,5 +153,17 @@ Offer.propTypes = {
     })
 }
 
+const mapStateToProps = ({isLoggedIn}) => {
+    return {
+        isLoggedIn
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchFavorite: bindActionCreators(fetchFavorite, dispatch)
+    }
+}
+
 export {Offer};
-export default Offer;
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

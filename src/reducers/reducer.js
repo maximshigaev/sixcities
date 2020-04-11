@@ -2,19 +2,22 @@ import sortOffers from '../utils/sortOffers.js';
 
 const initialState = {
     offers: [],
-    comments: [],
-    currentHotel: null,
     isLoading: true,
     isError: false,
+    comments: [],
+    isCommentsLoading: false,
+    isCommentsError: false,
+    favorites: [],
+    isFavoritesLoading: false,
+    isFavoritesError: false,
+    currentHotel: null,
     isLoggedIn: false,
     currentSorting: `Popular`,
     email: null,
     isAuthLoading: false,
     isAuthError: false,
     activeCity: null,
-    focusedCard: null,
-    isCommentsLoading: false,
-    isCommentsError: false
+    focusedCard: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,9 +30,7 @@ const reducer = (state = initialState, action) => {
                 isError: false
             }
 
-        case `FETCH_OFFERS_SUCCESS`:
-            console.log(action.payload.offers);            
-            
+        case `FETCH_OFFERS_SUCCESS`:            
             return {
                 ...state,
                 isError: false,
@@ -126,6 +127,35 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentHotel: action.payload
+            }
+
+        case `FETCH_FAVORITES_REQUEST`:
+            return {
+                ...state,
+                isFavoritesLoading: true,
+                isFavoritesError: false,
+                favorites: []
+            }
+
+        case `FETCH_FAVORITES_SUCCESS`:
+            return {
+                ...state,
+                isFavoritesLoading: false,
+                isFavoritesError: false,
+                favorites: action.payload
+            }
+
+        case `FETCH_FAVORITES_FAIL`:
+            return {
+                ...state,
+                isFavoritesLoading: false,
+                isFavoritesError: true,
+                favorites: []
+            }
+
+        case `FETCH_FAVORITE_SUCCESS`:
+            return {
+                ...state,
             }
 
         default:

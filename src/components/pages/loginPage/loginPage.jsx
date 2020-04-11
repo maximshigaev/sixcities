@@ -13,6 +13,7 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
 
     const formSubmitHandler = (evt, email, password) => {
         evt.preventDefault();
+        
         fetchAuth({
             email,
             password
@@ -26,7 +27,7 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
     if(isAuthLoading) {
         return (
             <div className="page page--gray page--login">
-                <Header />
+                <Header isMain={false} />
                 <Spinner />
             </div>
         );
@@ -34,7 +35,7 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
 
     return (
         <div className="page page--gray page--login">
-            <Header />
+            <Header isMain={false} />
 
             <main className="page__main page__main--login">
                 <div className="page__login-container container">

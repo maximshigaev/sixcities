@@ -10,15 +10,15 @@ import Spinner from '../../spinner/spinner.jsx';
 import {setCurrentHotel} from '../../../actions.js';
 import NearbyHotels from '../../nearbyHotels/nearbyHotels.jsx';
 
-const OfferPage = ({match, offers, isLoading, setCurrentHotel}) => {   
+const OfferPage = ({match, offers, isLoading, setCurrentHotel, history}) => {   
     const offer = offers.find((item) => item.id === +match.params.id);
+
     setCurrentHotel(offer);
 
     if (isLoading) {
         return (
             <div className="page">
-                <Header />
-
+                <Header isMain={false} />
                 <Spinner />
             </div>
         );
@@ -26,10 +26,8 @@ const OfferPage = ({match, offers, isLoading, setCurrentHotel}) => {
 
     return (
         <div className="page">
-            <Header />
-
-            <Offer offer={offer} />
-
+            <Header isMain={false} />
+            <Offer offer={offer} history={history} />
             <NearbyHotels />
         </div>
     );
@@ -75,4 +73,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
+export {OfferPage};
 export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter)(OfferPage);

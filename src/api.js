@@ -6,18 +6,16 @@ const api = axios.create({
     withCredentials: true
 });
 
+const getOffers = () => api.get(`/hotels`);
 
+const sendUserData = (userData) => api.post(`/login`, userData);
 
-const getOffers = () => {
-    return api.get(`/hotels`);
-}
+const getComments = (id) => api.get(`/comments/${id}`);
 
-const sendUserData = (userData) => {
-    return api.post(`/login`, userData)
-}
+const sendUserReview = (review, id) => api.post(`/comments/${id}`, review);
 
-const getComments = (id) => {
-    return api.get(`/comments/${id}`)
-}
+const getFavorites = () => api.get(`/favorite`);
 
-export  {getOffers, sendUserData, getComments};
+const setFavorite = (id, isFavorite) => api.post(`/favorite/${id}/${(isFavorite) ? 0 : 1}`);
+
+export {getOffers, sendUserData, getComments, sendUserReview, getFavorites, setFavorite};

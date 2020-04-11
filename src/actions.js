@@ -1,4 +1,6 @@
-import {getOffers, sendUserData, getComments} from './api.js';
+import {getOffers, sendUserData, getComments, sendUserReview, getFavorites, setFavorite} from './api.js';
+
+const SUCCESS_STATUS = 200;
 
 const fetchOffersRequest = () => {
     return {
@@ -27,7 +29,7 @@ const fetchOffers = () => (dispatch) => {
 
     getOffers()
         .then((res) => {
-            if(res.status === 200) {
+            if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchOffersSuccess(res.data));
             } else {
                 dispatch(fetchOffersFail());
@@ -74,7 +76,7 @@ const fetchAuth = (userData) => (dispatch) => {
     
     sendUserData(userData)
         .then((res) => {    
-            if(res.status === 200) {
+            if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchAuthSuccess(res.data.email));
             } else {
                 dispatch(fetchAuthFail());
@@ -120,7 +122,7 @@ const fetchComments = (id) => (dispatch) => {
 
     getComments(id)
         .then((res) => {
-            if(res.status === 200) {
+            if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchCommentsSuccess(res.data));
             } else {
                 dispatch(fetchCommentsFail());
@@ -130,11 +132,100 @@ const fetchComments = (id) => (dispatch) => {
 }
 
 const setCurrentHotel = (hotel) => {
-
     return {
         type: `SET_CURRENT_HOTEL`,
         payload: hotel
     }
 }
 
-export {fetchOffers, sortBy, fetchAuth, activeCityChange, focusCard, blurCard, fetchComments, setCurrentHotel};
+const fetchReviewRequest = () => {
+    return {
+        type: `FETCH_REVIEW_REQUEST`
+    }
+}
+
+const fetchReviewSuccess = () => {
+    return {
+        type: `FETCH_REVIEW_SUCCESS`
+    }
+}
+
+const fetchReviewFail = () => {
+    return {
+        type: `FETCH_REVIEW_FAIL`
+    }
+}
+
+const fetchReview = (review, id) => (dispatch) => {
+    dispatch(fetchReviewRequest());    
+
+    sendUserReview(review, id)
+        .then((res) => {
+            if(res.status === SUCCESS_STATUS) {
+                dispatch(fetchReviewSuccess());
+            } else {
+                dispatch(fetchReviewFail());
+            }
+        })
+        .catch(() => {
+            dispatch(fetchReviewFail())
+        });
+}
+
+const fetchFavoritesRequest = () => {
+    return {
+        type: `FETCH_FAVORITES_REQUEST`
+    }
+}
+
+const fetchFavoritesSuccess = (favorites) => {
+    return {
+        type: `FETCH_FAVORITES_SUCCESS`,
+        payload: favorites
+    }
+}
+
+const fetchFavoritesFail = () => {
+    return {
+        type: `FETCH_FAVORITES_FAIL`
+    }
+}
+
+const fetchFavorites = () => (dispatch) => {
+    dispatch(fetchFavoritesRequest());
+
+    getFavorites()
+        .then((res) => {
+            if(res.status === SUCCESS_STATUS) {
+                dispatch(fetchFavoritesSuccess(res.data));
+            } else {
+                dispatch(fetchFavoritesFail());
+            }
+        })
+        .catch(() => dispatch(fetchFavoritesFail()))
+}
+
+const fetchFavoriteSuccess = () => {
+    console.log(`FETCH_FAVORITE_SUCCESS`);
+    
+    return {
+        type: `FETCH_FAVORITE_SUCCESS`
+    }
+}
+
+const fetchFavorite = (id, isFavorite) => (dispatch) => {
+    setFavorite(id, isFavorite)
+        .then((res) => {
+            if(res.status === SUCCESS_STATUS) {
+                dispatch(fetchFavoriteSuccess());
+            } else {
+                throw new Error(`Can not establish favorite`);
+            }
+        })
+        .catch((err) => {
+            throw err;
+        })
+}
+
+export {fetchOffers, sortBy, fetchAuth, activeCityChange, focusCard, blurCard, fetchComments, setCurrentHotel,
+    fetchReview, fetchFavorites, fetchFavorite};
