@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
@@ -7,95 +7,76 @@ import Header from '../../header/header.jsx';
 import {fetchAuth} from '../../../actions.js';
 import Spinner from '../../spinner/spinner.jsx';
 
-class LoginPage extends React.PureComponent {
-    state = {
-        email: ``,
-        password: ``
-    }
+const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
+    const [emailVal, setEmailVal] = useState(``);
+    const [passwordVal, setPasswordVal] = useState(``);
 
-    static propTypes = {
-        fetchAuth: PropTypes.func.isRequired,
-        isLoggedIn: PropTypes.bool.isRequired,
-        isAuthLoading: PropTypes.bool.isRequired
-    }
-
-    emailInputChangeHandler = (evt) => {
-        this.setState({
-            email: evt.target.value
-        });
-    }
-
-    passwordInputChangeHandler = (evt) => {
-        this.setState({
-            password: evt.target.value
-        });
-    }
-
-    formSubmitHandler = (evt, email, password) => {
+    const formSubmitHandler = (evt, email, password) => {
         evt.preventDefault();
-        this.props.fetchAuth({
+        fetchAuth({
             email,
             password
-        })
+        });
     }
 
-    render() {
-        const {email, password} = this.state;
-        const {isLoggedIn, isAuthLoading} = this.props;
+    if(isLoggedIn) {
+        return <Redirect to="/" />;
+    }
 
-        if(isLoggedIn) {
-            return <Redirect to="/" />
-        }
-
-        if(isAuthLoading) {
-            return (
-                <div className="page page--gray page--login">
-                    <Header />
-                    <Spinner />
-                </div>
-            );
-        }
-
+    if(isAuthLoading) {
         return (
             <div className="page page--gray page--login">
                 <Header />
-
-                <main className="page__main page__main--login">
-                    <div className="page__login-container container">
-                        <section className="login">
-                            <h1 className="login__title">Sign in</h1>
-                            <form className="login__form form" action="#" method="post"
-                                onSubmit={(evt) => this.formSubmitHandler(evt, email, password)}
-                            >
-                                <div className="login__input-wrapper form__input-wrapper">
-                                    <label className="visually-hidden">E-mail</label>
-                                    <input className="login__input form__input" type="email" name="email"
-                                        placeholder="Email" required="" value={email}
-                                        onChange={this.emailInputChangeHandler}
-                                    />
-                                </div>
-                                <div className="login__input-wrapper form__input-wrapper">
-                                    <label className="visually-hidden">Password</label>
-                                    <input className="login__input form__input" type="password" name="password"
-                                        placeholder="Password" required="" value={password}
-                                        onChange={this.passwordInputChangeHandler}
-                                    />
-                                </div>
-                                <button className="login__submit form__submit button" type="submit">Sign in</button>
-                            </form>
-                        </section>
-                        <section className="locations locations--login locations--current">
-                            <div className="locations__item">
-                                <a className="locations__item-link" href="#">
-                                    <span>Amsterdam</span>
-                                </a>
-                            </div>
-                        </section>
-                    </div>
-                </main>
+                <Spinner />
             </div>
         );
     }
+
+    return (
+        <div className="page page--gray page--login">
+            <Header />
+
+            <main className="page__main page__main--login">
+                <div className="page__login-container container">
+                    <section className="login">
+                        <h1 className="login__title">Sign in</h1>
+                        <form className="login__form form" action="#" method="post"
+                            onSubmit={(evt) => formSubmitHandler(evt, emailVal, passwordVal)}
+                        >
+                            <div className="login__input-wrapper form__input-wrapper">
+                                <label className="visually-hidden">E-mail</label>
+                                <input className="login__input form__input" type="email" name="email"
+                                    placeholder="Email" value={emailVal}
+                                    onChange={(evt) => setEmailVal(evt.target.value)} required
+                                />
+                            </div>
+                            <div className="login__input-wrapper form__input-wrapper">
+                                <label className="visually-hidden">Password</label>
+                                <input className="login__input form__input" type="password" name="password"
+                                    placeholder="Password" value={passwordVal}
+                                    onChange={(evt) => setPasswordVal(evt.target.value)} required
+                                />
+                            </div>
+                            <button className="login__submit form__submit button" type="submit">Sign in</button>
+                        </form>
+                    </section>
+                    <section className="locations locations--login locations--current">
+                        <div className="locations__item">
+                            <a className="locations__item-link" href="#">
+                                <span>Amsterdam</span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    );
+}
+
+LoginPage.propTypes = {
+    fetchAuth: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    isAuthLoading: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = ({isLoggedIn, isAuthLoading}) => {
@@ -107,7 +88,7 @@ const mapStateToProps = ({isLoggedIn, isAuthLoading}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAuth: (email, password) => dispatch(fetchAuth(email, password))
+        fetchAuth: ({email, password}) => dispatch(fetchAuth({email, password}))
     } 
 }
 
