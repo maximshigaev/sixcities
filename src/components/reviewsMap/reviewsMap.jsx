@@ -82,7 +82,7 @@ ReviewsMap.propTypes = {
         }))
     }
 
-const  mapStateToProps = ({nearbyHotels}) => {
+const  mapStateToProps = ({nearby: {nearbyHotels}}) => {
     return {
         nearbyHotels 
     }

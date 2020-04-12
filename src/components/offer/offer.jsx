@@ -153,7 +153,7 @@ Offer.propTypes = {
     })
 }
 
-const mapStateToProps = ({isLoggedIn}) => {
+const mapStateToProps = ({auth: {isLoggedIn}}) => {
     return {
         isLoggedIn
     }

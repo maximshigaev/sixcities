@@ -43,9 +43,9 @@ MainPage.propTypes = {
     hasOffers: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offers}) => {
     return {
-        hasOffers: hasOffers(state)
+        hasOffers: hasOffers(offers)
     };
 }
 

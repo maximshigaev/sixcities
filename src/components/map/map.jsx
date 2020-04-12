@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -30,9 +30,13 @@ class Map extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const {activeCityCoords, activeCity, hotels, focusedCard} = this.props;
+        const {activeCityCoords, activeCity, hotels, focusedCard, isLoading} = this.props;
 
         if(prevProps.activeCity === activeCity && prevProps.focusedCard === focusedCard) {
+            return;
+        }
+
+        if(isLoading) {
             return;
         }
 
@@ -108,14 +112,14 @@ class Map extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offers, card}) => {
     return {
-        activeCityCoords: activeCityCoords(state),
-        isLoading: state.isLoading,
-        isError: state.isError,
-        activeCity: state.activeCity,
-        hotels: hotelsByCity(state),
-        focusedCard: state.focusedCard
+        activeCityCoords: activeCityCoords(offers),
+        isLoading: offers.isLoading,
+        isError: offers.isError,
+        activeCity: offers.activeCity,
+        hotels: hotelsByCity(offers),
+        focusedCard: card.focusedCard
     }
 }
 

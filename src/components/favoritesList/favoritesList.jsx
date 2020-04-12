@@ -116,9 +116,9 @@ FavoritesList.propTypes ={
     }))
 }
 
-const mapStateToProps = ({favorites}) => {
+const mapStateToProps = ({favorites: {favorites}}) => {
     return {
-       favorites
+       favorites 
     }
 }
 

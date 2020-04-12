@@ -80,7 +80,7 @@ LoginPage.propTypes = {
     isAuthLoading: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = ({isLoggedIn, isAuthLoading}) => {
+const mapStateToProps = ({auth: {isLoggedIn, isAuthLoading}}) => {
     return {
         isLoggedIn,
         isAuthLoading

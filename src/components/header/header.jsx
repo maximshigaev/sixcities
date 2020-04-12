@@ -54,7 +54,7 @@ Header.propTypes = {
     isMain: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = ({isLoggedIn, email}) => {
+const mapStateToProps = ({auth: {isLoggedIn, email}}) => {
     return {
         isLoggedIn,
         email

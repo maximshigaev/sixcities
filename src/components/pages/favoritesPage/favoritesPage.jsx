@@ -47,7 +47,7 @@ class FavoritesPage extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({favorites, isFavoritesLoading, isFavoritesError, isLoggedIn}) => {
+const mapStateToProps = ({favorites: {favorites, isFavoritesLoading, isFavoritesError}, auth: {isLoggedIn}}) => {
     return {
         favorites,
         isFavoritesLoading, 

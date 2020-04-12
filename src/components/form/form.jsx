@@ -4,12 +4,18 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 
 import {fetchReview} from '../../actions/comments.js';
+import Spinner from '../spinner/spinner.jsx';
 
-const Form = ({isLoggedIn, fetchReview, id}) => {
+const Form = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewError}) => {
     const [value, setValue] = useState(``);
+    const [wasReviewSended, setWasReviewSended] = useState(false);
 
-    if (!isLoggedIn) {
+    if(!isLoggedIn) {
         return null;
+    }
+
+    if(isReviewLoading) {
+        return <Spinner />;
     }
 
     const formSubmitHandler = (evt) => {
@@ -21,6 +27,11 @@ const Form = ({isLoggedIn, fetchReview, id}) => {
         }
         
         fetchReview(userData, id);
+        setWasReviewSended(true);
+    }
+
+    if(wasReviewSended) {
+        return null;
     }
 
     return (
@@ -94,12 +105,16 @@ const Form = ({isLoggedIn, fetchReview, id}) => {
 Form.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     fetchReview: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    isReviewLoading: PropTypes.bool.isRequired,
+    isReviewError: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = ({isLoggedIn}) => {
+const mapStateToProps = ({auth: {isLoggedIn}, comments:{isReviewLoading, isReviewError}}) => {
     return {
-        isLoggedIn
+        isLoggedIn,
+        isReviewLoading,
+        isReviewError
     }
 }
 

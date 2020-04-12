@@ -57,8 +57,8 @@ const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, ra
 }
 
 Card.propTypes = {
-    cardMouseEnterHandler: PropTypes.func,
-    cardMouseLeaveHandler: PropTypes.func,
+    cardMouseEnterHandler: PropTypes.func.isRequired,
+    cardMouseLeaveHandler: PropTypes.func.isRequired,
     isNearby: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,

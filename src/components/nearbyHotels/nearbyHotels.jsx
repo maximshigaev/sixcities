@@ -51,7 +51,7 @@ NearbyHotels.propTypes = {
     }))
 }
 
-const mapStateToProps = ({nearbyHotels, isNearbyError, isNearbyLoading}) => {
+const mapStateToProps = ({nearby: {nearbyHotels, isNearbyError, isNearbyLoading}}) => {
     return {
         nearbyHotels,
         isNearbyError,

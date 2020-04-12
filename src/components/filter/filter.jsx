@@ -12,7 +12,7 @@ class Filter extends React.PureComponent {
     }
 
     static propTypes = {
-        sortOptionClickHandler: PropTypes.func.isRequired,
+        sortBy: PropTypes.func.isRequired,
         currentSorting: PropTypes.string.isRequired,
         activeCity: PropTypes.string,
         offers: PropTypes.arrayOf(PropTypes.object),
@@ -26,8 +26,16 @@ class Filter extends React.PureComponent {
         });
     }
 
+    sortOptionClickHandler = (title) => {
+        this.setState({
+            isOpened: false
+        });
+
+        this.props.sortBy(title);
+    }
+
     render() {
-        const {sortOptionClickHandler, currentSorting, activeCity, offers} = this.props;
+        const {currentSorting, activeCity, offers} = this.props;
         const optionsTitles = [
             {
                 title: `Popular`,
@@ -56,7 +64,7 @@ class Filter extends React.PureComponent {
 
                         return (
                             <li key={id} className={className} tabIndex="0"
-                                onClick={() => sortOptionClickHandler(title)}
+                                onClick={() => this.sortOptionClickHandler(title)}
                             >
                                 {title}
                             </li>
@@ -84,17 +92,17 @@ class Filter extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offers}) => {
     return {
-        currentSorting: state.currentSorting,
-        activeCity: state.activeCity,
-        offers: hotelsByCity(state),
+        currentSorting: offers.currentSorting,
+        activeCity: offers.activeCity,
+        offers: hotelsByCity(offers),
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        sortOptionClickHandler: bindActionCreators(sortBy, dispatch)
+        sortBy: bindActionCreators(sortBy, dispatch)
     }
 }
 

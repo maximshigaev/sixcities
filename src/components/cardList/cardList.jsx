@@ -62,12 +62,12 @@ class CardList extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offers}) => {
     return {
-        offers: hotelsByCity(state),
-        isLoading: state.isLoading,
-        hasOffers: hasOffers(state),
-        activeCity: state.activeCity
+        offers: hotelsByCity(offers),
+        isLoading: offers.isLoading,
+        hasOffers: hasOffers(offers),
+        activeCity: offers.activeCity
     };
 }
 

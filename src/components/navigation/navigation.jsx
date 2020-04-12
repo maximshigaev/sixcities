@@ -43,10 +43,10 @@ Navigation.propTypes = {
     citiesNames: PropTypes.arrayOf(PropTypes.string)
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offers}) => {
     return {
-        activeCity: state.activeCity,
-        citiesNames: citiesNames(state)
+        activeCity: offers.activeCity,
+        citiesNames: citiesNames(offers)
     }
 }
 

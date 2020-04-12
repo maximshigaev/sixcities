@@ -88,7 +88,7 @@ Reviews.propTypes = {
     }))
 }
 
-const mapStateToProps = ({isCommentsError, isCommentsLoading, comments}) => {
+const mapStateToProps = ({comments: {isCommentsError, isCommentsLoading, comments}}) => {
     return {
         isCommentsError,
         isCommentsLoading,

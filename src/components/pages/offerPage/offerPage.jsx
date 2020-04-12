@@ -25,7 +25,7 @@ const OfferPage = ({match, offers, isLoading, history, fetchOffers}) => {
     }   
 
     const offer = offers.find((item) => item.id === +match.params.id);
-
+    
     return (
         <div className="page">
             <Header isMain={false} />
@@ -62,7 +62,7 @@ OfferPage.propTypes = {
     fetchOffers: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({offers, isLoading}) => {
+const mapStateToProps = ({offers: {offers, isLoading}}) => {
     return {
         offers,
         isLoading
