@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import Card from '../card/card.jsx';
 import Spinner from '../spinner/spinner.jsx';
 import {hasOffers, hotelsByCity} from '../../selectors.js';
+import fetchOffers from '../../actions/offers.js';
 
 class CardList extends React.PureComponent {
     static propTypes = {
@@ -20,7 +22,12 @@ class CardList extends React.PureComponent {
         })),
         isLoading: PropTypes.bool.isRequired,
         hasOffers: PropTypes.bool.isRequired,
-        activeCity: PropTypes.string
+        activeCity: PropTypes.string,
+		fetchOffers: PropTypes.func.isRequired
+    }
+
+    componentDidMount() {
+        this.props.fetchOffers();
     }
 
     render() {
@@ -62,7 +69,13 @@ const mapStateToProps = (state) => {
         hasOffers: hasOffers(state),
         activeCity: state.activeCity
     };
-};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOffers: bindActionCreators(fetchOffers, dispatch)
+    }
+}
 
 export {CardList};
-export default connect(mapStateToProps, () => ({}))(CardList);
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

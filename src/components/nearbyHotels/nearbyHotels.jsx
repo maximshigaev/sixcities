@@ -1,23 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {bindActionCreators} from 'redux';
 
-import {hotelsByCurrentHotel} from '../../selectors.js';
 import Card from '../card/card.jsx';
+import fetchNearbyHotels from '../../actions/nearby.js';
+import Spinner from '../spinner/spinner.jsx';
 
-const NearbyHotels = ({currentHotels}) => {
-    let nearbyOffers;
+const NearbyHotels = ({nearbyHotels, isNearbyError, isNearbyLoading, id, fetchNearbyHotels}) => {
+    useEffect(() => {
+        fetchNearbyHotels(id);
+    }, [fetchNearbyHotels, id]);
 
-    if(currentHotels.length) {
-        nearbyOffers = (
-            currentHotels.map((item) => {
-                return (
-                    <Card key={item.id} offer={item} isNearby={true} />
-                );
-            })
-        );
-    } else {
-        nearbyOffers = null;
+    if(isNearbyLoading) {
+        return <Spinner />;
     }
 
     return (
@@ -25,7 +21,13 @@ const NearbyHotels = ({currentHotels}) => {
             <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                    {nearbyOffers}
+                    {
+                         nearbyHotels.map((item) => {
+                            return (
+                                <Card key={item.id} offer={item} isNearby={true} />
+                            );
+                        })
+                    }
                 </div>
             </section>
          </div>
@@ -33,7 +35,11 @@ const NearbyHotels = ({currentHotels}) => {
 }
 
 NearbyHotels.propTypes = {
-    currentHotels: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    isNearbyError: PropTypes.bool.isRequired,
+    isNearbyLoading: PropTypes.bool.isRequired,
+    fetchNearbyHotels: PropTypes.func.isRequired,
+    nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
         is_premium: PropTypes.bool.isRequired,
@@ -43,13 +49,21 @@ NearbyHotels.propTypes = {
         preview_image: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired
     }))
-    }
+}
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({nearbyHotels, isNearbyError, isNearbyLoading}) => {
     return {
-        currentHotels: hotelsByCurrentHotel(state)
+        nearbyHotels,
+        isNearbyError,
+        isNearbyLoading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchNearbyHotels: bindActionCreators(fetchNearbyHotels, dispatch)
     }
 }
 
 export {NearbyHotels};
-export default connect(mapStateToProps, () => ({}))(NearbyHotels);
+export default connect(mapStateToProps, mapDispatchToProps)(NearbyHotels);

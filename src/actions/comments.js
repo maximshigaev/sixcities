@@ -58,8 +58,9 @@ const fetchReview = (review, id) => (dispatch) => {
 
     sendUserReview(review, id)
         .then((res) => {
-            if(res.status === SUCCESS_STATUS) {
+            if(res.status === SUCCESS_STATUS) {                
                 dispatch(fetchReviewSuccess());
+                dispatch(fetchComments(id));
             } else {
                 dispatch(fetchReviewFail());
             }

@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 
-import {fetchReview} from '../../actions.js';
+import {fetchReview} from '../../actions/comments.js';
 
-const Form = ({isLoggedIn, fetchReview, currentHotel}) => {
+const Form = ({isLoggedIn, fetchReview, id}) => {
     const [value, setValue] = useState(``);
 
     if (!isLoggedIn) {
@@ -20,7 +20,7 @@ const Form = ({isLoggedIn, fetchReview, currentHotel}) => {
             comment: value
         }
         
-        fetchReview(userData, currentHotel.id);
+        fetchReview(userData, id);
     }
 
     return (
@@ -94,22 +94,12 @@ const Form = ({isLoggedIn, fetchReview, currentHotel}) => {
 Form.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     fetchReview: PropTypes.func.isRequired,
-    currentHotel: PropTypes.shape({
-        price: PropTypes.number.isRequired,
-        is_favorite: PropTypes.bool.isRequired,
-        is_premium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        preview_image: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired
-    })
+    id: PropTypes.number.isRequired
 }
 
-const mapStateToProps = ({isLoggedIn, currentHotel}) => {
+const mapStateToProps = ({isLoggedIn}) => {
     return {
-        isLoggedIn,
-        currentHotel
+        isLoggedIn
     }
 }
 

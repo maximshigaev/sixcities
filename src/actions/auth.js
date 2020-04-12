@@ -1,8 +1,33 @@
-import {sendUserData} from '../api.js';
+import {sendUserData, requestAuth} from '../api.js';
 
 const SUCCESS_STATUS = 200;
 
-const fetchAuthRequest = () => {
+const authStatusSuccess = (email) => {    
+    return {
+        type: `AUTH_STATUS_SUCCESS`,
+        payload: email
+    }
+}
+
+const authStatusFail = () => {
+    return {
+        type: `AUTH_STATUS_FAIL`
+    }
+}
+
+const fetchAuthStatus = () => (dispatch) => {
+    requestAuth()
+        .then((res) => {
+            if(res.status === SUCCESS_STATUS) {
+                dispatch(authStatusSuccess(res.data.email));
+            } else {
+                dispatch(authStatusFail());
+            }
+        })
+        .catch(() => dispatch(authStatusFail()))
+}
+
+const fetchAuthRequest = () => {    
     return {
         type: `FETCH_AUTH_REQUEST`
     };
@@ -35,4 +60,4 @@ const fetchAuth = (userData) => (dispatch) => {
         .catch(() => dispatch(fetchAuthFail()))
 }
 
-export default fetchAuth;
+export {fetchAuth, fetchAuthStatus};

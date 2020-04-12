@@ -1,4 +1,5 @@
-import {getFavorites, setFavorite} from '../api.js'; 
+import {getFavorites, setFavorite} from '../api.js';
+import fetchOffers from './offers.js'; 
 
 const SUCCESS_STATUS = 200;
 
@@ -35,9 +36,10 @@ const fetchFavorites = () => (dispatch) => {
         .catch(() => dispatch(fetchFavoritesFail()))
 }
 
-const fetchFavoriteSuccess = () => {    
+const fetchFavoriteSuccess = (id) => {  
     return {
-        type: `FETCH_FAVORITE_SUCCESS`
+        type: `FETCH_FAVORITE_SUCCESS`,
+        payload: id
     }
 }
 
@@ -45,7 +47,9 @@ const fetchFavorite = (id, isFavorite) => (dispatch) => {
     setFavorite(id, isFavorite)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
-                dispatch(fetchFavoriteSuccess());
+                dispatch(fetchFavoriteSuccess(res.data.id));
+                dispatch(fetchOffers());
+                dispatch(fetchFavorites());
             } else {
                 throw new Error(`Can not establish favorite`);
             }

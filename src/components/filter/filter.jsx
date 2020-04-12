@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 
-import {sortBy} from '../../actions.js';
+import {sortBy} from '../../actions/helpers.js';
 import {hotelsByCity} from '../../selectors.js';
 
 class Filter extends React.PureComponent {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {Link, Redirect} from 'react-router-dom';
 
-import {fetchFavorites} from '../../../actions.js';
+import {fetchFavorites} from '../../../actions/favorites.js';
 import Spinner from '../../spinner/spinner.jsx';
 import Header from '../../header/header.jsx';
 import FavoritesList from '../../favoritesList/favoritesList.jsx';

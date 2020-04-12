@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
 import Header from '../../header/header.jsx';
-import {fetchAuth} from '../../../actions.js';
+import {fetchAuth} from '../../../actions/auth.js';
 import Spinner from '../../spinner/spinner.jsx';
 
 const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
@@ -13,7 +13,7 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
 
     const formSubmitHandler = (evt, email, password) => {
         evt.preventDefault();
-        
+
         fetchAuth({
             email,
             password

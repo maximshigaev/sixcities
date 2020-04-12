@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import Reviews from '../reviews/reviews.jsx';
 import ReviewsMap from '../reviewsMap/reviewsMap.jsx';
-import {fetchFavorite} from '../../actions.js';
+import {fetchFavorite} from '../../actions/favorites.js';
 
 const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
     const {images, is_premium: isPremium, title, is_favorite: isFavorite, rating, max_adults: maxAdults, type, bedrooms,
@@ -51,7 +51,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                         </h1>
                         <button className={btnClassName} type="button" onClick={buttonClickHandler}>
                             <svg className="property__bookmark-icon" width="31" height="33">
-                                <use xlinkHref="#icon-bookmark"></use>
+                                <use xlinkHref={(isFavorite) ? `#icon-bookmark-active` : `#icon-bookmark`}></use>
                             </svg>
                             <span className="visually-hidden">
                                 {(isFavorite) ? `In bookmarks` : `To bookmarks`}
@@ -116,7 +116,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                     <Reviews id={id} />
                 </div>
             </div>
-            <ReviewsMap />
+            <ReviewsMap offer={offer} />
         </section>
     );
 }

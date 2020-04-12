@@ -10,14 +10,16 @@ const initialState = {
     favorites: [],
     isFavoritesLoading: false,
     isFavoritesError: false,
-    currentHotel: null,
+    nearbyHotels: [],
+    isNearbyLoading: false,
+    isNearbyError: false,
     isLoggedIn: false,
-    currentSorting: `Popular`,
     email: null,
     isAuthLoading: false,
     isAuthError: false,
     activeCity: null,
-    focusedCard: null
+    focusedCard: null,
+    currentSorting: `Popular`
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,7 +32,7 @@ const reducer = (state = initialState, action) => {
                 isError: false
             }
 
-        case `FETCH_OFFERS_SUCCESS`:            
+        case `FETCH_OFFERS_SUCCESS`:                    
             return {
                 ...state,
                 isError: false,
@@ -123,12 +125,6 @@ const reducer = (state = initialState, action) => {
                 isCommentsError: true
             }
 
-        case `SET_CURRENT_HOTEL`:
-            return {
-                ...state,
-                currentHotel: action.payload
-            }
-
         case `FETCH_FAVORITES_REQUEST`:
             return {
                 ...state,
@@ -154,8 +150,52 @@ const reducer = (state = initialState, action) => {
             }
 
         case `FETCH_FAVORITE_SUCCESS`:
+            const ind = action.payload - 1;
+            const offer = state.offers[ind];
+            const newOffer = {...offer, is_favorite: !offer.is_favorite};
+            const newOffers = [...state.offers.slice(0, ind), newOffer, ...state.offers.slice(ind + 1)];
+                        
             return {
                 ...state,
+                offers: newOffers
+            }
+
+        case `FETCH_NEARBY_REQUEST`:
+            return {
+                ...state,
+                nearbyHotels: [],
+                isNearbyLoading: true,
+                isNearbyError: false
+            }
+
+         case `FETCH_NEARBY_SUCCESS`:
+            return {
+                ...state,
+                nearbyHotels: action.payload,
+                isNearbyLoading: false,
+                isNearbyError: false
+            }
+
+         case `FETCH_NEARBY_FAIL`:
+            return {
+                ...state,
+                nearbyHotels: [],
+                isNearbyLoading: false,
+                isNearbyError: true
+            }
+
+         case `AUTH_STATUS_SUCCESS`:
+            return {
+                ...state,
+                isLoggedIn: true,
+                email: action.payload
+            }
+
+         case `AUTH_STATUS_FAIL`:
+            return {
+                ...state,
+                isLoggedIn: false,
+                email: null
             }
 
         default:

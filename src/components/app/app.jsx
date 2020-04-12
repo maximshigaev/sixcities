@@ -2,16 +2,21 @@ import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
 
 import MainPage from '../pages/mainPage/mainPage.jsx';
 import LoginPage from '../pages/loginPage/loginPage.jsx';
 import FavoritesPage from '../pages/favoritesPage/favoritesPage.jsx';
 import OfferPage from '../pages/offerPage/offerPage.jsx';
-import {fetchOffers} from '../../actions.js';
+import {fetchAuthStatus} from '../../actions/auth.js';
 
 class App extends React.PureComponent {
+	static propTypes = {
+		fetchAuthStatus: PropTypes.func.isRequired
+	}
+
 	componentDidMount() {
-        this.props.fetchOffers();
+		this.props.fetchAuthStatus();
     }
 
 	render() {
@@ -29,7 +34,7 @@ class App extends React.PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchOffers: bindActionCreators(fetchOffers, dispatch)
+		fetchAuthStatus: bindActionCreators(fetchAuthStatus, dispatch)
     }
 }
 

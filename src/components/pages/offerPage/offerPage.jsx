@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose, bindActionCreators} from 'redux';
@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import Header from '../../header/header.jsx';
 import Offer from '../../offer/offer.jsx';
 import Spinner from '../../spinner/spinner.jsx';
-import {setCurrentHotel} from '../../../actions.js';
 import NearbyHotels from '../../nearbyHotels/nearbyHotels.jsx';
+import fetchOffers from '../../../actions/offers.js';
 
-const OfferPage = ({match, offers, isLoading, setCurrentHotel, history}) => {   
-    const offer = offers.find((item) => item.id === +match.params.id);
-
-    setCurrentHotel(offer);
+const OfferPage = ({match, offers, isLoading, history, fetchOffers}) => {   
+    useEffect(() => {
+        fetchOffers();
+    }, [fetchOffers]);
 
     if (isLoading) {
         return (
@@ -22,13 +22,15 @@ const OfferPage = ({match, offers, isLoading, setCurrentHotel, history}) => {
                 <Spinner />
             </div>
         );
-    }
+    }   
+
+    const offer = offers.find((item) => item.id === +match.params.id);
 
     return (
         <div className="page">
             <Header isMain={false} />
             <Offer offer={offer} history={history} />
-            <NearbyHotels />
+            <NearbyHotels id={offer.id} />
         </div>
     );
 }
@@ -57,7 +59,7 @@ OfferPage.propTypes = {
     })),
     match: PropTypes.object,
     isLoading: PropTypes.bool.isRequired,
-    setCurrentHotel: PropTypes.func.isRequired
+    fetchOffers: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({offers, isLoading}) => {
@@ -69,7 +71,7 @@ const mapStateToProps = ({offers, isLoading}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCurrentHotel: bindActionCreators(setCurrentHotel, dispatch)
+        fetchOffers: bindActionCreators(fetchOffers, dispatch)
     }
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {focusCard, blurCard} from '../../actions.js';
+import {focusCard, blurCard} from '../../actions/helpers.js';
 
 const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, rating, title, type,
     preview_image: src, id},cardMouseEnterHandler, cardMouseLeaveHandler}, isNearby) => {

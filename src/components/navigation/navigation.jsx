@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 
-import {activeCityChange} from '../../actions.js';
+import {activeCityChange} from '../../actions/helpers.js';
 import {citiesNames} from '../../selectors.js';
 
 const Navigation = ({activeCity, navItemClickHandler, citiesNames}) => {

@@ -4,11 +4,6 @@ const citiesNames = ({offers}) => Array.from(new Set(offers.map((item) => item.c
 
 const hotelsByCity = ({offers, activeCity}) => offers.filter((item) => item.city.name === activeCity);
 
-const hotelsByCurrentHotel = ({currentHotel, offers}) => {
-    return offers.filter((item) => item.city.name === currentHotel.city.name && item.id !== currentHotel.id)
-        .slice(0, 3);
-}
-
 const activeCityCoords = ({offers, activeCity}) => {
     const cityHotel = offers.find((item) => item.city.name === activeCity);
 
@@ -19,4 +14,4 @@ const activeCityCoords = ({offers, activeCity}) => {
     return [cityHotel.city.location.latitude, cityHotel.city.location.longitude];
 }
 
-export {hasOffers, citiesNames, hotelsByCity, activeCityCoords, hotelsByCurrentHotel};
+export {hasOffers, citiesNames, hotelsByCity, activeCityCoords};

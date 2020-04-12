@@ -25,11 +25,4 @@ const blurCard = () => {
     }
 }
 
-const setCurrentHotel = (hotel) => {
-    return {
-        type: `SET_CURRENT_HOTEL`,
-        payload: hotel
-    }
-}
-
-export {sortBy, activeCityChange, focusCard, blurCard, setCurrentHotel};
+export {sortBy, activeCityChange, focusCard, blurCard};
