@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/sixcities/static/css/main.95c2bc6c.chunk.css",
+    "main.js": "/sixcities/static/js/main.f21613c0.chunk.js",
+    "main.js.map": "/sixcities/static/js/main.f21613c0.chunk.js.map",
+    "runtime-main.js": "/sixcities/static/js/runtime-main.c2599022.js",
+    "runtime-main.js.map": "/sixcities/static/js/runtime-main.c2599022.js.map",
+    "static/js/2.1fb4c816.chunk.js": "/sixcities/static/js/2.1fb4c816.chunk.js",
+    "static/js/2.1fb4c816.chunk.js.map": "/sixcities/static/js/2.1fb4c816.chunk.js.map",
+    "index.html": "/sixcities/index.html",
+    "precache-manifest.eb26310368bde87f5490d44eb7a866ff.js": "/sixcities/precache-manifest.eb26310368bde87f5490d44eb7a866ff.js",
+    "service-worker.js": "/sixcities/service-worker.js",
+    "static/css/main.95c2bc6c.chunk.css.map": "/sixcities/static/css/main.95c2bc6c.chunk.css.map",
+    "static/js/2.1fb4c816.chunk.js.LICENSE.txt": "/sixcities/static/js/2.1fb4c816.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/sixcities/static/media/logo.052bc629.svg",
+    "static/media/pin-active.svg": "/sixcities/static/media/pin-active.6747ef6e.svg",
+    "static/media/pin.svg": "/sixcities/static/media/pin.19314a0f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c2599022.js",
+    "static/js/2.1fb4c816.chunk.js",
+    "static/css/main.95c2bc6c.chunk.css",
+    "static/js/main.f21613c0.chunk.js"
+  ]
+}
