@@ -1,6 +1,6 @@
 const hasOffers = ({offers, isError}) => !!offers.length && !isError;
 
-const citiesNames = ({offers}) => Array.from(new Set(offers.map((item) => item.city.name)));
+const citiesNames = ({offers}) => Array.from(new Set(offers.map((item) => item.city.name))).sort().slice(0, 6);
 
 const hotelsByCity = ({offers, activeCity}) => offers.filter((item) => item.city.name === activeCity);
 

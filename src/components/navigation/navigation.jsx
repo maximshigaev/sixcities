@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
+import cn from 'classnames';
 
 import {activeCityChange} from '../../actions/helpers.js';
 import {citiesNames} from '../../selectors.js';
@@ -15,13 +16,13 @@ const Navigation = ({activeCity, navItemClickHandler, citiesNames}) => {
                     <ul className="locations__list tabs__list">
                         {
                             citiesNames.map((item) => {
-                                const className = (item === activeCity)
-                                    ? `locations__item-link tabs__item tabs__item--active`
-                                    : `locations__item-link tabs__item`;
+                                const className = cn(`locations__item-link tabs__item`,
+                                    {'tabs__item--active': item === activeCity});
 
                                 return (
                                     <li key={item} className="locations__item">
                                         <a className={className} href="#" id={item}
+                                            title={(item === activeCity) ? `` : `To the offers of ${item}`}
                                             onClick={() => navItemClickHandler(item)}
                                         >
                                             <span>{item}</span>

@@ -1,95 +1,63 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import {sortBy} from '../../actions/helpers.js';
 import {hotelsByCity} from '../../selectors.js';
 
-class Filter extends React.PureComponent {
-    state = {
-        isOpened: false
+const Filter = ({currentSorting, activeCity, offers, sortBy}) => {
+    const [isOpened, setIsOpened] = useState(false);
+
+    const sortOptionClickHandler = (title) => {
+        setIsOpened (false);
+        sortBy(title);
     }
 
-    static propTypes = {
-        sortBy: PropTypes.func.isRequired,
-        currentSorting: PropTypes.string.isRequired,
-        activeCity: PropTypes.string,
-        offers: PropTypes.arrayOf(PropTypes.object),
-    }
+    const optionsTitles = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
-    sortSpanClickHandler = () => {
-        this.setState(({isOpened}) => {
-            return {
-                isOpened: !isOpened
+    const optionsList = (
+        <ul className="places__options places__options--custom places__options--opened">
+            {
+                optionsTitles.map((item) => {
+                    const className = cn(`places__option`, {'places__option--active': item === currentSorting});
+
+                    return (
+                        <li key={item} className={className} tabIndex="0" onClick={() => sortOptionClickHandler(item)}>
+                            {item}
+                        </li>
+                    );
+                })
             }
-        });
-    }
+        </ul>
+    );
 
-    sortOptionClickHandler = (title) => {
-        this.setState({
-            isOpened: false
-        });
+    return (
+        <React.Fragment>
+            <h2 className="visually-hidden">Places</h2>
+            <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+            <form className="places__sorting" action="#" method="get">
+                <span className="places__sorting-caption">Sort by </span>
+                <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened(!isOpened)}
+                    title={(isOpened) ? `Close the menu` : `Open the menu`}
+                >
+                    Popular
+                    <svg className="places__sorting-arrow" width="7" height="4">
+                        <use xlinkHref="#icon-arrow-select"></use>
+                    </svg>
+                </span>
+                {(isOpened) ? optionsList : null}
+            </form>
+        </React.Fragment>
+    );
+}
 
-        this.props.sortBy(title);
-    }
-
-    render() {
-        const {currentSorting, activeCity, offers} = this.props;
-        const optionsTitles = [
-            {
-                title: `Popular`,
-                id: 1
-            },
-            {
-                title: `Price: low to high`,
-                id: 2
-            },
-            {
-                title: `Price: high to low`,
-                id: 3
-            },
-            {
-                title: `Top rated first`,
-                id: 4
-            }
-        ];
-        const optionsList = 
-            <ul className="places__options places__options--custom places__options--opened">
-                {
-                    optionsTitles.map(({title, id}) => {
-                        const className = (title === currentSorting)
-                            ? `places__option places__option--active`
-                            : `places__option`;
-
-                        return (
-                            <li key={id} className={className} tabIndex="0"
-                                onClick={() => this.sortOptionClickHandler(title)}
-                            >
-                                {title}
-                            </li>
-                        );
-                    })
-                }
-            </ul>;
-
-        return (
-            <React.Fragment>
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-                <form className="places__sorting" action="#" method="get">
-                    <span className="places__sorting-caption">Sort by</span>
-                    <span className="places__sorting-type" tabIndex="0" onClick={this.sortSpanClickHandler}>
-                        Popular
-                        <svg className="places__sorting-arrow" width="7" height="4">
-                            <use xlinkHref="#icon-arrow-select"></use>
-                        </svg>
-                    </span>
-                    {(this.state.isOpened) ? optionsList : null}
-                </form>
-            </React.Fragment>
-        );
-    }
+Filter.propTypes = {
+    sortBy: PropTypes.func.isRequired,
+    currentSorting: PropTypes.string.isRequired,
+    activeCity: PropTypes.string,
+    offers: PropTypes.arrayOf(PropTypes.object),
 }
 
 const mapStateToProps = ({offers}) => {

@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Spinner from '../spinner/spinner.jsx';
 import {activeCityCoords, hotelsByCity} from '../../selectors.js';
-import getHotelsCoords from '../../utils/getHotelsCoords';
+import getHotelsCoords from '../../utils/getHotelsCoords.js';
 
 import activeIcon from './pin-active.svg';
 import icon from './pin.svg';
@@ -78,16 +78,21 @@ class Map extends React.PureComponent {
             focusedHotel = hotels.find((item) => item.id === focusedCard);
         }
         
-        hotelsCoords.forEach((coords) => {
+        hotelsCoords.forEach((coords, ind) => {
             if(focusedHotel
                 && coords[0] === focusedHotel.location.latitude && coords[1] === focusedHotel.location.longitude
             ) {
                 map.setView(coords, zoom);
 
-                leaflet.marker(coords, {icon: activePin})
+                leaflet.marker(coords, {
+                    icon: activePin
+                })
                     .addTo(map)
             } else {
-                leaflet.marker(coords, {icon: pin})
+                leaflet.marker(coords, {
+                    icon: pin,
+                    title: hotels[ind].title
+                })
                     .addTo(map)
             }
         });
@@ -124,4 +129,4 @@ const mapStateToProps = ({offers, card}) => {
 }
 
 export {Map};
-export default connect(mapStateToProps, () => ({}))(Map);
+export default connect(mapStateToProps, null)(Map);

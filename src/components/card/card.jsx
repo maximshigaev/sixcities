@@ -2,57 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import cn from 'classnames';
+import {bindActionCreators} from 'redux';
 
 import {focusCard, blurCard} from '../../actions/helpers.js';
 
 const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, rating, title, type,
-    preview_image: src, id},cardMouseEnterHandler, cardMouseLeaveHandler}, isNearby) => {
-    const btnClassName = (isFavorite)
-        ? `place-card__bookmark-button place-card__bookmark-button--active button`
-        : `place-card__bookmark-button button`;
-    const articleClassName = (isNearby)
-        ? `near-places__card place-card`
-        : `cities__place-card place-card`;
-    const divClassName = (isNearby)
-        ? `near-places__image-wrapper place-card__image-wrapper`
-        : `cities__image-wrapper place-card__image-wrapper`;
+    preview_image: src, id}, cardMouseEnterHandler, cardMouseLeaveHandler}, isNearby) => {
+    const btnClassName = cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite});
+    const articleClassName = cn(`place-card`, {'near-places__card': isNearby, 'cities__place-card': !isNearby});
+    const divClassName = cn(`place-card__image-wrapper`,
+        {'near-places__image-wrapper': isNearby, 'cities__image-wrapper': !isNearby});
 
     return (
-        <article className={articleClassName} onMouseEnter={() => cardMouseEnterHandler(id)}
-            onMouseLeave={cardMouseLeaveHandler}
-        >
-            {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
+        <Link to={`/offer/${id}`} title={`To the ${title} offer page`}>
+            <article className={articleClassName} onMouseEnter={() => cardMouseEnterHandler(id)}
+                onMouseLeave={cardMouseLeaveHandler}
+            >
+                {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
 
-            <div className={divClassName}>
-                <a href="#">
+                <div className={divClassName}>
                     <img className="place-card__image" src={src} width="260" height="200" alt="Place pic" />
-                </a>
-            </div>
-            <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;{price}</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className={btnClassName} type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">{(isFavorite) ? `In bookmarks` : `To bookmarks`}</span>
-                    </button>
                 </div>
-                <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                        <span style={{width: `${20 * rating}%`}}></span>
-                        <span className="visually-hidden">Rating</span>
+                <div className="place-card__info">
+                    <div className="place-card__price-wrapper">
+                        <div className="place-card__price">
+                            <b className="place-card__price-value">&euro;{price}</b>
+                            <span className="place-card__price-text">&#47;&nbsp;night</span>
+                        </div>
+                        <button className={btnClassName} type="button"
+                            title={(isFavorite) ? `In bookmarks` : `To bookmarks`}
+                        >
+                            <svg className="place-card__bookmark-icon" width="18" height="19">
+                                <use xlinkHref="#icon-bookmark"></use>
+                            </svg>
+                            <span className="visually-hidden">{(isFavorite) ? `In bookmarks` : `Not in bookmarks`}</span>
+                        </button>
                     </div>
+                    <div className="place-card__rating rating">
+                        <div className="place-card__stars rating__stars">
+                            <span style={{width: `${20 * rating}%`}}></span>
+                            <span className="visually-hidden">Rating</span>
+                        </div>
+                    </div>
+                    <h2 className="place-card__name">{title}</h2>
+                    <p className="place-card__type">{type}</p>
                 </div>
-                <h2 className="place-card__name">
-                    <Link to={`/offer/${id}`}>{title}</Link>
-                </h2>
-                <p className="place-card__type">{type}</p>
-            </div>
-        </article>
+            </article>
+        </Link>
     )
 }
 
@@ -74,10 +71,10 @@ Card.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        cardMouseEnterHandler: (id) => dispatch(focusCard(id)),
-        cardMouseLeaveHandler: () => dispatch(blurCard())
+        cardMouseEnterHandler:  bindActionCreators(focusCard ,dispatch),
+        cardMouseLeaveHandler:  bindActionCreators(blurCard, dispatch)
     }
 }
 
 export {Card};
-export default connect(() => ({}), mapDispatchToProps)(Card);
+export default connect(null, mapDispatchToProps)(Card);

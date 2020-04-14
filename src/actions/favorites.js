@@ -48,8 +48,8 @@ const fetchFavorite = (id, isFavorite) => (dispatch) => {
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoriteSuccess(res.data.id));
-                dispatch(fetchOffers());
-                dispatch(fetchFavorites());
+                // dispatch(fetchOffers());
+                // dispatch(fetchFavorites());
             } else {
                 throw new Error(`Can not establish favorite`);
             }

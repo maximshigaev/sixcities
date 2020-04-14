@@ -42,7 +42,7 @@ const FavoritesList = ({favorites}) => {
                                                 <div className="favorites__image-wrapper place-card__image-wrapper">
                                                     <a href="#">
                                                         <img className="place-card__image" src={preview_image}
-                                                            width="150" height="110" alt="Place image"
+                                                            width="150" height="110" alt="Place"
                                                         />
                                                     </a>
                                                 </div>
@@ -123,4 +123,4 @@ const mapStateToProps = ({favorites: {favorites}}) => {
 }
 
 export {FavoritesList};
-export default connect(mapStateToProps, () => ({}))(FavoritesList);
+export default connect(mapStateToProps, null)(FavoritesList);

@@ -34,7 +34,7 @@ class CardList extends React.PureComponent {
         const {offers, isLoading, hasOffers, activeCity} = this.props;
 
         if (isLoading) {
-            return <Spinner />
+            return <Spinner />;
         }
 
          if (!hasOffers) {

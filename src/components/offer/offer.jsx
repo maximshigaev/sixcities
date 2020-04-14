@@ -2,21 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import cn from 'classnames';
 
 import Reviews from '../reviews/reviews.jsx';
 import ReviewsMap from '../reviewsMap/reviewsMap.jsx';
 import {fetchFavorite} from '../../actions/favorites.js';
 
+import maleAvarar from './avatar-max.jpg';
+import femaleAvatar from './avatar-angelina.jpg';
+
 const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
     const {images, is_premium: isPremium, title, is_favorite: isFavorite, rating, max_adults: maxAdults, type, bedrooms,
             price, goods, id, host, description
         } = offer;
-    const divClassName = (host.is_pro)
-        ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper`
-        : `property__avatar-wrapper user__avatar-wrapper`;
-    const btnClassName = (isFavorite)
-        ? `property__bookmark-button property__bookmark-button--active button`
-        : `property__bookmark-button button`;
+    const divClassName = cn(`property__avatar-wrapper user__avatar-wrapper`,
+        {'property__avatar-wrapper--pro': host.is_pro});
+    const btnClassName = cn(`property__bookmark-button button` , {'property__bookmark-button--active': isFavorite})
+
     const buttonClickHandler = () => {
         if(!isLoggedIn) {
             history.push(`/login`);
@@ -24,7 +26,12 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
             fetchFavorite(id, isFavorite);
         }
     }
-
+    
+    const avatarsByUrl = {
+        'img/avatar-angelina.jpg': femaleAvatar,
+        'img/avatar-max.jpg': maleAvarar
+    }
+    
     return (
         <section className="property">
             <div className="property__gallery-container container">
@@ -34,7 +41,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                             .map((src) => {
                                 return (
                                     <div key={src} className="property__image-wrapper">
-                                        <img className="property__image" src={src} alt="Photo studio" />
+                                        <img className="property__image" src={src} alt="Studio" />
                                     </div>
                                 );
                             })
@@ -49,7 +56,9 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                         <h1 className="property__name">
                             {title}
                         </h1>
-                        <button className={btnClassName} type="button" onClick={buttonClickHandler}>
+                        <button className={btnClassName} type="button" onClick={buttonClickHandler}
+                            title={(isFavorite) ? `Remove from bookmarks` : `Add to bookmarks`}
+                        >
                             <svg className="property__bookmark-icon" width="31" height="33">
                                 <use xlinkHref={(isFavorite) ? `#icon-bookmark-active` : `#icon-bookmark`}></use>
                             </svg>
@@ -98,8 +107,8 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                         <h2 className="property__host-title">Meet the host</h2>
                         <div className="property__host-user user">
                             <div className={divClassName}>
-                                <img className="property__avatar user__avatar" src={host.avatar_url} width="74"
-                                    height="74" alt="Host avatar"
+                                <img className="property__avatar user__avatar" src={avatarsByUrl[host.avatar_url]}
+                                    width="74" height="74" alt="Host avatar"
                                 />
                             </div>
                             <span className="property__user-name">

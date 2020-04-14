@@ -23,6 +23,8 @@ const Reviews = ({comments, isCommentsLoading, isCommentsError, id, fetchComment
                 .map((item) => {
                     const {id, user, rating, comment, date} = item;
                     const dateObj = new Date(Date.parse(date));
+                    const month = dateObj.getMonth();
+                    const year = dateObj.getFullYear();
 
                     return (
                         <li key={id} className="reviews__item">
@@ -46,8 +48,8 @@ const Reviews = ({comments, isCommentsLoading, isCommentsError, id, fetchComment
                                 <p className="reviews__text">
                                     {comment}
                                 </p>
-                                <time className="reviews__time" dateTime="2019-04-24">
-                                    {`${mapMonthToNubmer(dateObj.getMonth())} ${dateObj.getFullYear()}`}
+                                <time className="reviews__time" dateTime={`${year}-${month + 1}-${dateObj.getDate()}`}>
+                                    {`${mapMonthToNubmer(month)} ${year}`}
                                 </time>
                             </div>
                         </li>

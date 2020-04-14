@@ -39,13 +39,19 @@ const ReviewsMap = ({offer, nearbyHotels}) => {
             })
             .addTo(map);
 
-        leaflet.marker(offerCoords, {icon: activePin})
+        leaflet.marker(offerCoords, {
+            icon: activePin,
+            title: offer.title
+        })
             .addTo(map)
 
         const nearbyHotelsCoords = getHotelsCoords(nearbyHotels);
 
-        nearbyHotelsCoords.forEach((coords) => {
-            leaflet.marker(coords, {icon: pin})
+        nearbyHotelsCoords.forEach((coords, ind) => {
+            leaflet.marker(coords, {
+                icon: pin,
+                title: nearbyHotels[ind].title
+            })
                 .addTo(map)
         });
 

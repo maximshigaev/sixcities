@@ -15,6 +15,10 @@ const OfferPage = ({match, offers, isLoading, history, fetchOffers}) => {
         fetchOffers();
     }, [fetchOffers]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [match.params.id]);
+
     if (isLoading) {
         return (
             <div className="page">

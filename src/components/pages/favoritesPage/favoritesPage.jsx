@@ -1,50 +1,51 @@
-import React  from 'react';
+import React, {useEffect}  from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {Link, Redirect} from 'react-router-dom';
+import cn from 'classnames';
 
 import {fetchFavorites} from '../../../actions/favorites.js';
 import Spinner from '../../spinner/spinner.jsx';
 import Header from '../../header/header.jsx';
 import FavoritesList from '../../favoritesList/favoritesList.jsx';
 
-class FavoritesPage extends React.PureComponent {
-    static propTypes = {
-        favorites: PropTypes.array,
-        fetchFavorites: PropTypes.func.isRequired,
-        isFavoritesLoading: PropTypes.bool.isRequired,
-        isFavoritesError: PropTypes.bool.isRequired,
-        isLoggedIn: PropTypes.bool.isRequired
+import logo from './logo.svg';
+
+const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLoggedIn, fetchFavorites}) => {
+    useEffect(() => {
+        fetchFavorites();
+    }, [fetchFavorites]);
+
+    if(!isLoggedIn) {
+        return <Redirect to="/login" />;
     }
 
-    componentDidMount() {
-        this.props.fetchFavorites();
+    if(isFavoritesLoading) {
+        return <Spinner />;
     }
 
-    render() {
-        const {favorites, isFavoritesLoading, isFavoritesError, isLoggedIn} = this.props;
+    const divClassName = cn(`page`, {'page--favorites-empty': !favorites.length});
 
-        if(!isLoggedIn) {
-            return <Redirect to="/login" />;
-        }
+    return (
+        <div className={divClassName}>
+            <Header isMain={false} />
+            <FavoritesList />
+            <footer className="footer">
+                <Link to="/" className="footer__logo-link" title="To the main page">
+                    <img className="footer__logo" src={logo} alt="6 cities logo" width="64" height="33" />
+                </Link>
+            </footer>
+        </div>
+    );
+}
 
-        if(isFavoritesLoading) {
-            return <Spinner />;
-        }
-
-        return (
-            <div className={(favorites.length) ? `page`: `page page--favorites-empty`}>
-                <Header isMain={false} />
-                <FavoritesList />
-                <footer className="footer">
-                    <Link to="/" className="footer__logo-link">
-                        <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-                    </Link>
-                </footer>
-            </div>
-        );
-    }
+FavoritesPage.propTypes = {
+    favorites: PropTypes.array,
+    fetchFavorites: PropTypes.func.isRequired,
+    isFavoritesLoading: PropTypes.bool.isRequired,
+    isFavoritesError: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = ({favorites: {favorites, isFavoritesLoading, isFavoritesError}, auth: {isLoggedIn}}) => {
