@@ -8,7 +8,7 @@ import getHotelsCoords from '../../utils/getHotelsCoords.js';
 import activeIcon from './pin-active.svg';
 import icon from './pin.svg';
 
-const ReviewsMap = ({offer, nearbyHotels}) => {
+const ReviewsMap = ({offer, nearbyHotels, focusedCard}) => {
     useEffect(() => {
         const offerCoords = [offer.location.latitude, offer.location.longitude];
 
@@ -22,7 +22,7 @@ const ReviewsMap = ({offer, nearbyHotels}) => {
             iconSize: [30, 30]
         });
 
-        const zoom = 13;
+        const zoom = 14;
 
         const map = leaflet.map(`commentsMap`, {
             center: offerCoords,
@@ -31,32 +31,56 @@ const ReviewsMap = ({offer, nearbyHotels}) => {
             marker: true
         });
 
-        map.setView(offerCoords, zoom);
-
         leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, { 
             attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
                 contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
             })
-            .addTo(map);
+                .addTo(map);
 
-        leaflet.marker(offerCoords, {
-            icon: activePin,
-            title: offer.title
-        })
-            .addTo(map)
+        let focusedHotel = null;
+
+        if(focusedCard) {
+            focusedHotel = nearbyHotels.find((item) => item.id === focusedCard);
+
+            leaflet.marker(offerCoords, {
+                icon: pin
+            })
+                .addTo(map);
+        } else {
+            map.setView(offerCoords, zoom);            
+
+            leaflet.marker(offerCoords, {
+                icon: activePin,
+                title: offer.title,
+                zIndexOffset: 1
+            })
+                .addTo(map);
+        }
 
         const nearbyHotelsCoords = getHotelsCoords(nearbyHotels);
 
         nearbyHotelsCoords.forEach((coords, ind) => {
-            leaflet.marker(coords, {
-                icon: pin,
-                title: nearbyHotels[ind].title
-            })
-                .addTo(map)
+            if(focusedHotel && coords[0] === focusedHotel.location.latitude
+                && coords[1] === focusedHotel.location.longitude
+            ) {
+                map.setView(coords, zoom);
+
+                leaflet.marker(coords, {
+                    icon: activePin,
+                    zIndexOffset: 1
+                })
+                    .addTo(map);
+            } else {
+                leaflet.marker(coords, {
+                    icon: pin,
+                    title: nearbyHotels[ind].title
+                })
+                    .addTo(map);
+            }
         });
 
         return () => map.remove();
-    }, [offer, nearbyHotels]);
+    }, [offer, nearbyHotels, focusedCard]);
 
     return (
         <section className="property__map map">
@@ -76,6 +100,7 @@ ReviewsMap.propTypes = {
             preview_image: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired
         }),
+        focusedCard: PropTypes.number,
         nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
             price: PropTypes.number.isRequired,
             is_favorite: PropTypes.bool.isRequired,
@@ -88,11 +113,12 @@ ReviewsMap.propTypes = {
         }))
     }
 
-const  mapStateToProps = ({nearby: {nearbyHotels}}) => {
+const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}}) => {
     return {
-        nearbyHotels 
+        nearbyHotels,
+        focusedCard
     }
 }
 
 export {ReviewsMap};
-export default connect(mapStateToProps, () => ({}))(ReviewsMap);
+export default connect(mapStateToProps, null)(ReviewsMap);

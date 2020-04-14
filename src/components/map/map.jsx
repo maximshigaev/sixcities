@@ -29,6 +29,8 @@ class Map extends React.PureComponent {
         }))
     }
 
+    lastFocusedHotel = null;
+
     componentDidUpdate(prevProps) {
         const {activeCityCoords, activeCity, hotels, focusedCard, isLoading} = this.props;
 
@@ -63,8 +65,12 @@ class Map extends React.PureComponent {
             marker: true
         });
 
-        map.setView(activeCityCoords, zoom);
-
+        if(this.lastFocusedHotel) {
+            map.setView([this.lastFocusedHotel.location.latitude, this.lastFocusedHotel.location.longitude], zoom);
+        } else {
+            map.setView(activeCityCoords, zoom);
+        }
+  
         leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, { 
             attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
                 contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -72,28 +78,28 @@ class Map extends React.PureComponent {
             .addTo(map);
 
         const hotelsCoords = getHotelsCoords(hotels);
-        let focusedHotel = null;
             
         if(focusedCard) {
-            focusedHotel = hotels.find((item) => item.id === focusedCard);
+            this.lastFocusedHotel = hotels.find((item) => item.id === focusedCard);
         }
         
         hotelsCoords.forEach((coords, ind) => {
-            if(focusedHotel
-                && coords[0] === focusedHotel.location.latitude && coords[1] === focusedHotel.location.longitude
+            if(this.lastFocusedHotel && coords[0] === this.lastFocusedHotel.location.latitude
+                && coords[1] === this.lastFocusedHotel.location.longitude
             ) {
                 map.setView(coords, zoom);
 
                 leaflet.marker(coords, {
-                    icon: activePin
+                    icon: activePin,
+                    zIndexOffset: 1
                 })
-                    .addTo(map)
+                    .addTo(map);
             } else {
                 leaflet.marker(coords, {
                     icon: pin,
                     title: hotels[ind].title
                 })
-                    .addTo(map)
+                    .addTo(map);
             }
         });
 
