@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0637d3e961b3e696f1bc30f84781de86",
+    "revision": "c8ec31970ef77233e0c2c4f888ea8cc4",
     "url": "/sixcities/index.html"
   },
   {
-    "revision": "cd5628e7f02a8d1f78bc",
+    "revision": "bf99d6fd627eebf459ee",
     "url": "/sixcities/static/css/main.95c2bc6c.chunk.css"
   },
   {
-    "revision": "5801707c4e46794079d9",
-    "url": "/sixcities/static/js/2.c4d8e96a.chunk.js"
+    "revision": "1e14e378eaf20e8c78c5",
+    "url": "/sixcities/static/js/2.e820b22e.chunk.js"
   },
   {
-    "revision": "da75538c52411804769b514107a743de",
-    "url": "/sixcities/static/js/2.c4d8e96a.chunk.js.LICENSE.txt"
+    "revision": "6791e7fb9584d65ed87d655035c7da95",
+    "url": "/sixcities/static/js/2.e820b22e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cd5628e7f02a8d1f78bc",
-    "url": "/sixcities/static/js/main.064ce879.chunk.js"
+    "revision": "bf99d6fd627eebf459ee",
+    "url": "/sixcities/static/js/main.87a1ebf6.chunk.js"
   },
   {
     "revision": "339044ea9e4ca4797b3b",
