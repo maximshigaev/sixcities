@@ -15,7 +15,7 @@ const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, ra
         {'near-places__image-wrapper': isNearby, 'cities__image-wrapper': !isNearby});
 
     return (
-        <Link to={`/offer/${id}`} title={`To the ${title} offer page`}>
+        <Link to={`/offer/${id}`} title={`To the ${title} offer page`} onClick={cardMouseLeaveHandler}>
             <article className={articleClassName} onMouseEnter={() => cardMouseEnterHandler(id)}
                 onMouseLeave={cardMouseLeaveHandler}
             >

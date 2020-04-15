@@ -1,27 +1,8 @@
 import React  from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 const FavoritesList = ({favorites}) => {
-    if(!favorites.length) {
-        return (
-            <main className="page__main page__main--favorites page__main--favorites-empty">
-                <div className="page__favorites-container container">
-                    <section className="favorites favorites--empty">
-                        <h1 className="visually-hidden">Favorites (empty)</h1>
-                        <div className="favorites__status-wrapper">
-                            <b className="favorites__status">Nothing yet saved.</b>
-                            <p className="favorites__status-description">
-                                Save properties to narrow down search or plan yor future trips.
-                            </p>
-                        </div>
-                    </section>
-                </div>
-            </main>
-        );
-    }
-    
     const favoriteCities = Array.from(new Set(favorites.map((item) => item.city.name)))
         .sort()    
 
@@ -92,7 +73,7 @@ const FavoritesList = ({favorites}) => {
                                         <div className="favorites__places">
                                             {hotels}
                                         </div>
-                                     </li>
+                                    </li>
                                 );
                             })
                         }
@@ -103,7 +84,7 @@ const FavoritesList = ({favorites}) => {
     );
 }
 
-FavoritesList.propTypes ={
+FavoritesList.propTypes = {
     favorites: PropTypes.arrayOf(PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -116,11 +97,4 @@ FavoritesList.propTypes ={
     }))
 }
 
-const mapStateToProps = ({favorites: {favorites}}) => {
-    return {
-       favorites 
-    }
-}
-
-export {FavoritesList};
-export default connect(mapStateToProps, null)(FavoritesList);
+export default FavoritesList;

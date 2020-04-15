@@ -87,11 +87,12 @@
 }
 
 .spinner {
-  width: 563px;
-  height: 563px;
-  display: inline-block;
+  width: 545px;
+  height: 545px;
+  display: block;
   overflow: hidden;
   background: transparent;
+  margin: 0 auto;
 }
 
 .spinnerContent {

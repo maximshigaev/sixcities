@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import cn from 'classnames';
 
-import Reviews from '../reviews/reviews.jsx';
+import ReviewsContainer from '../reviewsContainer/reviewsContainer.jsx';
 import ReviewsMap from '../reviewsMap/reviewsMap.jsx';
 import {fetchFavorite} from '../../actions/favorites.js';
 
@@ -17,7 +17,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
         } = offer;
     const divClassName = cn(`property__avatar-wrapper user__avatar-wrapper`,
         {'property__avatar-wrapper--pro': host.is_pro});
-    const btnClassName = cn(`property__bookmark-button button` , {'property__bookmark-button--active': isFavorite})
+    const btnClassName = cn(`property__bookmark-button button` , {'property__bookmark-button--active': isFavorite});
 
     const buttonClickHandler = () => {
         if(!isLoggedIn) {
@@ -122,7 +122,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                         </div>
                     </div>
                     
-                    <Reviews id={id} />
+                    <ReviewsContainer id={id} />
                 </div>
             </div>
             <ReviewsMap offer={offer} />

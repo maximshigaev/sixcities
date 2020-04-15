@@ -9,6 +9,7 @@ import {fetchFavorites} from '../../../actions/favorites.js';
 import Spinner from '../../spinner/spinner.jsx';
 import Header from '../../header/header.jsx';
 import FavoritesList from '../../favoritesList/favoritesList.jsx';
+import FavoritesListEmpty from '../../favoritesListEmpty/favoritesListEmpty.jsx';
 
 import logo from './logo.svg';
 
@@ -30,7 +31,9 @@ const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLogge
     return (
         <div className={divClassName}>
             <Header isMain={false} />
-            <FavoritesList />
+
+            {(favorites.length) ? <FavoritesList favorites={favorites} /> : <FavoritesListEmpty /> }
+            
             <footer className="footer">
                 <Link to="/" className="footer__logo-link" title="To the main page">
                     <img className="footer__logo" src={logo} alt="6 cities logo" width="64" height="33" />

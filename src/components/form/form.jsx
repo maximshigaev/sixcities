@@ -1,38 +1,16 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {bindActionCreators} from 'redux';
 
-import {fetchReview} from '../../actions/comments.js';
-import Spinner from '../spinner/spinner.jsx';
-
-const Form = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewError}) => {
+const Form = ({onSubmit}) => {
     const [commentValue, setCommentValue] = useState(``);
     const [ratingValue, setRatingValue] = useState(``);
-
-    if(!isLoggedIn) {
-        return null;
-    }
-
-    if(isReviewLoading) {
-        return <Spinner />;
-    }
-
-    const formSubmitHandler = (evt) => {
-        evt.preventDefault();
-
-        const userData = {
-            rating: ratingValue,
-            comment: commentValue
-        }
-        
-        fetchReview(userData, id);
-    }
 
     const titles = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
     return (
-        <form className="reviews__form form" action="#" method="post" onSubmit={formSubmitHandler}>
+        <form className="reviews__form form" action="#" method="post"
+            onSubmit={(evt) => onSubmit(evt, ratingValue, commentValue)}
+        >
             <label className="reviews__label form__label" htmlFor="review">Your review</label>
             <div className="reviews__rating-form form__rating">
                 {
@@ -74,26 +52,7 @@ const Form = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewError}) => 
 }
 
 Form.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    fetchReview: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
-    isReviewLoading: PropTypes.bool.isRequired,
-    isReviewError: PropTypes.bool.isRequired
+    onSubmit: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({auth: {isLoggedIn}, comments:{isReviewLoading, isReviewError}}) => {
-    return {
-        isLoggedIn,
-        isReviewLoading,
-        isReviewError
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchReview: bindActionCreators(fetchReview, dispatch)
-    }
-}
-
-export {Form};
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;

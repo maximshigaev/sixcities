@@ -90,28 +90,28 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard}) => {
 }
 
 ReviewsMap.propTypes = {
-        offer: PropTypes.shape({
-            price: PropTypes.number.isRequired,
-            is_favorite: PropTypes.bool.isRequired,
-            is_premium: PropTypes.bool.isRequired,
-            rating: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            preview_image: PropTypes.string.isRequired,
-            id: PropTypes.number.isRequired
-        }),
-        focusedCard: PropTypes.number,
-        nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
-            price: PropTypes.number.isRequired,
-            is_favorite: PropTypes.bool.isRequired,
-            is_premium: PropTypes.bool.isRequired,
-            rating: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            preview_image: PropTypes.string.isRequired,
-            id: PropTypes.number.isRequired
-        }))
-    }
+    offer: PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        is_favorite: PropTypes.bool.isRequired,
+        is_premium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        preview_image: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    }),
+    focusedCard: PropTypes.number,
+    nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        is_favorite: PropTypes.bool.isRequired,
+        is_premium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        preview_image: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    }))
+}
 
 const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}}) => {
     return {

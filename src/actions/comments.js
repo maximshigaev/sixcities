@@ -53,23 +53,25 @@ const fetchReviewFail = () => {
     }
 }
 
+const resetReviewError = () => {
+    return {
+        type: `RESET_REVIEW_ERROR`
+    }
+}
+
 const fetchReview = (review, id) => (dispatch) => {
     dispatch(fetchReviewRequest());    
 
     sendUserReview(review, id)
         .then((res) => {
-            if(res.status === SUCCESS_STATUS) {      
-                console.log(res.data);
-                          
+            if(res.status === SUCCESS_STATUS) {                                
                 dispatch(fetchReviewSuccess());
                 dispatch(fetchComments(id));
             } else {
                 dispatch(fetchReviewFail());
             }
         })
-        .catch(() => {
-            dispatch(fetchReviewFail())
-        });
+        .catch(() => dispatch(fetchReviewFail()));
 }
 
-export {fetchComments, fetchReview};
+export {fetchComments, fetchReview, resetReviewError};

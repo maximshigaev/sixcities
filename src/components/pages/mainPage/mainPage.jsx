@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import CardList from '../../cardList/cardList.jsx';
+import CardListContainer from '../../cardListContainer/cardListContainer.jsx';
 import Header from '../../header/header.jsx';
 import Navigation from '../../navigation/navigation.jsx';
 import Filter from '../../filter/filter.jsx';
@@ -12,7 +12,7 @@ import Map from '../../map/map.jsx';
 
 const MainPage = ({hasOffers, isLoading}) => {
     const divClassName = cn(`cities__places-container container`,
-        {'cities__places-container--empty': !isLoading && !hasOffers})
+        {'cities__places-container--empty': !isLoading && !hasOffers});
 
     const sectionClassName = (!isLoading && !hasOffers)
         ? `cities__no-places`
@@ -28,7 +28,7 @@ const MainPage = ({hasOffers, isLoading}) => {
                         <section className={sectionClassName}>
                             {(!hasOffers) ? null : <Filter />}
                             
-                            <CardList />
+                            <CardListContainer />
                         </section>
                         <Map />
                     </div>

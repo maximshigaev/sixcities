@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
                 currentSorting: action.payload
             }
 
-        case `ACTIVE_CITY_CHANGE`:
+        case `ACTIVE_CITY_CHANGE`:            
             return {
                 ...state,
                 activeCity: action.payload

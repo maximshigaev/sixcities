@@ -53,6 +53,12 @@ const commentsReducer = (state = initialState, action) => {
                 isReviewError: true
             }
 
+        case `RESET_REVIEW_ERROR`:
+            return {
+                ...state,
+                isReviewError: false
+            }
+
         default:
             return state;
     }
