@@ -4,7 +4,7 @@ import cardReducer from './cardReducer/cardReducer.js';
 import authReducer from './authReducer/authReducer.js';
 import nearbyReducer from './nearbyReducer/nearbyReducer.js';
 import favoritesReducer from './favoritesReducer/favoritesReducer.js';
-import commentsReducer from './commentsReducer/commentsReducer.js';
+import reviewsReducer from './reviewsReducer/reviewsReducer.js';
 import offersReducer from './offersReducer/offersReducer.js';
 
 const reducer = combineReducers({
@@ -12,7 +12,7 @@ const reducer = combineReducers({
     auth: authReducer,
     nearby: nearbyReducer,
     favorites: favoritesReducer,
-    comments: commentsReducer,
+    reviews: reviewsReducer,
     offers: offersReducer
 });
 

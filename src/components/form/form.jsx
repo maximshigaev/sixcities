@@ -6,6 +6,10 @@ const Form = ({onSubmit}) => {
     const [ratingValue, setRatingValue] = useState(``);
 
     const titles = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
+    const MIN_REVIEW_LENGTH = 50;
+    const MAX_REVIEW_LENGTH = 300;
+    const isDisabled = !(commentValue.length >= MIN_REVIEW_LENGTH && commentValue.length <= MAX_REVIEW_LENGTH)
+        || !ratingValue;
 
     return (
         <form className="reviews__form form" action="#" method="post"
@@ -42,7 +46,7 @@ const Form = ({onSubmit}) => {
                     describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
                 </p>
                 <button className="reviews__submit form__submit button" type="submit" title="Submit review"
-                    disabled={!(commentValue.length >= 50 && commentValue.length <= 300) || !ratingValue}
+                    disabled={isDisabled}
                 >
                     Submit
                 </button>

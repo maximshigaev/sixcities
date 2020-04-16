@@ -2,7 +2,9 @@ const initialState = {
     isLoggedIn: false,
     email: null,
     isAuthLoading: false,
-    isAuthError: false
+    isAuthError: false,
+    isAuthStatusLoading: true,
+    isAuthStatusError: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -34,18 +36,38 @@ const authReducer = (state = initialState, action) => {
                 isLoggedIn: false
             }
 
+        case `AUTH_STATUS_REQUEST`:
+            return {
+                ...state,
+                isAuthStatusLoading: true,
+                isAuthStatusError: false
+            }
+
         case `AUTH_STATUS_SUCCESS`:
             return {
                 ...state,
                 isLoggedIn: true,
-                email: action.payload
+                email: action.payload,
+                isAuthStatusLoading: false,
+                isAuthStatusError: false
+            }
+
+        case `AUTH_STATUS_UNAUTHORIZED`:
+            return {
+                ...state,
+                isLoggedIn: false,
+                email: null,
+                isAuthStatusLoading: false,
+                isAuthStatusError: false
             }
 
         case `AUTH_STATUS_FAIL`:
             return {
                 ...state,
                 isLoggedIn: false,
-                email: null
+                email: null,
+                isAuthStatusLoading: false,
+                isAuthStatusError: true
             }
 
         default:

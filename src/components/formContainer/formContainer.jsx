@@ -3,24 +3,29 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 
-import {fetchReview, resetReviewError} from '../../actions/comments.js';
+import {fetchReview, resetReviewError} from '../../actions/reviews.js';
 import Spinner from '../spinner/spinner.jsx';
-import {hasUserComment} from '../../selectors.js';
+import {hasUserReview} from '../../selectors.js';
 import Form from '../form/form.jsx';
+import ErrorIndicator from '../errorIndicator/errorIndicator.jsx';
 
-const FormContainer = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewError, hasUserComment,
+const FormContainer = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewError, hasUserReview,
     resetReviewError}
 ) => {
     useEffect(() => {        
         resetReviewError();
     }, [id, resetReviewError]);
 
-    if(!isLoggedIn || hasUserComment) {        
+    if(!isLoggedIn || hasUserReview) {        
         return null;
     }
 
     if(isReviewLoading) {
         return <Spinner />;
+    }
+
+    if(isReviewError) {
+        return <ErrorIndicator operation="uploading of your review" />;
     }
 
     const formSubmitHandler = (evt, rating, comment) => {
@@ -43,16 +48,16 @@ FormContainer.propTypes = {
     id: PropTypes.number.isRequired,
     isReviewLoading: PropTypes.bool.isRequired,
     isReviewError: PropTypes.bool.isRequired,
-    hasUserComment: PropTypes.bool.isRequired,
+    hasUserReview: PropTypes.bool.isRequired,
     resetReviewError: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({auth: {isLoggedIn, email}, comments:{isReviewLoading, isReviewError, comments}}) => {
+const mapStateToProps = ({auth: {isLoggedIn, email}, reviews:{isReviewLoading, isReviewError, reviews}}) => {
     return {
         isLoggedIn,
         isReviewLoading,
         isReviewError,
-        hasUserComment: hasUserComment(email, comments, isLoggedIn)
+        hasUserReview: hasUserReview(email, reviews, isLoggedIn)
     }
 }
 

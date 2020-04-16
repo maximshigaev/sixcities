@@ -8,11 +8,14 @@ import {bindActionCreators} from 'redux';
 import {focusCard, blurCard} from '../../actions/helpers.js';
 
 const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, rating, title, type,
-    preview_image: src, id}, cardMouseEnterHandler, cardMouseLeaveHandler}, isNearby) => {
+    preview_image: src, id}, cardMouseEnterHandler, cardMouseLeaveHandler, isNearby, isMain, isFavPage}
+) => {
     const btnClassName = cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': isFavorite});
-    const articleClassName = cn(`place-card`, {'near-places__card': isNearby, 'cities__place-card': !isNearby});
-    const divClassName = cn(`place-card__image-wrapper`,
-        {'near-places__image-wrapper': isNearby, 'cities__image-wrapper': !isNearby});
+    const articleClassName = cn(`place-card`,
+        {'near-places__card': isNearby, 'cities__place-card': isMain, 'favorites__card': isFavPage});
+    const wrapperDivClassName = cn(`place-card__image-wrapper`,
+        {'near-places__image-wrapper': isNearby, 'cities__image-wrapper': isMain, 'favorites__image-wrapper': isFavPage});
+    const infoDivClassName = cn(`place-card__info`, {'favorites__card-info': isFavPage});
 
     return (
         <Link to={`/offer/${id}`} title={`To the ${title} offer page`} onClick={cardMouseLeaveHandler}>
@@ -21,10 +24,12 @@ const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, ra
             >
                 {(isPremium) ? <div className="place-card__mark"><span>Premium</span></div> : null}
 
-                <div className={divClassName}>
-                    <img className="place-card__image" src={src} width="260" height="200" alt="Place pic" />
+                <div className={wrapperDivClassName}>
+                    <img className="place-card__image" src={src} width={(isFavPage) ? "150" : "260"}
+                        height={(isFavPage) ? "110" : "200"} alt="Place pic"
+                    />
                 </div>
-                <div className="place-card__info">
+                <div className={infoDivClassName}>
                     <div className="place-card__price-wrapper">
                         <div className="place-card__price">
                             <b className="place-card__price-value">&euro;{price}</b>
@@ -57,6 +62,8 @@ Card.propTypes = {
     cardMouseEnterHandler: PropTypes.func.isRequired,
     cardMouseLeaveHandler: PropTypes.func.isRequired,
     isNearby: PropTypes.bool.isRequired,
+    isFavPage: PropTypes.bool.isRequired,
+    isMain: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,

@@ -2,6 +2,8 @@ import React from 'react';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
+import {compose} from 'redux';
 
 import Spinner from '../spinner/spinner.jsx';
 import {activeCityCoords, hotelsByCity} from '../../selectors.js';
@@ -12,11 +14,11 @@ import icon from './pin.svg';
 
 class Map extends React.PureComponent {
     static propTypes = {
+        history: PropTypes.object.isRequired,
         activeCityCoords: PropTypes.arrayOf(PropTypes.number),
         activeCity: PropTypes.string,
         focusedCard: PropTypes.number,
         isLoading: PropTypes.bool.isRequired,
-        isError: PropTypes.bool.isRequired,
         hotels: PropTypes.arrayOf(PropTypes.shape({
             price: PropTypes.number.isRequired,
             is_favorite: PropTypes.bool.isRequired,
@@ -32,7 +34,7 @@ class Map extends React.PureComponent {
     lastFocusedHotel = null;
 
     componentDidUpdate(prevProps) {
-        const {activeCityCoords, activeCity, hotels, focusedCard, isLoading} = this.props;
+        const {activeCityCoords, activeCity, hotels, focusedCard, isLoading, history} = this.props;
 
         if(prevProps.activeCity === activeCity && prevProps.focusedCard === focusedCard) {
             return;
@@ -91,15 +93,18 @@ class Map extends React.PureComponent {
 
                 leaflet.marker(coords, {
                     icon: activePin,
+                    title: this.lastFocusedHotel.title,
                     zIndexOffset: 1
                 })
-                    .addTo(map);
+                    .addTo(map)
+                    .addEventListener(`click`, () => history.push(`/offer/${this.lastFocusedHotel.id}`));
             } else {
                 leaflet.marker(coords, {
                     icon: pin,
                     title: hotels[ind].title
                 })
-                    .addTo(map);
+                    .addTo(map)
+                    .addEventListener(`click`, () => history.push(`/offer/${hotels[ind].id}`));
             }
         });
 
@@ -107,7 +112,7 @@ class Map extends React.PureComponent {
     }
 
     render() {
-        const {isLoading, isError} = this.props;
+        const {isLoading} = this.props;
 
         if(isLoading) {
             return <Spinner />;
@@ -127,7 +132,6 @@ const mapStateToProps = ({offers, card}) => {
     return {
         activeCityCoords: activeCityCoords(offers),
         isLoading: offers.isLoading,
-        isError: offers.isError,
         activeCity: offers.activeCity,
         hotels: hotelsByCity(offers),
         focusedCard: card.focusedCard
@@ -135,4 +139,4 @@ const mapStateToProps = ({offers, card}) => {
 }
 
 export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default compose(connect(mapStateToProps, null), withRouter)(Map);

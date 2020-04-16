@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import fetchNearbyHotels from '../../actions/nearby.js';
 import Spinner from '../spinner/spinner.jsx';
 import NearbyHotels from '../nearbyHotels/nearbyHotels.jsx';
+import ErrorIndicator from '../errorIndicator/errorIndicator.jsx';
 
 const NearbyHotelsContainer = ({nearbyHotels, isNearbyError, isNearbyLoading, id, fetchNearbyHotels}) => {
     useEffect(() => {
@@ -14,6 +15,10 @@ const NearbyHotelsContainer = ({nearbyHotels, isNearbyError, isNearbyLoading, id
 
     if(isNearbyLoading) {
         return <Spinner />;
+    }
+
+    if(isNearbyError) {
+        return <ErrorIndicator operation="loading the list of nearby offers" />; 
     }
 
     return <NearbyHotels hotels={nearbyHotels} />;

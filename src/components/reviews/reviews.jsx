@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 import mapMonthToNubmer from '../../utils/mapMonthToNumber.js';
 
-const Reviews = ({reviews}) => {
+const Reviews = ({reviews}) => {    
     return (
         reviews.slice(0, 10)
+            .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
             .map((item) => {
                 const {id, user, rating, comment, date} = item;
                 const dateObj = new Date(Date.parse(date));
@@ -20,9 +21,7 @@ const Reviews = ({reviews}) => {
                                     width="54" height="54" alt="Reviews avatar"
                                 />
                             </div>
-                            <span className="reviews__user-name">
-                                {user.name}
-                            </span>
+                            <span className="reviews__user-name">{user.name}</span>
                         </div>
                         <div className="reviews__info">
                             <div className="reviews__rating rating">
@@ -31,9 +30,7 @@ const Reviews = ({reviews}) => {
                                     <span className="visually-hidden">Rating</span>
                                 </div>
                             </div>
-                            <p className="reviews__text">
-                                {comment}
-                            </p>
+                            <p className="reviews__text">{comment}</p>
                             <time className="reviews__time" dateTime={`${year}-${month + 1}-${dateObj.getDate()}`}>
                                 {`${mapMonthToNubmer(month)} ${year}`}
                             </time>

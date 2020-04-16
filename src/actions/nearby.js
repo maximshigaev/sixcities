@@ -28,8 +28,6 @@ const fetchNearbyHotels = (id) => (dispatch) => {
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                
                 dispatch(fetchNearbySuccess(res.data));
-            } else {
-                dispatch(fetchNearbyFail());
             }
         })
         .catch(() => dispatch(fetchNearbyFail()))

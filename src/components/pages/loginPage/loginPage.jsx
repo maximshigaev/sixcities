@@ -7,8 +7,9 @@ import Header from '../../header/header.jsx';
 import {fetchAuth} from '../../../actions/auth.js';
 import Spinner from '../../spinner/spinner.jsx';
 import Login from '../../login/login.jsx';
+import ErrorIndicator from '../../errorIndicator/errorIndicator.jsx';
 
-const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
+const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth, isAuthError}) => {
     const formSubmitHandler = (evt, email, password) => {
         evt.preventDefault();
 
@@ -26,6 +27,10 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
         return <Spinner />;
     }
 
+    if(isAuthError) {
+        return <ErrorIndicator operation="user's authorization" />;
+    }
+
     return (
         <div className="page page--gray page--login">
             <Header isMain={false} />
@@ -38,13 +43,15 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth}) => {
 LoginPage.propTypes = {
     fetchAuth: PropTypes.func.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    isAuthLoading: PropTypes.bool.isRequired
+    isAuthLoading: PropTypes.bool.isRequired,
+    isAuthError: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = ({auth: {isLoggedIn, isAuthLoading}}) => {
+const mapStateToProps = ({auth: {isLoggedIn, isAuthLoading, isAuthError}}) => {
     return {
         isLoggedIn,
-        isAuthLoading
+        isAuthLoading,
+        isAuthError
     }
 }
 

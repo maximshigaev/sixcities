@@ -11,7 +11,7 @@ import {fetchFavorite} from '../../actions/favorites.js';
 import maleAvarar from './avatar-max.jpg';
 import femaleAvatar from './avatar-angelina.jpg';
 
-const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
+const Offer = ({offer, fetchFavorite, isLoggedIn, history, isFavoriteError, isFavoriteLoading}) => {
     const {images, is_premium: isPremium, title, is_favorite: isFavorite, rating, max_adults: maxAdults, type, bedrooms,
             price, goods, id, host, description
         } = offer;
@@ -31,7 +31,25 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
         'img/avatar-angelina.jpg': femaleAvatar,
         'img/avatar-max.jpg': maleAvarar
     }
-    
+
+    let btnContent;
+
+    if(isFavoriteLoading) {
+        btnContent = <div>...</div>;
+    }
+     else if(isFavoriteError) {
+        btnContent = <div>Fail</div>;
+    } else {
+        btnContent = (
+            <React.Fragment>
+                <svg className="property__bookmark-icon" width="31" height="33">
+                    <use xlinkHref={(isFavorite) ? `#icon-bookmark-active` : `#icon-bookmark`}></use>
+                </svg>
+                <span className="visually-hidden">{(isFavorite) ? `In bookmarks` : `To bookmarks`}</span>
+            </React.Fragment>
+        );
+    }
+
     return (
         <section className="property">
             <div className="property__gallery-container container">
@@ -53,18 +71,11 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                     {(isPremium) ? <div className="property__mark"><span>Premium</span></div> : null}
 
                     <div className="property__name-wrapper">
-                        <h1 className="property__name">
-                            {title}
-                        </h1>
+                        <h1 className="property__name">{title}</h1>
                         <button className={btnClassName} type="button" onClick={buttonClickHandler}
                             title={(isFavorite) ? `Remove from bookmarks` : `Add to bookmarks`}
                         >
-                            <svg className="property__bookmark-icon" width="31" height="33">
-                                <use xlinkHref={(isFavorite) ? `#icon-bookmark-active` : `#icon-bookmark`}></use>
-                            </svg>
-                            <span className="visually-hidden">
-                                {(isFavorite) ? `In bookmarks` : `To bookmarks`}
-                            </span>
+                            {btnContent}
                         </button>
                     </div>
                     <div className="property__rating rating">
@@ -75,15 +86,9 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                         <span className="property__rating-value rating__value">{rating}</span>
                     </div>
                     <ul className="property__features">
-                        <li className="property__feature property__feature--entire">
-                            {type}
-                        </li>
-                        <li className="property__feature property__feature--bedrooms">
-                            {bedrooms} Bedrooms
-                        </li>
-                        <li className="property__feature property__feature--adults">
-                            Max {maxAdults} adults
-                        </li>
+                        <li className="property__feature property__feature--entire">{type}</li>
+                        <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
+                        <li className="property__feature property__feature--adults">Max {maxAdults} adults</li>
                     </ul>
                     <div className="property__price">
                         <b className="property__price-value">&euro;{price}</b>
@@ -95,9 +100,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                             {
                                 goods.map((item) => {
                                     return (
-                                        <li key={item} className="property__inside-item">
-                                            {item}
-                                        </li>
+                                        <li key={item} className="property__inside-item">{item}</li>
                                     );
                                 })
                             }
@@ -111,14 +114,10 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history}) => {
                                     width="74" height="74" alt="Host avatar"
                                 />
                             </div>
-                            <span className="property__user-name">
-                                {host.name}
-                            </span>
+                            <span className="property__user-name">{host.name}</span>
                         </div>
                         <div className="property__description">
-                            <p className="property__text">
-                                {description}
-                            </p>
+                            <p className="property__text">{description}</p>
                         </div>
                     </div>
                     
@@ -134,6 +133,8 @@ Offer.propTypes = {
     fetchFavorite: PropTypes.func.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     history: PropTypes.object.isRequired,
+    isFavoriteError: PropTypes.bool.isRequired,
+    isFavoriteLoading: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -162,9 +163,11 @@ Offer.propTypes = {
     })
 }
 
-const mapStateToProps = ({auth: {isLoggedIn}}) => {
+const mapStateToProps = ({auth: {isLoggedIn}, offers: {isFavoriteError, isFavoriteLoading}}) => {
     return {
-        isLoggedIn
+        isLoggedIn,
+        isFavoriteError,
+        isFavoriteLoading
     }
 }
 

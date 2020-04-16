@@ -5,7 +5,9 @@ const initialState = {
     isLoading: true,
     isError: false,
     activeCity: null,
-    currentSorting: `Popular`
+    currentSorting: `Popular`,
+    isFavoriteLoading: false,
+    isFavoriteError: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +51,20 @@ const reducer = (state = initialState, action) => {
                 activeCity: action.payload
             }
 
+        case `FETCH_FAVORITE_REQUEST`:                  
+            return {
+                ...state,
+                isFavoriteLoading: true,
+                isFavoriteError: false
+            }
+
+        case `FETCH_FAVORITE_FAIL`:                  
+            return {
+                ...state,
+                isFavoriteLoading: false,
+                isFavoriteError: true
+            }
+
         case `FETCH_FAVORITE_SUCCESS`:
             const ind = action.payload - 1;
             const offer = state.offers[ind];
@@ -57,7 +73,9 @@ const reducer = (state = initialState, action) => {
                         
             return {
                 ...state,
-                offers: newOffers
+                offers: newOffers,
+                isFavoriteLoading: false,
+                isFavoriteError: false
             }
 
         default:

@@ -17,7 +17,7 @@ const nearbyReducer = (state = initialState, action) => {
         case `FETCH_NEARBY_SUCCESS`:
             return {
                 ...state,
-                nearbyHotels: action.payload,
+                nearbyHotels: action.payload.slice(0, 3),
                 isNearbyLoading: false,
                 isNearbyError: false
             }

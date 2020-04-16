@@ -39,7 +39,7 @@ const Filter = ({currentSorting, activeCity, offers, sortBy}) => {
             <b className="places__found">{offers.length} places to stay in {activeCity}</b>
             <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
-                <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened(!isOpened)}
+                <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened((isOpened) => !isOpened)}
                     title={(isOpened) ? `Close the menu` : `Open the menu`}
                 >
                     Popular

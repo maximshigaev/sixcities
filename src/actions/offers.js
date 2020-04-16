@@ -31,8 +31,6 @@ const fetchOffers = () => (dispatch) => {
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchOffersSuccess(res.data));
-            } else {
-                dispatch(fetchOffersFail());
             }
         })
         .catch(() => dispatch(fetchOffersFail()))

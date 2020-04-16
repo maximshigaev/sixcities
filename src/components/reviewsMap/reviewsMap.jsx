@@ -2,13 +2,15 @@ import React, {useEffect} from 'react';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
+import {compose} from 'redux';
 
 import getHotelsCoords from '../../utils/getHotelsCoords.js';
 
 import activeIcon from './pin-active.svg';
 import icon from './pin.svg';
 
-const ReviewsMap = ({offer, nearbyHotels, focusedCard}) => {
+const ReviewsMap = ({offer, nearbyHotels, focusedCard, history}) => {
     useEffect(() => {
         const offerCoords = [offer.location.latitude, offer.location.longitude];
 
@@ -22,9 +24,9 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard}) => {
             iconSize: [30, 30]
         });
 
-        const zoom = 14;
+        const zoom = 13;
 
-        const map = leaflet.map(`commentsMap`, {
+        const map = leaflet.map(`reviewsMap`, {
             center: offerCoords,
             zoom,
             zoomControl: false,
@@ -75,16 +77,17 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard}) => {
                     icon: pin,
                     title: nearbyHotels[ind].title
                 })
-                    .addTo(map);
+                    .addTo(map)
+                    .addEventListener(`click`, () => history.push(`/offer/${nearbyHotels[ind].id}`));
             }
         });
 
         return () => map.remove();
-    }, [offer, nearbyHotels, focusedCard]);
+    }, [offer, nearbyHotels, focusedCard, history]);
 
     return (
         <section className="property__map map">
-            <div id="commentsMap" style={{width: `100%`, height: `100%`}}></div>
+            <div id="reviewsMap" style={{width: `100%`, height: `100%`}}></div>
         </section>
     );
 }
@@ -101,6 +104,7 @@ ReviewsMap.propTypes = {
         id: PropTypes.number.isRequired
     }),
     focusedCard: PropTypes.number,
+    history: PropTypes.object.isRequired,
     nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -121,4 +125,4 @@ const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}}) => {
 }
 
 export {ReviewsMap};
-export default connect(mapStateToProps, null)(ReviewsMap);
+export default compose(connect(mapStateToProps, null), withRouter)(ReviewsMap);

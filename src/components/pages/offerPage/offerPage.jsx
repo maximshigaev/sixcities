@@ -9,6 +9,7 @@ import Offer from '../../offer/offer.jsx';
 import Spinner from '../../spinner/spinner.jsx';
 import NearbyHotelsContainer from '../../nearbyHotelsContainer/nearbyHotelsContainer.jsx';
 import fetchOffers from '../../../actions/offers.js';
+import ErrorIndicator from '../../errorIndicator/errorIndicator.jsx';
 
 const OfferPage = ({match, offers, isLoading, history, fetchOffers, isError}) => {   
     useEffect(() => {
@@ -19,11 +20,20 @@ const OfferPage = ({match, offers, isLoading, history, fetchOffers, isError}) =>
         window.scrollTo(0, 0);
     }, [match.params.id]);
 
-    if (isLoading) {
+    if(isLoading) {
         return (
             <div className="page">
                 <Header isMain={false} />
                 <Spinner />
+            </div>
+        );
+    }
+
+    if(isError) {
+        return (
+            <div className="page">
+                <Header isMain={false} />
+                <ErrorIndicator operation="loading of this offer" />
             </div>
         );
     }   

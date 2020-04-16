@@ -3,24 +3,32 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 
-import {fetchComments} from '../../actions/comments.js';
+import {fetchReviews} from '../../actions/reviews.js';
 import Spinner from '../spinner/spinner.jsx';
 import FormContainer from '../formContainer/formContainer.jsx';
 import Reviews from '../reviews/reviews.jsx';
+import ErrorIndicator from '../errorIndicator/errorIndicator.jsx';
 
-const ReviewsContainer = ({comments, isCommentsLoading, isCommentsError, id, fetchComments}) => {
+const ReviewsContainer = ({reviews, isReviewsLoading, isReviewsError, id, fetchReviews}) => {
     useEffect(() => {
-        fetchComments(id);
-    }, [fetchComments, id]);    
+        fetchReviews(id);
+    }, [fetchReviews, id]);
+    
+    if(isReviewsLoading) {
+        return <Spinner />;
+    } 
+    if(isReviewsError) {
+        return <ErrorIndicator operation="loading of the list of reviews" />;
+    }
 
     return (
         <section className="property__reviews reviews">
             <h2 className="reviews__title">
-                Reviews &middot; <span className="reviews__amount">{comments.length}</span>
+                Reviews &middot; <span className="reviews__amount">{reviews.length}</span>
             </h2>
             <ul className="reviews__list">
-                {(isCommentsLoading) ? <Spinner /> : <Reviews reviews={comments} />}\
-                
+                <Reviews reviews={reviews} />
+
                 <FormContainer id={id} />
             </ul>
         </section>
@@ -29,10 +37,10 @@ const ReviewsContainer = ({comments, isCommentsLoading, isCommentsError, id, fet
 
 ReviewsContainer.propTypes = {
     id: PropTypes.number.isRequired,
-    fetchComments: PropTypes.func.isRequired,
-    isCommentsError: PropTypes.bool.isRequired,
-    isCommentsLoading: PropTypes.bool.isRequired,
-    comments: PropTypes.arrayOf(PropTypes.shape({
+    fetchReviews: PropTypes.func.isRequired,
+    isReviewsError: PropTypes.bool.isRequired,
+    isReviewsLoading: PropTypes.bool.isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         user: PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -46,17 +54,17 @@ ReviewsContainer.propTypes = {
     }))
 }
 
-const mapStateToProps = ({comments: {isCommentsError, isCommentsLoading, comments}}) => {
+const mapStateToProps = ({reviews: {isReviewsError, isReviewsLoading, reviews}}) => {
     return {
-        isCommentsError,
-        isCommentsLoading,
-        comments
+        isReviewsError,
+        isReviewsLoading,
+        reviews
     }
 }
 
 const mapDispatchToProps= (dispatch) => {
     return {
-        fetchComments: bindActionCreators(fetchComments, dispatch)
+        fetchReviews: bindActionCreators(fetchReviews, dispatch)
     }
 }
 

@@ -10,6 +10,7 @@ import Spinner from '../../spinner/spinner.jsx';
 import Header from '../../header/header.jsx';
 import FavoritesList from '../../favoritesList/favoritesList.jsx';
 import FavoritesListEmpty from '../../favoritesListEmpty/favoritesListEmpty.jsx';
+import ErrorIndicator from '../../errorIndicator/errorIndicator.jsx';
 
 import logo from './logo.svg';
 
@@ -26,13 +27,17 @@ const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLogge
         return <Spinner />;
     }
 
+    if(isFavoritesError) {
+        return <ErrorIndicator operation="loading of the list of favorite offers" />;
+    }
+
     const divClassName = cn(`page`, {'page--favorites-empty': !favorites.length});
 
     return (
         <div className={divClassName}>
             <Header isMain={false} />
 
-            {(favorites.length) ? <FavoritesList favorites={favorites} /> : <FavoritesListEmpty /> }
+            {(favorites.length) ? <FavoritesList favorites={favorites} /> : <FavoritesListEmpty />}
             
             <footer className="footer">
                 <Link to="/" className="footer__logo-link" title="To the main page">

@@ -1,38 +1,36 @@
-import {getComments, sendUserReview} from '../api.js';
+import {getReviews, sendUserReview} from '../api.js';
 
 const SUCCESS_STATUS = 200;
 
-const fetchCommentsRequest = () => {
+const fetchReviewsRequest = () => {
     return {
-        type: `FETCH_COMMENTS_REQUEST`
+        type: `FETCH_REVIEWS_REQUEST`
     }
 }
 
-const fetchCommentsSuccess = (comments) => {
+const fetchReviewsSuccess = (reviews) => {
     return {
-        type: `FETCH_COMMENTS_SUCCESS`,
-        payload: comments
+        type: `FETCH_REVIEWS_SUCCESS`,
+        payload: reviews
     }
 }
 
-const fetchCommentsFail = () => {
+const fetchReviewsFail = () => {
     return {
-        type: `FETCH_COMMENTS_FAIL`
+        type: `FETCH_REVIEWS_FAIL`
     }
 }
 
-const fetchComments = (id) => (dispatch) => {
-    dispatch(fetchCommentsRequest());
+const fetchReviews = (id) => (dispatch) => {
+    dispatch(fetchReviewsRequest());
 
-    getComments(id)
+    getReviews(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
-                dispatch(fetchCommentsSuccess(res.data));
-            } else {
-                dispatch(fetchCommentsFail());
+                dispatch(fetchReviewsSuccess(res.data));
             }
         })
-        .catch(() => dispatch(fetchCommentsFail()))
+        .catch(() => dispatch(fetchReviewsFail()))
 }
 
 const fetchReviewRequest = () => {
@@ -66,12 +64,10 @@ const fetchReview = (review, id) => (dispatch) => {
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                                
                 dispatch(fetchReviewSuccess());
-                dispatch(fetchComments(id));
-            } else {
-                dispatch(fetchReviewFail());
+                dispatch(fetchReviews(id));
             }
         })
         .catch(() => dispatch(fetchReviewFail()));
 }
 
-export {fetchComments, fetchReview, resetReviewError};
+export {fetchReviews, fetchReview, resetReviewError};

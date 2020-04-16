@@ -1,35 +1,35 @@
 const initialState = {
-    comments: [],
-    isCommentsLoading: false,
-    isCommentsError: false,
+    reviews: [],
+    isReviewsLoading: false,
+    isReviewsError: false,
     isReviewLoading: false,
     isReviewError: false
 }
 
-const commentsReducer = (state = initialState, action) => {
+const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case `FETCH_COMMENTS_REQUEST`:
+        case `FETCH_REVIEWS_REQUEST`:
             return {
                 ...state,
-                comments: [],
-                isCommentsLoading: true,
-                isCommentsError: false
+                reviews: [],
+                isReviewsLoading: true,
+                isReviewsError: false
             }
 
-        case `FETCH_COMMENTS_SUCCESS`:
+        case `FETCH_REVIEWS_SUCCESS`:
             return {
                 ...state,
-                comments: action.payload,
-                isCommentsLoading: false,
-                isCommentsError: false
+                reviews: action.payload,
+                isReviewsLoading: false,
+                isReviewsError: false
             }
 
-        case `FETCH_COMMENTS_FAIL`:
+        case `FETCH_REVIEWS_FAIL`:
             return {
                 ...state,
-                comments: [],
-                isCommentsLoading: false,
-                isCommentsError: true
+                reviews: [],
+                isReviewsLoading: false,
+                isReviewsError: true
             }
 
         case `FETCH_REVIEW_REQUEST`:            
@@ -64,4 +64,4 @@ const commentsReducer = (state = initialState, action) => {
     }
 }
 
-export default commentsReducer;
+export default reviewsReducer;

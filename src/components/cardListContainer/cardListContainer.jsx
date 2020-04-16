@@ -8,6 +8,7 @@ import {hasOffers, hotelsByCity} from '../../selectors.js';
 import fetchOffers from '../../actions/offers.js';
 import CardList from '../cardList/cardList.jsx';
 import CardListEmpty from '../cardListEmpty/cardListEmpty.jsx';
+import ErrorIndicator from '../errorIndicator/errorIndicator.jsx';
 
 const CardListContainer = ({fetchOffers, offers, isLoading, activeCity, isError}) => {
     useEffect(() => {
@@ -16,6 +17,10 @@ const CardListContainer = ({fetchOffers, offers, isLoading, activeCity, isError}
 
     if(isLoading) {
         return <Spinner />;
+    }
+
+    if(isError) {
+        return <ErrorIndicator operation="loading of the list of offers" />;
     }
 
     if(!offers.length) {
@@ -47,8 +52,9 @@ const mapStateToProps = ({offers}) => {
         offers: hotelsByCity(offers),
         isLoading: offers.isLoading,
         hasOffers: hasOffers(offers),
-        activeCity: offers.activeCity
-    };
+        activeCity: offers.activeCity,
+        isError: offers.isError
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

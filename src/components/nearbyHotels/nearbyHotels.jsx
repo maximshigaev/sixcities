@@ -9,15 +9,15 @@ const NearbyHotels = ({hotels}) => {
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
                     {
-                         hotels.map((item) => {
+                        hotels.map((item) => {
                             return (
-                                <Card key={item.id} offer={item} isNearby={true} />
+                                <Card key={item.id} offer={item} isNearby={true} isMain={false} isFavPage={false} />
                             );
                         })
                     }
                 </div>
             </section>
-         </div>
+        </div>
     );
 }
 

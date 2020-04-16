@@ -14,8 +14,8 @@ const activeCityCoords = ({offers, activeCity}) => {
     return [cityHotel.city.location.latitude, cityHotel.city.location.longitude];
 }
 
-const hasUserComment = (email, comments, isLoggedIn) => {
-    return isLoggedIn && comments.findIndex((item) => item.user.name === email.split(`@`)[0]) !== -1; 
+const hasUserReview = (email, reviews, isLoggedIn) => {
+    return isLoggedIn && reviews.findIndex((item) => item.user.name === email.split(`@`)[0]) !== -1; 
 }
 
-export {hasOffers, citiesNames, hotelsByCity, activeCityCoords, hasUserComment};
+export {hasOffers, citiesNames, hotelsByCity, activeCityCoords, hasUserReview};

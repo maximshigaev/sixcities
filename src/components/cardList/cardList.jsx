@@ -9,7 +9,7 @@ const CardList = ({offers}) => {
             {
                 offers.map((offer) => {
                     return (
-                        <Card key={offer.id} offer={offer} isNearby={false} />
+                        <Card key={offer.id} offer={offer} isNearby={false} isMain={true} isFavPage={false} />
                     );
                 })
             }
