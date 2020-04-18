@@ -1,53 +1,46 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Card from './card.jsx';
+
+import {Card} from './card.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
 
 const offer =  {
-    price: 80,
-    isPinned: true,
-    isPremium: false,
+    price: 120,
+    is_premium: true,
+    is_favorite: false,
     rating: 4,
-    title: `Wood and stone place`,
-    type: `Private room`,
-    src: `img/room.jpg`,
-    id: 1
+    title: `Beautiful luxurious apartment at great location`,
+    type: `Apartment`,
+    preview_image: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/9.jpg`,
+    src: `img/apartment-01.jpg`,
+    id: 0
 };
 
-describe(`Interactions with user triggers appropriate callbacks with right values`, () => {
-    it(`When mouse starts to be over the component, corresponding mouseenter callback is triggered`, () => {
-        const mouseEnterHandler = jest.fn();
-        const card = shallow(<Card offer={offer} onMouseEnter={mouseEnterHandler}
-            onMouseLeave={jest.fn()} isHovered={false} />);
+describe(`Interactions with user invoke appropriate callbacks with the right values`, () => {
+    it(`When user hovers the cursor over the component, corresponding onMouseenter callback is invoked with the right id
+        parameter`,
+    () => {
+        const cardMouseEnterHandler = jest.fn();
+        const card = shallow(
+            <Card offer={offer} cardMouseEnterHandler={cardMouseEnterHandler} cardMouseLeaveHandler={() => {}} isMain={true} isNearby={false} isFavPage={false} />);
         const article = card.find(`article`);
 
         article.simulate(`mouseenter`);
 
-        expect(mouseEnterHandler).toHaveBeenCalledTimes(1);
+        expect(cardMouseEnterHandler).toHaveBeenCalledTimes(1);
+        expect(cardMouseEnterHandler).toHaveBeenNthCalledWith(1, 0);
     });
 
-    it(`When mouse starts to be over the component, corresponding mouseenter callback is triggered with the right
-        value`, () => {
-        const mouseEnterHandler = jest.fn();
-        const card = shallow(<Card offer={offer} onMouseEnter={mouseEnterHandler}
-            onMouseLeave={jest.fn()} isHovered={false} />);
-        const article = card.find(`article`);
-
-        article.simulate(`mouseenter`);
-
-        expect(mouseEnterHandler).toHaveBeenNthCalledWith(1, offer.id);
-    });
-
-    it(`When mouse ends to be over the component, corresponding mouseleave callback is triggered`, () => {
-        const mouseLeaveHandler = jest.fn();
-        const card = shallow(<Card offer={offer} onMouseEnter={jest.fn()}
-            onMouseLeave={mouseLeaveHandler} isHovered={false} />);
+    it(`When user moves the cursor away from component, corresponding onMouseleave callback is invoked`, () => {
+        const cardMouseLeaveHandler = jest.fn();
+        const card = shallow(
+            <Card offer={offer} cardMouseEnterHandler={() => {}} cardMouseLeaveHandler={cardMouseLeaveHandler} isMain={true} isNearby={false} isFavPage={false} />);
         const article = card.find(`article`);
 
         article.simulate(`mouseleave`);
 
-        expect(mouseLeaveHandler).toHaveBeenCalledTimes(1);
+        expect(cardMouseLeaveHandler).toHaveBeenCalledTimes(1);
     });
 });
