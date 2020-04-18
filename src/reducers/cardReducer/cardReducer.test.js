@@ -21,7 +21,7 @@ describe(`cardReducer changes the state properly`, () => {
         expect(cardReducer(undefined, {})).toEqual(initialState);
     });
 
-    it(`should return state whithout changes given action-argument with unknown type`, () => {
+    it(`should return state without changes given action-argument with unknown type`, () => {
         expect(cardReducer(state, {type: `UNKNOWN`})).toEqual(state);
     });
 

@@ -6,7 +6,7 @@ import authReducer from './authReducer.js';
 
 describe(`Operation of fetching should make correct post request to /login`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api, {delayResponse: 200});
+        const mockApi = new MockAdapter(api);
         const dispatch = jest.fn();
 
         mockApi.onPost(`/login`).reply(200, {email: `example@mail.ru`});
@@ -123,7 +123,7 @@ describe(`authReducer changes the state properly`, () => {
         expect(authReducer(undefined, {})).toEqual(initialState);
     });
 
-    it(`should return state whithout changes given action-argument with unknown type`, () => {
+    it(`should return state without changes given action-argument with unknown type`, () => {
         expect(authReducer(state, {type: `UNKNOWN`})).toEqual(state);
     });
 

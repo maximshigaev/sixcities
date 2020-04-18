@@ -24,7 +24,7 @@ const fetchFavoritesFail = () => {
 const fetchFavorites = () => (dispatch) => {
     dispatch(fetchFavoritesRequest());
 
-    getFavorites()
+    return getFavorites()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoritesSuccess(res.data));
@@ -56,7 +56,7 @@ const fetchFavoriteFail = (id) => {
 const fetchFavorite = (id, isFavorite) => (dispatch) => {
     dispatch(fetchFavoriteRequest());
 
-    setFavorite(id, isFavorite)
+    return setFavorite(id, isFavorite)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoriteSuccess(res.data.id));
