@@ -27,7 +27,7 @@ const fetchOffersFail = () => {
 const fetchOffers = () => (dispatch) => {
     dispatch(fetchOffersRequest());
 
-    getOffers()
+    return getOffers()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchOffersSuccess(res.data));

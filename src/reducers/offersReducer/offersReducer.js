@@ -10,7 +10,7 @@ const initialState = {
     isFavoriteError: false
 }
 
-const reducer = (state = initialState, action) => {
+const offersReducer = (state = initialState, action) => {
     switch (action.type) {
         case `FETCH_OFFERS_REQUEST`:
             return {
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
                 isError: false,
                 isLoading: false,
                 activeCity: action.payload.activeCity,
-                offers: action.payload.offers,
+                offers: action.payload.offers
             }
 
         case `FETCH_OFFERS_FAIL`:
@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 offers: [],
                 isLoading: false,
-                isError: true,
+                isError: true
             }
 
         case `SORT_BY`:
@@ -83,4 +83,4 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export default reducer;
+export default offersReducer;
