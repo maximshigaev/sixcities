@@ -6,7 +6,6 @@ import {Provider} from 'react-redux';
 
 import {App} from './app.jsx';
 
-
 const mockStore = configureStore([]);
 
 describe(`Correctly renders the App component`, () => {
