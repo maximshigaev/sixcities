@@ -1,5 +1,3 @@
-import {getOffers} from '../api.js';
-
 const SUCCESS_STATUS = 200;
 
 const fetchOffersRequest = () => {
@@ -24,10 +22,10 @@ const fetchOffersFail = () => {
     };
 }
 
-const fetchOffers = () => (dispatch) => {
+const fetchOffers = () => (dispatch, getState, Api) => {
     dispatch(fetchOffersRequest());
 
-    return getOffers()
+    return new Api().getOffers()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchOffersSuccess(res.data));

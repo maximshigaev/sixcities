@@ -74,4 +74,4 @@ const mapStateToProps = ({auth: {isLoggedIn, email, isAuthStatusError, isAuthSta
 }
 
 export {Header};
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

@@ -1,5 +1,3 @@
-import {sendUserData, requestAuth} from '../api.js';
-
 const SUCCESS_STATUS = 200;
 const UNAUTHORIZED_STATUS = 401;
 
@@ -28,10 +26,10 @@ const authStatusFail = () => {
     }
 }
 
-const fetchAuthStatus = () => (dispatch) => {
+const fetchAuthStatus = () => (dispatch, getState, Api) => {
     dispatch(authStatusRequest());
 
-    return requestAuth()
+    return new Api().requestAuth()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(authStatusSuccess(res.data.email));
@@ -65,10 +63,10 @@ const fetchAuthFail = () => {
     };
 }
 
-const fetchAuth = (userData) => (dispatch) => {
+const fetchAuth = (userData) => (dispatch, getState, Api) => {
     dispatch(fetchAuthRequest());
     
-    return sendUserData(userData)
+    return new Api().sendUserData(userData)
         .then((res) => {    
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchAuthSuccess(res.data.email));

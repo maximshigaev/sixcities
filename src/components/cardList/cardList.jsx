@@ -5,7 +5,7 @@ import Card from '../card/card.jsx';
 
 const CardList = ({offers}) => {
     return (
-         <div className="cities__places-list places__list tabs__content">
+        <div className="cities__places-list places__list tabs__content">
             {
                 offers.map((offer) => {
                     return (

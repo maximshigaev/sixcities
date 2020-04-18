@@ -1,5 +1,3 @@
-import {getReviews, sendUserReview} from '../api.js';
-
 const SUCCESS_STATUS = 200;
 
 const fetchReviewsRequest = () => {
@@ -21,10 +19,10 @@ const fetchReviewsFail = () => {
     }
 }
 
-const fetchReviews = (id) => (dispatch) => {
+const fetchReviews = (id) => (dispatch, getState, Api) => {
     dispatch(fetchReviewsRequest());
 
-    return getReviews(id)
+    return new Api().getReviews(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchReviewsSuccess(res.data));
@@ -57,10 +55,10 @@ const resetReviewError = () => {
     }
 }
 
-const fetchReview = (review, id) => (dispatch) => {
+const fetchReview = (review, id) => (dispatch, getState, Api) => {
     dispatch(fetchReviewRequest());    
 
-    return sendUserReview(review, id)
+    return new Api().sendUserReview(review, id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                                
                 dispatch(fetchReviewSuccess());

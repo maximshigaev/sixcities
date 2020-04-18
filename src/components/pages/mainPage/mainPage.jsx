@@ -51,4 +51,4 @@ const mapStateToProps = ({offers}) => {
 }
 
 export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps)(MainPage);

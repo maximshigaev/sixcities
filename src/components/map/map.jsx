@@ -139,4 +139,4 @@ const mapStateToProps = ({offers, card}) => {
 }
 
 export {Map};
-export default compose(connect(mapStateToProps, null), withRouter)(Map);
+export default compose(connect(mapStateToProps), withRouter)(Map);

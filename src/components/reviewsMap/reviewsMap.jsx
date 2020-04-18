@@ -125,4 +125,4 @@ const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}}) => {
 }
 
 export {ReviewsMap};
-export default compose(connect(mapStateToProps, null), withRouter)(ReviewsMap);
+export default compose(connect(mapStateToProps), withRouter)(ReviewsMap);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../card/card.jsx';
 
 const NearbyHotels = ({hotels}) => {
-     return (
+    return (
         <div className="container">
             <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>

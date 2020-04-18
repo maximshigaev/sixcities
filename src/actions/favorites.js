@@ -1,5 +1,3 @@
-import {getFavorites, setFavorite} from '../api.js';
-
 const SUCCESS_STATUS = 200;
 
 const fetchFavoritesRequest = () => {
@@ -21,10 +19,10 @@ const fetchFavoritesFail = () => {
     }
 }
 
-const fetchFavorites = () => (dispatch) => {
+const fetchFavorites = () => (dispatch, getState, Api) => {
     dispatch(fetchFavoritesRequest());
 
-    return getFavorites()
+    return new Api().getFavorites()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoritesSuccess(res.data));
@@ -53,10 +51,10 @@ const fetchFavoriteFail = (id) => {
     }
 }
 
-const fetchFavorite = (id, isFavorite) => (dispatch) => {
+const fetchFavorite = (id, isFavorite) => (dispatch, getState, Api) => {
     dispatch(fetchFavoriteRequest());
 
-    return setFavorite(id, isFavorite)
+    return new Api().setFavorite(id, isFavorite)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoriteSuccess(res.data.id));

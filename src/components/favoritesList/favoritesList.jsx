@@ -17,7 +17,7 @@ const FavoritesList = ({favorites}) => {
                                 const hotels = favorites.filter((hotel) => hotel.city.name === item)
                                     .map((elem) => {
                                         return (
-                                             <Card key={elem.id} offer={elem} isNearby={false} isMain={false}
+                                            <Card key={elem.id} offer={elem} isNearby={false} isMain={false}
                                                 isFavPage={true}
                                             />
                                         );

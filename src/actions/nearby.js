@@ -1,5 +1,3 @@
-import {getNearbyHotels} from '../api.js';
-
 const SUCCESS_STATUS = 200;
 
 const fetchNearbyRequest = () => {
@@ -21,10 +19,10 @@ const fetchNearbyFail = () => {
     };
 }
 
-const fetchNearbyHotels = (id) => (dispatch) => {
+const fetchNearbyHotels = (id) => (dispatch, getState, Api) => {
     dispatch(fetchNearbyRequest());
 
-    return getNearbyHotels(id)
+    return new Api().getNearbyHotels(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                
                 dispatch(fetchNearbySuccess(res.data));
