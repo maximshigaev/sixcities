@@ -24,7 +24,7 @@ const fetchReviewsFail = () => {
 const fetchReviews = (id) => (dispatch) => {
     dispatch(fetchReviewsRequest());
 
-    getReviews(id)
+    return getReviews(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchReviewsSuccess(res.data));
@@ -60,7 +60,7 @@ const resetReviewError = () => {
 const fetchReview = (review, id) => (dispatch) => {
     dispatch(fetchReviewRequest());    
 
-    sendUserReview(review, id)
+    return sendUserReview(review, id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                                
                 dispatch(fetchReviewSuccess());
