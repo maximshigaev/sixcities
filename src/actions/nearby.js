@@ -24,7 +24,7 @@ const fetchNearbyFail = () => {
 const fetchNearbyHotels = (id) => (dispatch) => {
     dispatch(fetchNearbyRequest());
 
-    getNearbyHotels(id)
+    return getNearbyHotels(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                
                 dispatch(fetchNearbySuccess(res.data));
