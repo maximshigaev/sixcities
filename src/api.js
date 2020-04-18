@@ -22,4 +22,6 @@ const setFavorite = (id, isFavorite) => api.post(`/favorite/${id}/${(isFavorite)
 
 const getNearbyHotels = (id) => api.get(`/hotels/${id}/nearby`);
 
-export {getOffers, sendUserData, getReviews, sendUserReview, getFavorites, setFavorite, requestAuth, getNearbyHotels};
+export {getOffers, sendUserData, getReviews, sendUserReview, getFavorites, setFavorite, requestAuth, getNearbyHotels,
+    api
+};

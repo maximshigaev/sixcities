@@ -31,7 +31,7 @@ const authStatusFail = () => {
 const fetchAuthStatus = () => (dispatch) => {
     dispatch(authStatusRequest());
 
-    requestAuth()
+    return requestAuth()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(authStatusSuccess(res.data.email));
@@ -68,7 +68,7 @@ const fetchAuthFail = () => {
 const fetchAuth = (userData) => (dispatch) => {
     dispatch(fetchAuthRequest());
     
-    sendUserData(userData)
+    return sendUserData(userData)
         .then((res) => {    
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchAuthSuccess(res.data.email));
