@@ -8,12 +8,20 @@ const Form = ({onSubmit}) => {
     const titles = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
     const MIN_REVIEW_LENGTH = 50;
     const MAX_REVIEW_LENGTH = 300;
-    const isDisabled = !(commentValue.length >= MIN_REVIEW_LENGTH && commentValue.length <= MAX_REVIEW_LENGTH)
-        || !ratingValue;
+    const isValid = commentValue.length >= MIN_REVIEW_LENGTH && commentValue.length <= MAX_REVIEW_LENGTH && ratingValue;
+    const isDisabled = !isValid;
+
+    const formSubmitHandler = (evt, ratingValue, commentValue) => {
+        evt.preventDefault();
+
+        if(isValid) {
+            onSubmit(ratingValue, commentValue);
+        }
+    }
 
     return (
         <form className="reviews__form form" action="#" method="post"
-            onSubmit={(evt) => onSubmit(evt, ratingValue, commentValue)}
+            onSubmit={(evt) => formSubmitHandler(evt, ratingValue, commentValue)}
         >
             <label className="reviews__label form__label" htmlFor="review">Your review</label>
             <div className="reviews__rating-form form__rating">
