@@ -25,7 +25,7 @@ describe(`Correctly renders the App component`, () => {
         const tree = renderer.create(
             <Provider store={store}>
                 <Router>
-                    <App fetchAuthStatus={() => {}}/>
+                    <App fetchAuthStatus={() => {}} />
                 </Router>
             </Provider>)
         .toJSON();
