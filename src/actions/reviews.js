@@ -19,10 +19,10 @@ const fetchReviewsFail = () => {
     }
 }
 
-const fetchReviews = (id) => (dispatch, getState, Api) => {
+const fetchReviews = (id) => (dispatch, getState, api) => {
     dispatch(fetchReviewsRequest());
 
-    return new Api().getReviews(id)
+    return api.getReviews(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchReviewsSuccess(res.data));
@@ -55,10 +55,10 @@ const resetReviewError = () => {
     }
 }
 
-const fetchReview = (review, id) => (dispatch, getState, Api) => {
+const fetchReview = (review, id) => (dispatch, getState, api) => {
     dispatch(fetchReviewRequest());    
 
-    return new Api().sendUserReview(review, id)
+    return api.sendUserReview(review, id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                                
                 dispatch(fetchReviewSuccess());

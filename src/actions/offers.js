@@ -22,10 +22,10 @@ const fetchOffersFail = () => {
     };
 }
 
-const fetchOffers = () => (dispatch, getState, Api) => {
+const fetchOffers = () => (dispatch, getState, api) => {
     dispatch(fetchOffersRequest());
 
-    return new Api().getOffers()
+    return api.getOffers()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchOffersSuccess(res.data));

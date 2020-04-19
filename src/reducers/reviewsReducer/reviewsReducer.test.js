@@ -3,17 +3,17 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import {fetchReviews, fetchReview} from '../../actions/reviews.js';
-import {api} from '../../api.js';
+import api from '../../api.js';
 import reviewsReducer from './reviewsReducer.js';
 
 describe(`Operation of fetching should make correct get request to /comments/7`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/comments/7`).reply(200, {fake: true});
 
-        fetchReviews(7)(dispatch)
+        fetchReviews(7)(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -27,12 +27,12 @@ describe(`Operation of fetching should make correct get request to /comments/7`,
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/comments/7`).reply(404);
 
-        fetchReviews(7)(dispatch)
+        fetchReviews(7)(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -47,9 +47,9 @@ describe(`Operation of fetching should make correct get request to /comments/7`,
 
 describe(`Operation of fetching should make correct post request to /comments/4`, () => {
   it(`and make subsequent get request to /comments/4 when server responded with 200 status code`, async () => {
-    const mockStore = configureMockStore([thunk]);
+    const mockStore = configureMockStore([thunk.withExtraArgument(api)]);
     const store = mockStore();
-    const mockApi = new MockAdapter(api);
+    const mockApi = new MockAdapter(api.api);
 
     mockApi.onPost(`/comments/4`).reply(200)
             .onGet(`/comments/4`).reply(200);
@@ -64,12 +64,12 @@ describe(`Operation of fetching should make correct post request to /comments/4`
   });
 
   it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onPost(`/comments/4`).reply(404);
 
-        fetchReview(`Fake review`, 4)(dispatch)
+        fetchReview(`Fake review`, 4)(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {

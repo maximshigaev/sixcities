@@ -1,17 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
 
 import fetchNearbyHotels from '../../actions/nearby.js';
-import {api} from '../../api.js';
+import api from '../../api.js';
 import nearbyReducer from './nearbyReducer.js';
 
 describe(`Operation of fetching should make correct get request to /hotels/5/nearby`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/hotels/5/nearby`).reply(200, {fake: true});
 
-        fetchNearbyHotels(5)(dispatch)
+        fetchNearbyHotels(5)(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -25,12 +25,12 @@ describe(`Operation of fetching should make correct get request to /hotels/5/nea
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/hotels/5/nearby`).reply(404);
 
-        fetchNearbyHotels(5)(dispatch)
+        fetchNearbyHotels(5)(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {

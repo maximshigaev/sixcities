@@ -1,17 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
 
 import {fetchAuth, fetchAuthStatus} from '../../actions/auth.js';
-import {api} from '../../api.js';
+import api from '../../api.js';
 import authReducer from './authReducer.js';
 
 describe(`Operation of fetching should make correct post request to /login`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onPost(`/login`).reply(200, {email: `example@mail.ru`});
 
-        fetchAuth({email: `example@mail.ru`})(dispatch)
+        fetchAuth({email: `example@mail.ru`})(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -25,12 +25,12 @@ describe(`Operation of fetching should make correct post request to /login`, () 
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onPost(`/login`).reply(404);
 
-        fetchAuth({email: `example@mail.ru`})(dispatch)
+        fetchAuth({email: `example@mail.ru`})(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -45,12 +45,12 @@ describe(`Operation of fetching should make correct post request to /login`, () 
 
 describe(`Operation of fetching should make correct get request to /login`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/login`).reply(200, {email: `example@mail.ru`});
 
-        fetchAuthStatus()(dispatch)
+        fetchAuthStatus()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -64,12 +64,12 @@ describe(`Operation of fetching should make correct get request to /login`, () =
     });
 
     it(`when server responded with status code which is different from 200 or 401 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/login`).reply(404);
 
-        fetchAuthStatus()(dispatch)
+        fetchAuthStatus()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -82,12 +82,12 @@ describe(`Operation of fetching should make correct get request to /login`, () =
     });
 
     it(`when server responded with status code 401`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/login`).reply(401);
 
-        fetchAuthStatus()(dispatch)
+        fetchAuthStatus()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -193,7 +193,7 @@ describe(`authReducer changes the state properly`, () => {
         });
     });
 
-      it(`should return right state given action-argument with type AUTH_STATUS_FAIL`, () => {
+    it(`should return right state given action-argument with type AUTH_STATUS_FAIL`, () => {
         expect(authReducer(state, {type: `AUTH_STATUS_FAIL`})).toEqual({
             isLoggedIn: false,
             email: null,

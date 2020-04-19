@@ -1,17 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
 
 import {fetchFavorites, fetchFavorite} from '../../actions/favorites.js';
-import {api} from '../../api.js';
+import api from '../../api.js';
 import favoriteReducer from './favoritesReducer.js';
 
 describe(`Operation of fetching should make correct get request to /favorite`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/favorite`).reply(200, {fake: true});
 
-        fetchFavorites()(dispatch)
+        fetchFavorites()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -25,12 +25,12 @@ describe(`Operation of fetching should make correct get request to /favorite`, (
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/favorite`).reply(404);
 
-        fetchFavorites()(dispatch)
+        fetchFavorites()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -45,13 +45,13 @@ describe(`Operation of fetching should make correct get request to /favorite`, (
 
 describe(`Operation of fetching should make correct post request to /favorite/id/1 and /favorite/id/0`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch1 = jest.fn();
 
         mockApi.onPost(`/favorite/3/1`).reply(200, {id: 3})
                 .onPost(`/favorite/3/0`).reply(200, {id: 3});
 
-        fetchFavorite(3, true)(dispatch1)
+        fetchFavorite(3, true)(dispatch1, () => {}, api)
             .then(() => {
                 expect(dispatch1).toHaveBeenCalledTimes(2);
                 expect(dispatch1).toHaveBeenNthCalledWith(1, {
@@ -65,7 +65,7 @@ describe(`Operation of fetching should make correct post request to /favorite/id
 
         const dispatch2 = jest.fn();
 
-        fetchFavorite(3, false)(dispatch2)
+        fetchFavorite(3, false)(dispatch2, () => {}, api)
             .then(() => {
                 expect(dispatch2).toHaveBeenCalledTimes(2);
                 expect(dispatch2).toHaveBeenNthCalledWith(1, {
@@ -79,13 +79,13 @@ describe(`Operation of fetching should make correct post request to /favorite/id
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch1 = jest.fn();
 
         mockApi.onPost(`/favorite/9/1`).reply(404)
                 .onPost(`/favorite/9/0`).reply(404);
 
-        fetchFavorite(9, true)(dispatch1)
+        fetchFavorite(9, true)(dispatch1, () => {}, api)
             .then(() => {
                 expect(dispatch1).toHaveBeenCalledTimes(2);
                 expect(dispatch1).toHaveBeenNthCalledWith(1, {
@@ -98,7 +98,7 @@ describe(`Operation of fetching should make correct post request to /favorite/id
 
         const dispatch2 = jest.fn();
 
-        fetchFavorite(9, false)(dispatch2)
+        fetchFavorite(9, false)(dispatch2, () => {}, api)
             .then(() => {
                 expect(dispatch2).toHaveBeenCalledTimes(2);
                 expect(dispatch2).toHaveBeenNthCalledWith(1, {
@@ -116,6 +116,7 @@ const initialState = {
     isFavoritesLoading: false,
     isFavoritesError: false
 }
+
 const state = {
     favorites: [{fake: true}, {alsoFake: true}],
     isFavoritesLoading: true,

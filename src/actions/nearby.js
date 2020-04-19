@@ -19,10 +19,10 @@ const fetchNearbyFail = () => {
     };
 }
 
-const fetchNearbyHotels = (id) => (dispatch, getState, Api) => {
+const fetchNearbyHotels = (id) => (dispatch, getState, api) => {
     dispatch(fetchNearbyRequest());
 
-    return new Api().getNearbyHotels(id)
+    return api.getNearbyHotels(id)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {                
                 dispatch(fetchNearbySuccess(res.data));

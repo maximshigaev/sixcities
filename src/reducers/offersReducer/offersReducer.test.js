@@ -1,17 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
 
 import fetchOffers from '../../actions/offers.js';
-import {api} from '../../api.js';
+import api from '../../api.js';
 import offersReducer from './offersReducer.js';
 
 describe(`Operation of fetching should make correct get request to /login`, () => {
     it(`when server responded with 200 status code`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/hotels`).reply(200, [{fake: true, city: {name:`Moscow`}}]);
 
-        fetchOffers()(dispatch)
+        fetchOffers()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -28,12 +28,12 @@ describe(`Operation of fetching should make correct get request to /login`, () =
     });
 
     it(`when server responded with status code which is different from 200 or an error occured`, () => {
-        const mockApi = new MockAdapter(api);
+        const mockApi = new MockAdapter(api.api);
         const dispatch = jest.fn();
 
         mockApi.onGet(`/hotels`).reply(404);
 
-        fetchOffers()(dispatch)
+        fetchOffers()(dispatch, () => {}, api)
             .then(() => {
                 expect(dispatch).toHaveBeenCalledTimes(2);
                 expect(dispatch).toHaveBeenNthCalledWith(1, {

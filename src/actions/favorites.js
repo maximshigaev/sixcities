@@ -19,10 +19,10 @@ const fetchFavoritesFail = () => {
     }
 }
 
-const fetchFavorites = () => (dispatch, getState, Api) => {
+const fetchFavorites = () => (dispatch, getState, api) => {
     dispatch(fetchFavoritesRequest());
 
-    return new Api().getFavorites()
+    return api.getFavorites()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoritesSuccess(res.data));
@@ -51,10 +51,10 @@ const fetchFavoriteFail = (id) => {
     }
 }
 
-const fetchFavorite = (id, isFavorite) => (dispatch, getState, Api) => {
+const fetchFavorite = (id, isFavorite) => (dispatch, getState, api) => {
     dispatch(fetchFavoriteRequest());
 
-    return new Api().setFavorite(id, isFavorite)
+    return api.setFavorite(id, isFavorite)
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchFavoriteSuccess(res.data.id));

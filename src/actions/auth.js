@@ -26,10 +26,10 @@ const authStatusFail = () => {
     }
 }
 
-const fetchAuthStatus = () => (dispatch, getState, Api) => {
+const fetchAuthStatus = () => (dispatch, getState, api) => {
     dispatch(authStatusRequest());
 
-    return new Api().requestAuth()
+    return api.requestAuth()
         .then((res) => {
             if(res.status === SUCCESS_STATUS) {
                 dispatch(authStatusSuccess(res.data.email));
@@ -63,10 +63,10 @@ const fetchAuthFail = () => {
     };
 }
 
-const fetchAuth = (userData) => (dispatch, getState, Api) => {
+const fetchAuth = (userData) => (dispatch, getState, api) => {
     dispatch(fetchAuthRequest());
     
-    return new Api().sendUserData(userData)
+    return api.sendUserData(userData)
         .then((res) => {    
             if(res.status === SUCCESS_STATUS) {
                 dispatch(fetchAuthSuccess(res.data.email));
