@@ -10,7 +10,9 @@ Array [
   <b
     className="places__found"
   >
-    312 places to stay in Amsterdam
+    3
+     places to stay in 
+    Paris
   </b>,
   <form
     action="#"
@@ -20,12 +22,13 @@ Array [
     <span
       className="places__sorting-caption"
     >
-      Sort by
+      Sort by 
     </span>
     <span
       className="places__sorting-type"
       onClick={[Function]}
       tabIndex="0"
+      title="Open the menu"
     >
       Popular
       <svg

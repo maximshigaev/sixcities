@@ -7,11 +7,11 @@ import cn from 'classnames';
 import {sortBy} from '../../actions/helpers.js';
 import {hotelsByCity} from '../../selectors.js';
 
-const Filter = ({currentSorting, activeCity, offers, sortBy}) => {
+const Filter = ({currentSorting, activeCity, offersLength, sortBy}) => {
     const [isOpened, setIsOpened] = useState(false);
 
     const sortOptionClickHandler = (title) => {
-        setIsOpened (false);
+        setIsOpened(false);
         sortBy(title);
     }
 
@@ -36,7 +36,7 @@ const Filter = ({currentSorting, activeCity, offers, sortBy}) => {
     return (
         <React.Fragment>
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+            <b className="places__found">{offersLength} places to stay in {activeCity}</b>
             <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened((isOpened) => !isOpened)}
@@ -57,14 +57,14 @@ Filter.propTypes = {
     sortBy: PropTypes.func.isRequired,
     currentSorting: PropTypes.string.isRequired,
     activeCity: PropTypes.string,
-    offers: PropTypes.arrayOf(PropTypes.object),
+    offersLength: PropTypes.number.isRequired
 }
 
 const mapStateToProps = ({offers}) => {
     return {
         currentSorting: offers.currentSorting,
         activeCity: offers.activeCity,
-        offers: hotelsByCity(offers),
+        offersLength: hotelsByCity(offers).length
     };
 }
 
