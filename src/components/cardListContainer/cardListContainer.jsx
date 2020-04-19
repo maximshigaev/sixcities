@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import Spinner from '../spinner/spinner.jsx';
-import {hasOffers, hotelsByCity} from '../../selectors.js';
+import {hotelsByCity} from '../../selectors.js';
 import fetchOffers from '../../actions/offers.js';
 import CardList from '../cardList/cardList.jsx';
 import CardListEmpty from '../cardListEmpty/cardListEmpty.jsx';
@@ -42,7 +42,6 @@ CardListContainer.propTypes = {
         id: PropTypes.number.isRequired
     })),
     isLoading: PropTypes.bool.isRequired,
-    hasOffers: PropTypes.bool.isRequired,
     activeCity: PropTypes.string,
     fetchOffers: PropTypes.func.isRequired
 }
@@ -51,7 +50,6 @@ const mapStateToProps = ({offers}) => {
     return {
         offers: hotelsByCity(offers),
         isLoading: offers.isLoading,
-        hasOffers: hasOffers(offers),
         activeCity: offers.activeCity,
         isError: offers.isError
     }
