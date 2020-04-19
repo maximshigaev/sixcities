@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the CardListEmpty component 1`] = `
+<div
+  className="cities__status-wrapper tabs__content"
+>
+  <b
+    className="cities__status"
+  >
+    No places to stay available
+  </b>
+  <p
+    className="cities__status-description"
+  >
+    We could not find any property available at the moment in 
+    Paris
+  </p>
+</div>
+`;
