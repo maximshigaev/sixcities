@@ -5,13 +5,19 @@ const Login = ({onSubmit}) => {
     const [emailVal, setEmailVal] = useState(``);
     const [passwordVal, setPasswordVal] = useState(``);
 
+    const formSubmitHandler = (evt, emailVal, passwordVal) => {
+        evt.preventDefault();
+
+        onSubmit(emailVal, passwordVal);
+    }
+
     return (
         <main className="page__main page__main--login">
             <div className="page__login-container container">
                 <section className="login">
                     <h1 className="login__title">Sign in</h1>
                     <form className="login__form form" action="#" method="post"
-                        onSubmit={(evt) => onSubmit(evt, emailVal, passwordVal)}
+                        onSubmit={(evt) => formSubmitHandler(evt, emailVal, passwordVal)}
                     >
                         <div className="login__input-wrapper form__input-wrapper">
                             <label className="visually-hidden">E-mail</label>
