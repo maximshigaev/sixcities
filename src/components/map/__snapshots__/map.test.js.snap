@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the Map component when isLoading property is equal false 1`] = `
+<div
+  className="cities__right-section"
+>
+  <section
+    className="cities__map map"
+  >
+    <div
+      id="map"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </section>
+</div>
+`;
+
+exports[`Correctly renders the Map component when isLoading property is equal true 1`] = `
+<div
+  className="spinner"
+>
+  <div
+    className="spinnerContent"
+  >
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
