@@ -6,10 +6,9 @@ import {Provider} from 'react-redux';
 
 import {App} from './app.jsx';
 
-const mockStore = configureStore([]);
-
 describe(`Correctly renders the App component`, () => {
     it(`Renders the main page`, () => {
+        const mockStore = configureStore([]);
         const store = mockStore({
             card: {focusedCard: null},
             auth: {isLoggedIn: false, isAuthStatusLoading: false , isAuthStatusError: false},
