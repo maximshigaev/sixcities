@@ -1,34 +1,23 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import {Navigation} from './navigation.jsx';
+
+const citiesNames = [`Paris`, `Amsterdam`, `Tokio`, `Kiev`, `Moscow`, `Krakow`];
 
 Enzyme.configure({adapter: new Adapter()});
 
-describe(`Interactions with user invokes appropriate callbacks with right values`, () => {
-    it(`Click on the link should invoke callback only one time`, () => {
-        const linkClickHandler = jest.fn();
-        const citiesNames = [`Paris`, `Hamburg`, `Cologne`, `Amsterdam`, `Dusseldorf`, `Brussels`]
-        const nav = shallow(<Navigation navItemClickHandler={linkClickHandler} activeCity="Amsterdam"
-            citiesNames={citiesNames}
-        />);
-        const link = nav.find(`a[id="Paris"]`);
+it(`When user clicks on the link, the correspondent callback is invoked with the right value`, () => {
+    const navItemClickHandler = jest.fn();
 
-        link.simulate(`click`);
+    const navigation = shallow(
+        <Navigation navItemClickHandler={navItemClickHandler} activeCity="Moscow" citiesNames={citiesNames} />
+    );
 
-        expect(linkClickHandler).toHaveBeenCalledTimes(1);
-    });
+    const link = navigation.find(`a`).at(2);
+    link.simulate(`click`);
 
-    it(`Click on the link should invoke callback with theright value`, () => {
-        const linkClickHandler = jest.fn();
-        const citiesNames = [`Paris`, `Hamburg`, `Cologne`, `Amsterdam`, `Dusseldorf`, `Brussels`]
-        const nav = shallow(<Navigation navItemClickHandler={linkClickHandler} activeCity="Amsterdam"
-            citiesNames={citiesNames}
-        />);
-        const link = nav.find(`a[id="Amsterdam"]`);
-
-        link.simulate(`click`);
-
-        expect(linkClickHandler).toHaveBeenNthCalledWith(1, `Amsterdam`);
-    });
+    expect(navItemClickHandler).toHaveBeenCalledTimes(1);
+    expect(navItemClickHandler).toHaveBeenNthCalledWith(1, `Tokio`);
 });

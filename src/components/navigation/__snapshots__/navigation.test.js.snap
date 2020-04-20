@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the Navigation component 1`] = `
+Array [
+  <h1
+    className="visually-hidden"
+  >
+    Cities
+  </h1>,
+  <div
+    className="tabs"
+  >
+    <section
+      className="locations container"
+    >
+      <ul
+        className="locations__list tabs__list"
+      >
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item tabs__item--active"
+            href="#"
+            id="Paris"
+            onClick={[Function]}
+            title=""
+          >
+            <span>
+              Paris
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item"
+            href="#"
+            id="Amsterdam"
+            onClick={[Function]}
+            title="To the offers of Amsterdam"
+          >
+            <span>
+              Amsterdam
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item"
+            href="#"
+            id="Tokio"
+            onClick={[Function]}
+            title="To the offers of Tokio"
+          >
+            <span>
+              Tokio
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item"
+            href="#"
+            id="Kiev"
+            onClick={[Function]}
+            title="To the offers of Kiev"
+          >
+            <span>
+              Kiev
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item"
+            href="#"
+            id="Moscow"
+            onClick={[Function]}
+            title="To the offers of Moscow"
+          >
+            <span>
+              Moscow
+            </span>
+          </a>
+        </li>
+        <li
+          className="locations__item"
+        >
+          <a
+            className="locations__item-link tabs__item"
+            href="#"
+            id="Krakow"
+            onClick={[Function]}
+            title="To the offers of Krakow"
+          >
+            <span>
+              Krakow
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>,
+]
+`;
