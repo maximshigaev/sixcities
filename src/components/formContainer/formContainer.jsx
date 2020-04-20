@@ -28,9 +28,7 @@ const FormContainer = ({isLoggedIn, fetchReview, id, isReviewLoading, isReviewEr
         return <ErrorIndicator operation="uploading of your review" />;
     }
 
-    const formSubmitHandler = (evt, rating, comment) => {
-        evt.preventDefault();
-
+    const formSubmitHandler = (rating, comment) => {
         const userData = {
             rating,
             comment
