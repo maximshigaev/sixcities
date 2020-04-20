@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the NearbyHotelsContainer component when both isNearbyError and isNearbyLoading properties are equal false 1`] = `
+<div
+  className="container"
+>
+  <section
+    className="near-places places"
+  >
+    <h2
+      className="near-places__title"
+    >
+      Other places in the neighbourhood
+    </h2>
+    <div
+      className="near-places__list places__list"
+    >
+      <a
+        href="/offer/1"
+        onClick={[Function]}
+        title="To the Beautiful luxurious apartment at great location offer page"
+      >
+        <article
+          className="place-card near-places__card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="place-card__mark"
+          >
+            <span>
+              Premium
+            </span>
+          </div>
+          <div
+            className="place-card__image-wrapper near-places__image-wrapper"
+          >
+            <img
+              alt="Place pic"
+              className="place-card__image"
+              height="200"
+              src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/9.jpg"
+              width="260"
+            />
+          </div>
+          <div
+            className="place-card__info"
+          >
+            <div
+              className="place-card__price-wrapper"
+            >
+              <div
+                className="place-card__price"
+              >
+                <b
+                  className="place-card__price-value"
+                >
+                  €
+                  120
+                </b>
+                <span
+                  className="place-card__price-text"
+                >
+                  / night
+                </span>
+              </div>
+              <button
+                className="place-card__bookmark-button button"
+                title="To bookmarks"
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  height="19"
+                  width="18"
+                >
+                  <use
+                    xlinkHref="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  className="visually-hidden"
+                >
+                  Not in bookmarks
+                </span>
+              </button>
+            </div>
+            <div
+              className="place-card__rating rating"
+            >
+              <div
+                className="place-card__stars rating__stars"
+              >
+                <span
+                  style={
+                    Object {
+                      "width": "80%",
+                    }
+                  }
+                />
+                <span
+                  className="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+            </div>
+            <h2
+              className="place-card__name"
+            >
+              Beautiful luxurious apartment at great location
+            </h2>
+            <p
+              className="place-card__type"
+            >
+              Apartment
+            </p>
+          </div>
+        </article>
+      </a>
+      <a
+        href="/offer/2"
+        onClick={[Function]}
+        title="To the Perfectly located Castro offer page"
+      >
+        <article
+          className="place-card near-places__card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="place-card__image-wrapper near-places__image-wrapper"
+          >
+            <img
+              alt="Place pic"
+              className="place-card__image"
+              height="200"
+              src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/4.jpg"
+              width="260"
+            />
+          </div>
+          <div
+            className="place-card__info"
+          >
+            <div
+              className="place-card__price-wrapper"
+            >
+              <div
+                className="place-card__price"
+              >
+                <b
+                  className="place-card__price-value"
+                >
+                  €
+                  100
+                </b>
+                <span
+                  className="place-card__price-text"
+                >
+                  / night
+                </span>
+              </div>
+              <button
+                className="place-card__bookmark-button button place-card__bookmark-button--active"
+                title="In bookmarks"
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  height="19"
+                  width="18"
+                >
+                  <use
+                    xlinkHref="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  className="visually-hidden"
+                >
+                  In bookmarks
+                </span>
+              </button>
+            </div>
+            <div
+              className="place-card__rating rating"
+            >
+              <div
+                className="place-card__stars rating__stars"
+              >
+                <span
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                />
+                <span
+                  className="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+            </div>
+            <h2
+              className="place-card__name"
+            >
+              Perfectly located Castro
+            </h2>
+            <p
+              className="place-card__type"
+            >
+              Room
+            </p>
+          </div>
+        </article>
+      </a>
+      <a
+        href="/offer/3"
+        onClick={[Function]}
+        title="To the Waterfront with extraordinary view offer page"
+      >
+        <article
+          className="place-card near-places__card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="place-card__mark"
+          >
+            <span>
+              Premium
+            </span>
+          </div>
+          <div
+            className="place-card__image-wrapper near-places__image-wrapper"
+          >
+            <img
+              alt="Place pic"
+              className="place-card__image"
+              height="200"
+              src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+              width="260"
+            />
+          </div>
+          <div
+            className="place-card__info"
+          >
+            <div
+              className="place-card__price-wrapper"
+            >
+              <div
+                className="place-card__price"
+              >
+                <b
+                  className="place-card__price-value"
+                >
+                  €
+                  80
+                </b>
+                <span
+                  className="place-card__price-text"
+                >
+                  / night
+                </span>
+              </div>
+              <button
+                className="place-card__bookmark-button button place-card__bookmark-button--active"
+                title="In bookmarks"
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  height="19"
+                  width="18"
+                >
+                  <use
+                    xlinkHref="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  className="visually-hidden"
+                >
+                  In bookmarks
+                </span>
+              </button>
+            </div>
+            <div
+              className="place-card__rating rating"
+            >
+              <div
+                className="place-card__stars rating__stars"
+              >
+                <span
+                  style={
+                    Object {
+                      "width": "60%",
+                    }
+                  }
+                />
+                <span
+                  className="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+            </div>
+            <h2
+              className="place-card__name"
+            >
+              Waterfront with extraordinary view
+            </h2>
+            <p
+              className="place-card__type"
+            >
+              Hotel
+            </p>
+          </div>
+        </article>
+      </a>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`Correctly renders the NearbyHotelsContainer component when isNearbyError property is equal true 1`] = `
+<div
+  className="cities__status-wrapper tabs__content"
+>
+  <b
+    className="cities__status"
+  >
+    We're sorry
+  </b>
+  <p
+    className="cities__status-description"
+  >
+    It's been an error during the process of 
+    loading the list of nearby offers
+    . Please, reload the page and try again
+  </p>
+</div>
+`;
+
+exports[`Correctly renders the NearbyHotelsContainer component when isNearbyLoading property is equal true 1`] = `
+<div
+  className="spinner"
+>
+  <div
+    className="spinnerContent"
+  >
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;

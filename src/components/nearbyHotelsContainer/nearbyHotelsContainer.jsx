@@ -28,7 +28,17 @@ NearbyHotelsContainer.propTypes = {
     id: PropTypes.number.isRequired,
     isNearbyError: PropTypes.bool.isRequired,
     isNearbyLoading: PropTypes.bool.isRequired,
-    fetchNearbyHotels: PropTypes.func.isRequired
+    fetchNearbyHotels: PropTypes.func.isRequired,
+    nearbyHotels: PropTypes.arrayOf(PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        is_favorite: PropTypes.bool.isRequired,
+        is_premium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        preview_image: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    }))
 }
 
 const mapStateToProps = ({nearby: {nearbyHotels, isNearbyError, isNearbyLoading}}) => {
