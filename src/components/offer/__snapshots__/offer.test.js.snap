@@ -1,0 +1,820 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the Offer component when isFavoriteError and isFavoriteLoading properties are equal false, but is_favorite property is equal
+        true 1`] = `
+<section
+  className="property"
+>
+  <div
+    className="property__gallery-container container"
+  >
+    <div
+      className="property__gallery"
+    >
+      <div
+        className="property__image-wrapper"
+      >
+        <img
+          alt="Studio"
+          className="property__image"
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="property__container container"
+  >
+    <div
+      className="property__wrapper"
+    >
+      <div
+        className="property__name-wrapper"
+      >
+        <h1
+          className="property__name"
+        >
+          Penthouse, 4-5 rooms + 5 balconies
+        </h1>
+        <button
+          className="property__bookmark-button button property__bookmark-button--active"
+          onClick={[Function]}
+          title="Remove from bookmarks"
+          type="button"
+        >
+          <svg
+            className="property__bookmark-icon"
+            height="33"
+            width="31"
+          >
+            <use
+              xlinkHref="#icon-bookmark-active"
+            />
+          </svg>
+          <span
+            className="visually-hidden"
+          >
+            In bookmarks
+          </span>
+        </button>
+      </div>
+      <div
+        className="property__rating rating"
+      >
+        <div
+          className="property__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+        <span
+          className="property__rating-value rating__value"
+        >
+          3.4
+        </span>
+      </div>
+      <ul
+        className="property__features"
+      >
+        <li
+          className="property__feature property__feature--entire"
+        >
+          hotel
+        </li>
+        <li
+          className="property__feature property__feature--bedrooms"
+        >
+          2
+           Bedrooms
+        </li>
+        <li
+          className="property__feature property__feature--adults"
+        >
+          Max 
+          8
+           adults
+        </li>
+      </ul>
+      <div
+        className="property__price"
+      >
+        <b
+          className="property__price-value"
+        >
+          €
+          471
+        </b>
+        <span
+          className="property__price-text"
+        >
+           night
+        </span>
+      </div>
+      <div
+        className="property__inside"
+      >
+        <h2
+          className="property__inside-title"
+        >
+          What's inside
+        </h2>
+        <ul
+          className="property__inside-list"
+        >
+          <li
+            className="property__inside-item"
+          >
+            Baby seat
+          </li>
+        </ul>
+      </div>
+      <div
+        className="property__host"
+      >
+        <h2
+          className="property__host-title"
+        >
+          Meet the host
+        </h2>
+        <div
+          className="property__host-user user"
+        >
+          <div
+            className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
+          >
+            <img
+              alt="Host avatar"
+              className="property__avatar user__avatar"
+              height="74"
+              src="avatar-angelina.jpg"
+              width="74"
+            />
+          </div>
+          <span
+            className="property__user-name"
+          >
+            Angelina
+          </span>
+        </div>
+        <div
+          className="property__description"
+        >
+          <p
+            className="property__text"
+          >
+            Peaceful studio in the most wanted area in town.
+          </p>
+        </div>
+      </div>
+      <section
+        className="property__reviews reviews"
+      >
+        <h2
+          className="reviews__title"
+        >
+          Reviews · 
+          <span
+            className="reviews__amount"
+          >
+            0
+          </span>
+        </h2>
+        <ul
+          className="reviews__list"
+        />
+      </section>
+    </div>
+  </div>
+  <section
+    className="property__map map"
+  >
+    <div
+      id="reviewsMap"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </section>
+</section>
+`;
+
+exports[`Correctly renders the Offer component when isFavoriteError property is equal true 1`] = `
+<section
+  className="property"
+>
+  <div
+    className="property__gallery-container container"
+  >
+    <div
+      className="property__gallery"
+    >
+      <div
+        className="property__image-wrapper"
+      >
+        <img
+          alt="Studio"
+          className="property__image"
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="property__container container"
+  >
+    <div
+      className="property__wrapper"
+    >
+      <div
+        className="property__name-wrapper"
+      >
+        <h1
+          className="property__name"
+        >
+          Penthouse, 4-5 rooms + 5 balconies
+        </h1>
+        <button
+          className="property__bookmark-button button"
+          onClick={[Function]}
+          title="Add to bookmarks"
+          type="button"
+        >
+          <div>
+            Fail
+          </div>
+        </button>
+      </div>
+      <div
+        className="property__rating rating"
+      >
+        <div
+          className="property__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+        <span
+          className="property__rating-value rating__value"
+        >
+          3.4
+        </span>
+      </div>
+      <ul
+        className="property__features"
+      >
+        <li
+          className="property__feature property__feature--entire"
+        >
+          hotel
+        </li>
+        <li
+          className="property__feature property__feature--bedrooms"
+        >
+          2
+           Bedrooms
+        </li>
+        <li
+          className="property__feature property__feature--adults"
+        >
+          Max 
+          8
+           adults
+        </li>
+      </ul>
+      <div
+        className="property__price"
+      >
+        <b
+          className="property__price-value"
+        >
+          €
+          471
+        </b>
+        <span
+          className="property__price-text"
+        >
+           night
+        </span>
+      </div>
+      <div
+        className="property__inside"
+      >
+        <h2
+          className="property__inside-title"
+        >
+          What's inside
+        </h2>
+        <ul
+          className="property__inside-list"
+        >
+          <li
+            className="property__inside-item"
+          >
+            Baby seat
+          </li>
+        </ul>
+      </div>
+      <div
+        className="property__host"
+      >
+        <h2
+          className="property__host-title"
+        >
+          Meet the host
+        </h2>
+        <div
+          className="property__host-user user"
+        >
+          <div
+            className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
+          >
+            <img
+              alt="Host avatar"
+              className="property__avatar user__avatar"
+              height="74"
+              src="avatar-angelina.jpg"
+              width="74"
+            />
+          </div>
+          <span
+            className="property__user-name"
+          >
+            Angelina
+          </span>
+        </div>
+        <div
+          className="property__description"
+        >
+          <p
+            className="property__text"
+          >
+            Peaceful studio in the most wanted area in town.
+          </p>
+        </div>
+      </div>
+      <section
+        className="property__reviews reviews"
+      >
+        <h2
+          className="reviews__title"
+        >
+          Reviews · 
+          <span
+            className="reviews__amount"
+          >
+            0
+          </span>
+        </h2>
+        <ul
+          className="reviews__list"
+        />
+      </section>
+    </div>
+  </div>
+  <section
+    className="property__map map"
+  >
+    <div
+      id="reviewsMap"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </section>
+</section>
+`;
+
+exports[`Correctly renders the Offer component when isFavoriteError, is_favorite and isFavoriteLoading properties are equal false 1`] = `
+<section
+  className="property"
+>
+  <div
+    className="property__gallery-container container"
+  >
+    <div
+      className="property__gallery"
+    >
+      <div
+        className="property__image-wrapper"
+      >
+        <img
+          alt="Studio"
+          className="property__image"
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="property__container container"
+  >
+    <div
+      className="property__wrapper"
+    >
+      <div
+        className="property__name-wrapper"
+      >
+        <h1
+          className="property__name"
+        >
+          Penthouse, 4-5 rooms + 5 balconies
+        </h1>
+        <button
+          className="property__bookmark-button button"
+          onClick={[Function]}
+          title="Add to bookmarks"
+          type="button"
+        >
+          <svg
+            className="property__bookmark-icon"
+            height="33"
+            width="31"
+          >
+            <use
+              xlinkHref="#icon-bookmark"
+            />
+          </svg>
+          <span
+            className="visually-hidden"
+          >
+            To bookmarks
+          </span>
+        </button>
+      </div>
+      <div
+        className="property__rating rating"
+      >
+        <div
+          className="property__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+        <span
+          className="property__rating-value rating__value"
+        >
+          3.4
+        </span>
+      </div>
+      <ul
+        className="property__features"
+      >
+        <li
+          className="property__feature property__feature--entire"
+        >
+          hotel
+        </li>
+        <li
+          className="property__feature property__feature--bedrooms"
+        >
+          2
+           Bedrooms
+        </li>
+        <li
+          className="property__feature property__feature--adults"
+        >
+          Max 
+          8
+           adults
+        </li>
+      </ul>
+      <div
+        className="property__price"
+      >
+        <b
+          className="property__price-value"
+        >
+          €
+          471
+        </b>
+        <span
+          className="property__price-text"
+        >
+           night
+        </span>
+      </div>
+      <div
+        className="property__inside"
+      >
+        <h2
+          className="property__inside-title"
+        >
+          What's inside
+        </h2>
+        <ul
+          className="property__inside-list"
+        >
+          <li
+            className="property__inside-item"
+          >
+            Baby seat
+          </li>
+        </ul>
+      </div>
+      <div
+        className="property__host"
+      >
+        <h2
+          className="property__host-title"
+        >
+          Meet the host
+        </h2>
+        <div
+          className="property__host-user user"
+        >
+          <div
+            className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
+          >
+            <img
+              alt="Host avatar"
+              className="property__avatar user__avatar"
+              height="74"
+              src="avatar-angelina.jpg"
+              width="74"
+            />
+          </div>
+          <span
+            className="property__user-name"
+          >
+            Angelina
+          </span>
+        </div>
+        <div
+          className="property__description"
+        >
+          <p
+            className="property__text"
+          >
+            Peaceful studio in the most wanted area in town.
+          </p>
+        </div>
+      </div>
+      <section
+        className="property__reviews reviews"
+      >
+        <h2
+          className="reviews__title"
+        >
+          Reviews · 
+          <span
+            className="reviews__amount"
+          >
+            0
+          </span>
+        </h2>
+        <ul
+          className="reviews__list"
+        />
+      </section>
+    </div>
+  </div>
+  <section
+    className="property__map map"
+  >
+    <div
+      id="reviewsMap"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </section>
+</section>
+`;
+
+exports[`Correctly renders the Offer component when isFavoriteLoading property is equal true 1`] = `
+<section
+  className="property"
+>
+  <div
+    className="property__gallery-container container"
+  >
+    <div
+      className="property__gallery"
+    >
+      <div
+        className="property__image-wrapper"
+      >
+        <img
+          alt="Studio"
+          className="property__image"
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="property__container container"
+  >
+    <div
+      className="property__wrapper"
+    >
+      <div
+        className="property__name-wrapper"
+      >
+        <h1
+          className="property__name"
+        >
+          Penthouse, 4-5 rooms + 5 balconies
+        </h1>
+        <button
+          className="property__bookmark-button button"
+          onClick={[Function]}
+          title="Add to bookmarks"
+          type="button"
+        >
+          <div>
+            ...
+          </div>
+        </button>
+      </div>
+      <div
+        className="property__rating rating"
+      >
+        <div
+          className="property__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "68%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+        <span
+          className="property__rating-value rating__value"
+        >
+          3.4
+        </span>
+      </div>
+      <ul
+        className="property__features"
+      >
+        <li
+          className="property__feature property__feature--entire"
+        >
+          hotel
+        </li>
+        <li
+          className="property__feature property__feature--bedrooms"
+        >
+          2
+           Bedrooms
+        </li>
+        <li
+          className="property__feature property__feature--adults"
+        >
+          Max 
+          8
+           adults
+        </li>
+      </ul>
+      <div
+        className="property__price"
+      >
+        <b
+          className="property__price-value"
+        >
+          €
+          471
+        </b>
+        <span
+          className="property__price-text"
+        >
+           night
+        </span>
+      </div>
+      <div
+        className="property__inside"
+      >
+        <h2
+          className="property__inside-title"
+        >
+          What's inside
+        </h2>
+        <ul
+          className="property__inside-list"
+        >
+          <li
+            className="property__inside-item"
+          >
+            Baby seat
+          </li>
+        </ul>
+      </div>
+      <div
+        className="property__host"
+      >
+        <h2
+          className="property__host-title"
+        >
+          Meet the host
+        </h2>
+        <div
+          className="property__host-user user"
+        >
+          <div
+            className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
+          >
+            <img
+              alt="Host avatar"
+              className="property__avatar user__avatar"
+              height="74"
+              src="avatar-angelina.jpg"
+              width="74"
+            />
+          </div>
+          <span
+            className="property__user-name"
+          >
+            Angelina
+          </span>
+        </div>
+        <div
+          className="property__description"
+        >
+          <p
+            className="property__text"
+          >
+            Peaceful studio in the most wanted area in town.
+          </p>
+        </div>
+      </div>
+      <section
+        className="property__reviews reviews"
+      >
+        <h2
+          className="reviews__title"
+        >
+          Reviews · 
+          <span
+            className="reviews__amount"
+          >
+            0
+          </span>
+        </h2>
+        <ul
+          className="reviews__list"
+        />
+      </section>
+    </div>
+  </div>
+  <section
+    className="property__map map"
+  >
+    <div
+      id="reviewsMap"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    />
+  </section>
+</section>
+`;
