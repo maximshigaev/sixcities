@@ -49,7 +49,16 @@ const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLogge
 }
 
 FavoritesPage.propTypes = {
-    favorites: PropTypes.array,
+    favorites: PropTypes.arrayOf(PropTypes.shape({
+        price: PropTypes.number.isRequired,
+        is_favorite: PropTypes.bool.isRequired,
+        is_premium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        preview_image: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired
+    })),
     fetchFavorites: PropTypes.func.isRequired,
     isFavoritesLoading: PropTypes.bool.isRequired,
     isFavoritesError: PropTypes.bool.isRequired,
