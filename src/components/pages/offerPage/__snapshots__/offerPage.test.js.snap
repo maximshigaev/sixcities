@@ -1,0 +1,456 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the OfferPage component when both isError and isLoading properties are equal false and there is offer which is matching the given
+        id 1`] = `
+<div
+  className="page"
+>
+  <header
+    className="header"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="header__wrapper"
+      >
+        <div
+          className="header__left"
+        >
+          <a
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
+            title="To the main page"
+          >
+            <img
+              alt="6 cities logo"
+              className="header__logo"
+              height="41"
+              src="logo.svg"
+              width="81"
+            />
+          </a>
+        </div>
+        <nav
+          className="header__nav"
+        >
+          <ul
+            className="header__nav-list"
+          >
+            <li
+              className="header__nav-item user"
+            >
+              <a
+                className="header__nav-link header__nav-link--profile"
+                href="/login"
+                onClick={[Function]}
+                title="To the login page"
+              >
+                <div
+                  className="header__avatar-wrapper user__avatar-wrapper"
+                />
+                <span
+                  className="header__login"
+                >
+                  Sign in
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <section
+    className="property"
+  >
+    <div
+      className="property__gallery-container container"
+    >
+      <div
+        className="property__gallery"
+      >
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Studio"
+            className="property__image"
+            src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/3.jpg"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="property__container container"
+    >
+      <div
+        className="property__wrapper"
+      >
+        <div
+          className="property__name-wrapper"
+        >
+          <h1
+            className="property__name"
+          >
+            Penthouse, 4-5 rooms + 5 balconies
+          </h1>
+          <button
+            className="property__bookmark-button button property__bookmark-button--active"
+            onClick={[Function]}
+            title="Remove from bookmarks"
+            type="button"
+          >
+            <svg
+              className="property__bookmark-icon"
+              height="33"
+              width="31"
+            >
+              <use
+                xlinkHref="#icon-bookmark-active"
+              />
+            </svg>
+            <span
+              className="visually-hidden"
+            >
+              In bookmarks
+            </span>
+          </button>
+        </div>
+        <div
+          className="property__rating rating"
+        >
+          <div
+            className="property__stars rating__stars"
+          >
+            <span
+              style={
+                Object {
+                  "width": "68%",
+                }
+              }
+            />
+            <span
+              className="visually-hidden"
+            >
+              Rating
+            </span>
+          </div>
+          <span
+            className="property__rating-value rating__value"
+          >
+            3.4
+          </span>
+        </div>
+        <ul
+          className="property__features"
+        >
+          <li
+            className="property__feature property__feature--entire"
+          >
+            hotel
+          </li>
+          <li
+            className="property__feature property__feature--bedrooms"
+          >
+            2
+             Bedrooms
+          </li>
+          <li
+            className="property__feature property__feature--adults"
+          >
+            Max 
+            8
+             adults
+          </li>
+        </ul>
+        <div
+          className="property__price"
+        >
+          <b
+            className="property__price-value"
+          >
+            €
+            471
+          </b>
+          <span
+            className="property__price-text"
+          >
+             night
+          </span>
+        </div>
+        <div
+          className="property__inside"
+        >
+          <h2
+            className="property__inside-title"
+          >
+            What's inside
+          </h2>
+          <ul
+            className="property__inside-list"
+          >
+            <li
+              className="property__inside-item"
+            >
+              Baby seat
+            </li>
+          </ul>
+        </div>
+        <div
+          className="property__host"
+        >
+          <h2
+            className="property__host-title"
+          >
+            Meet the host
+          </h2>
+          <div
+            className="property__host-user user"
+          >
+            <div
+              className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
+            >
+              <img
+                alt="Host avatar"
+                className="property__avatar user__avatar"
+                height="74"
+                src="avatar-angelina.jpg"
+                width="74"
+              />
+            </div>
+            <span
+              className="property__user-name"
+            >
+              Angelina
+            </span>
+          </div>
+          <div
+            className="property__description"
+          >
+            <p
+              className="property__text"
+            >
+              Peaceful studio in the most wanted area in town.
+            </p>
+          </div>
+        </div>
+        <section
+          className="property__reviews reviews"
+        >
+          <h2
+            className="reviews__title"
+          >
+            Reviews · 
+            <span
+              className="reviews__amount"
+            >
+              0
+            </span>
+          </h2>
+          <ul
+            className="reviews__list"
+          />
+        </section>
+      </div>
+    </div>
+    <section
+      className="property__map map"
+    >
+      <div
+        id="reviewsMap"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </section>
+  </section>
+  <div
+    className="container"
+  >
+    <section
+      className="near-places places"
+    >
+      <h2
+        className="near-places__title"
+      >
+        Other places in the neighbourhood
+      </h2>
+      <div
+        className="near-places__list places__list"
+      />
+    </section>
+  </div>
+</div>
+`;
+
+exports[`Correctly renders the OfferPage component when both isError and isLoading properties are equal false, but there is no offer which is matching the given
+        id 1`] = `null`;
+
+exports[`Correctly renders the OfferPage component when isError property is equal true and isLoading property is equal false 1`] = `
+<div
+  className="page"
+>
+  <header
+    className="header"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="header__wrapper"
+      >
+        <div
+          className="header__left"
+        >
+          <a
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
+            title="To the main page"
+          >
+            <img
+              alt="6 cities logo"
+              className="header__logo"
+              height="41"
+              src="logo.svg"
+              width="81"
+            />
+          </a>
+        </div>
+        <nav
+          className="header__nav"
+        >
+          <ul
+            className="header__nav-list"
+          >
+            <li
+              className="header__nav-item user"
+            >
+              <a
+                className="header__nav-link header__nav-link--profile"
+                href="/login"
+                onClick={[Function]}
+                title="To the login page"
+              >
+                <div
+                  className="header__avatar-wrapper user__avatar-wrapper"
+                />
+                <span
+                  className="header__login"
+                >
+                  Sign in
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div
+    className="cities__status-wrapper tabs__content"
+  >
+    <b
+      className="cities__status"
+    >
+      We're sorry
+    </b>
+    <p
+      className="cities__status-description"
+    >
+      It's been an error during the process of 
+      loading of this offer
+      . Please, reload the page and try again
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Correctly renders the OfferPage component when isLoading property is equal true and isError property is equal false 1`] = `
+<div
+  className="page"
+>
+  <header
+    className="header"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="header__wrapper"
+      >
+        <div
+          className="header__left"
+        >
+          <a
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
+            title="To the main page"
+          >
+            <img
+              alt="6 cities logo"
+              className="header__logo"
+              height="41"
+              src="logo.svg"
+              width="81"
+            />
+          </a>
+        </div>
+        <nav
+          className="header__nav"
+        >
+          <ul
+            className="header__nav-list"
+          >
+            <li
+              className="header__nav-item user"
+            >
+              <a
+                className="header__nav-link header__nav-link--profile"
+                href="/login"
+                onClick={[Function]}
+                title="To the login page"
+              >
+                <div
+                  className="header__avatar-wrapper user__avatar-wrapper"
+                />
+                <span
+                  className="header__login"
+                >
+                  Sign in
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div
+    className="spinner"
+  >
+    <div
+      className="spinnerContent"
+    >
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;
