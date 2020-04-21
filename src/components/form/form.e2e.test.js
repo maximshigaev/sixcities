@@ -8,7 +8,7 @@ Enzyme.configure({adapter: new Adapter()});
 
 describe(`Interactions with user invoke appropriate callbacks with right values`, () => {
     it(`default action of form after form submission is prevented`, () => {
-        const preventDefault = jest.fn();
+        const preventDefault = jest.fn((...args) => [...args]);
         const form = shallow(<Form onSubmit={() => {}} />);
 
         form.simulate(`submit`, {
@@ -16,6 +16,7 @@ describe(`Interactions with user invoke appropriate callbacks with right values`
         });
 
         expect(preventDefault).toHaveBeenCalledTimes(1);
+        expect(preventDefault.mock.calls[0][0]).toEqual(undefined);
     });
 
     it(`form can't be send if the length of the value of textarea is less than the minimum length even if the rating
@@ -124,6 +125,7 @@ describe(`Corresponding variables are equal to the values of input and textarea`
 
         form.simulate(`submit`, {preventDefault: () => {}});
 
+        expect(onSubmit).toHaveBeenCalledTimes(1);
         expect(onSubmit.mock.calls[0][0]).toEqual(3);
         expect(onSubmit.mock.calls[0][1]).toEqual(textareaValue);
     });

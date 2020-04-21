@@ -5,8 +5,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 import thunk from 'redux-thunk';
-import api from '../../api.js';
 
+import api from '../../api.js';
 import {Offer} from './offer.jsx';
 
 const favoriteOffer = {preview_image: "https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/9.jpg", id: 2,

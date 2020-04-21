@@ -132,7 +132,7 @@ const Offer = ({offer, fetchFavorite, isLoggedIn, history, isFavoriteError, isFa
 Offer.propTypes = {
     fetchFavorite: PropTypes.func.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object,
     isFavoriteError: PropTypes.bool.isRequired,
     isFavoriteLoading: PropTypes.bool.isRequired,
     offer: PropTypes.shape({

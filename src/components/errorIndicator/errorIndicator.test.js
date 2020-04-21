@@ -4,7 +4,8 @@ import renderer from 'react-test-renderer';
 import ErrorIndicator from './errorIndicator.jsx';
 
 it(`Correctly renders the ErrorIndicator component`, () => {
-    const tree = renderer.create(<ErrorIndicator operation="loading of the list of reviews" />);
+    const tree = renderer.create(<ErrorIndicator operation="loading of the list of reviews" />)
+    .toJSON();
 
     expect(tree).toMatchSnapshot();
 });

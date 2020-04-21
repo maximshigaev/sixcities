@@ -34,7 +34,7 @@ class Map extends React.PureComponent {
     lastFocusedHotel = null;
 
     componentDidUpdate(prevProps) {
-        const {activeCityCoords, activeCity, hotels, focusedCard, isLoading, history} = this.props;
+        const {activeCityCoords, activeCity, hotels, focusedCard, isLoading} = this.props;
 
         if(prevProps.activeCity === activeCity && prevProps.focusedCard === focusedCard) {
             return;
@@ -97,19 +97,21 @@ class Map extends React.PureComponent {
                     zIndexOffset: 1
                 })
                     .addTo(map)
-                    .addEventListener(`click`, () => history.push(`/offer/${this.lastFocusedHotel.id}`));
+                    .addEventListener(`click`, () => this.pushPathToHistory(`/offer/${this.lastFocusedHotel.id}`));
             } else {
                 leaflet.marker(coords, {
                     icon: pin,
                     title: hotels[ind].title
                 })
                     .addTo(map)
-                    .addEventListener(`click`, () => history.push(`/offer/${hotels[ind].id}`));
+                    .addEventListener(`click`, () =>this.pushPathToHistory(`/offer/${hotels[ind].id}`));
             }
         });
 
         this.map = map;
     }
+
+    pushPathToHistory = (path) => this.props.history.push(path);
 
     render() {
         const {isLoading} = this.props;

@@ -23,7 +23,7 @@ exports[`Correctly renders the CarsListContainer component when isError and isLo
   className="cities__places-list places__list tabs__content"
 >
   <a
-    href="/offer/0"
+    href="/offer/1"
     onClick={[Function]}
     title="To the Beautiful luxurious apartment at great location offer page"
   >
@@ -126,7 +126,7 @@ exports[`Correctly renders the CarsListContainer component when isError and isLo
     </article>
   </a>
   <a
-    href="/offer/1"
+    href="/offer/2"
     onClick={[Function]}
     title="To the Perfectly located Castro offer page"
   >
@@ -222,7 +222,7 @@ exports[`Correctly renders the CarsListContainer component when isError and isLo
     </article>
   </a>
   <a
-    href="/offer/2"
+    href="/offer/3"
     onClick={[Function]}
     title="To the Waterfront with extraordinary view offer page"
   >

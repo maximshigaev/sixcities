@@ -16,10 +16,10 @@ describe(`Interaction with user invokes appropriate callbacks`, () => {
         );
 
         expect(resetReviewError).toHaveBeenCalledTimes(1);
-        expect(resetReviewError.mock.calls[0][0]).toEqual(void 0);
+        expect(resetReviewError.mock.calls[0][0]).toEqual(undefined);
     });
 
-    it.only(`the submission of form should invoke fetchReview callback one time with the right values`, () => {
+    it(`the submission of form should invoke fetchReview callback one time with the right values`, () => {
         const fetchReview = jest.fn();
 
         const formContainer = mount(

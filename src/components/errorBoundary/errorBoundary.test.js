@@ -5,7 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import ErrorBoundary from './errorBoundary.jsx';
 import {Card} from '../card/card.jsx';
 
-const offer =  {
+const offer = {
     price: 120,
     is_premium: true,
     is_favorite: false,
@@ -14,7 +14,7 @@ const offer =  {
     type: `Apartment`,
     preview_image: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/9.jpg`,
     src: `img/apartment-01.jpg`,
-    id: 0
+    id: 1
 };
 
 describe(`Correctly renders the ErrorBoundary component`, () => {

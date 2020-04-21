@@ -13,7 +13,7 @@ const CardListEmpty = ({city}) => {
 }
 
 CardListEmpty.propTypes = {
-    city: PropTypes.string.isRequired
+    city: PropTypes.string
 }
 
 export default CardListEmpty;

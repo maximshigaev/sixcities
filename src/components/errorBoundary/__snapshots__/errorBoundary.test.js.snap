@@ -2,7 +2,7 @@
 
 exports[`Correctly renders the ErrorBoundary component when there is no errors should render the children property 1`] = `
 <a
-  href="/offer/0"
+  href="/offer/1"
   onClick={[Function]}
   title="To the Beautiful luxurious apartment at great location offer page"
 >
