@@ -10,80 +10,81 @@ import getHotelsCoords from '../../utils/getHotelsCoords.js';
 import activeIcon from './pin-active.svg';
 import icon from './pin.svg';
 
-const ReviewsMap = ({offer, nearbyHotels, focusedCard, history}) => {
+const ReviewsMap = ({offer, nearbyHotels, focusedCard, history, isTestMode}) => {
     useEffect(() => {
-        const offerCoords = [offer.location.latitude, offer.location.longitude];
+        if(!isTestMode) {
+            const offerCoords = [offer.location.latitude, offer.location.longitude];
 
-        const activePin = leaflet.icon({
-            iconUrl: activeIcon,
-            iconSize: [30, 30]
-        });
+            const activePin = leaflet.icon({
+                iconUrl: activeIcon,
+                iconSize: [30, 30]
+            });
 
-        const pin = leaflet.icon({
-            iconUrl: icon,
-            iconSize: [30, 30]
-        });
+            const pin = leaflet.icon({
+                iconUrl: icon,
+                iconSize: [30, 30]
+            });
 
-        const zoom = 13;
+            const zoom = 13;
 
-        const map = leaflet.map(`reviewsMap`, {
-            center: offerCoords,
-            zoom,
-            zoomControl: false,
-            marker: true
-        });
+            const map = leaflet.map(`reviewsMap`, {
+                center: offerCoords,
+                zoom,
+                zoomControl: false,
+                marker: true
+            });
 
-        leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, { 
-            attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
-                contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-            })
-                .addTo(map);
+            leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, { 
+                attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
+                    contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+                })
+                    .addTo(map);
 
-        let focusedHotel = null;
+            let focusedHotel = null;
 
-        if(focusedCard) {
-            focusedHotel = nearbyHotels.find((item) => item.id === focusedCard);
+            if(focusedCard) {
+                focusedHotel = nearbyHotels.find((item) => item.id === focusedCard);
 
-            leaflet.marker(offerCoords, {
-                icon: pin
-            })
-                .addTo(map);
-        } else {
-            map.setView(offerCoords, zoom);            
-
-            leaflet.marker(offerCoords, {
-                icon: activePin,
-                title: offer.title,
-                zIndexOffset: 1
-            })
-                .addTo(map);
-        }
-
-        const nearbyHotelsCoords = getHotelsCoords(nearbyHotels);
-
-        nearbyHotelsCoords.forEach((coords, ind) => {
-            if(focusedHotel && coords[0] === focusedHotel.location.latitude
-                && coords[1] === focusedHotel.location.longitude
-            ) {
-                map.setView(coords, zoom);
-
-                leaflet.marker(coords, {
-                    icon: activePin,
-                    zIndexOffset: 1
+                leaflet.marker(offerCoords, {
+                    icon: pin
                 })
                     .addTo(map);
             } else {
-                leaflet.marker(coords, {
-                    icon: pin,
-                    title: nearbyHotels[ind].title
-                })
-                    .addTo(map)
-                    .addEventListener(`click`, () => history.push(`/offer/${nearbyHotels[ind].id}`));
-            }
-        });
+                map.setView(offerCoords, zoom);            
 
-        return () => map.remove();
-    }, [offer, nearbyHotels, focusedCard, history]);
+                leaflet.marker(offerCoords, {
+                    icon: activePin,
+                    title: offer.title,
+                    zIndexOffset: 1
+                })
+                    .addTo(map);
+            }
+
+            const nearbyHotelsCoords = getHotelsCoords(nearbyHotels);
+
+            nearbyHotelsCoords.forEach((coords, ind) => {
+                if(focusedHotel && coords[0] === focusedHotel.location.latitude
+                    && coords[1] === focusedHotel.location.longitude
+                ) {
+                    map.setView(coords, zoom);
+
+                    leaflet.marker(coords, {
+                        icon: activePin,
+                        zIndexOffset: 1
+                    })
+                        .addTo(map);
+                } else {
+                    leaflet.marker(coords, {
+                        icon: pin,
+                        title: nearbyHotels[ind].title
+                    })
+                        .addTo(map)
+                        .addEventListener(`click`, () => history.push(`/offer/${nearbyHotels[ind].id}`));
+                }
+            });
+            return () => map.remove();
+        }
+    }, [offer, nearbyHotels, focusedCard, history, isTestMode]);
 
     return (
         <section className="property__map map">
@@ -93,6 +94,7 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard, history}) => {
 }
 
 ReviewsMap.propTypes = {
+    isTestMode: PropTypes.bool.isRequired,
     offer: PropTypes.shape({
         price: PropTypes.number.isRequired,
         is_favorite: PropTypes.bool.isRequired,
@@ -117,10 +119,11 @@ ReviewsMap.propTypes = {
     }))
 }
 
-const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}}) => {
+const mapStateToProps = ({nearby: {nearbyHotels}, card: {focusedCard}, offers: {isTestMode = false}}) => {
     return {
         nearbyHotels,
-        focusedCard
+        focusedCard,
+        isTestMode
     }
 }
 

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correctly renders the ReviewsMap component 1`] = `
+<section
+  className="property__map map"
+>
+  <div
+    id="reviewsMap"
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  />
+</section>
+`;
