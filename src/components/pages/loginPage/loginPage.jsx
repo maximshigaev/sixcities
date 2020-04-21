@@ -10,9 +10,7 @@ import Login from '../../login/login.jsx';
 import ErrorIndicator from '../../errorIndicator/errorIndicator.jsx';
 
 const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth, isAuthError}) => {
-    const formSubmitHandler = (evt, email, password) => {
-        evt.preventDefault();
-
+    const formSubmitHandler = (email, password) => {
         fetchAuth({
             email,
             password

@@ -1,6 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Correctly renders the LoginPage component  1`] = `
+exports[`Correctly renders the LoginPage component  when isAuthError property is equal true and both isLoggedIn and isAuthLoading properties are equal
+        false 1`] = `
+<div
+  className="cities__status-wrapper tabs__content"
+>
+  <b
+    className="cities__status"
+  >
+    We're sorry
+  </b>
+  <p
+    className="cities__status-description"
+  >
+    It's been an error during the process of 
+    user's authorization
+    . Please, reload the page and try again
+  </p>
+</div>
+`;
+
+exports[`Correctly renders the LoginPage component  when isAuthError, isLoggedIn and isAuthLoading properties are equal false 1`] = `
 <div
   className="page page--gray page--login"
 >
@@ -17,13 +37,16 @@ exports[`Correctly renders the LoginPage component  1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link header__logo-link--active"
+            className="header__logo-link"
+            href="/"
+            onClick={[Function]}
+            title="To the main page"
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="logo.svg"
               width="81"
             />
           </a>
@@ -39,15 +62,17 @@ exports[`Correctly renders the LoginPage component  1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
+                title="To the login page"
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>
@@ -74,6 +99,7 @@ exports[`Correctly renders the LoginPage component  1`] = `
           action="#"
           className="login__form form"
           method="post"
+          onSubmit={[Function]}
         >
           <div
             className="login__input-wrapper form__input-wrapper"
@@ -86,9 +112,11 @@ exports[`Correctly renders the LoginPage component  1`] = `
             <input
               className="login__input form__input"
               name="email"
+              onChange={[Function]}
               placeholder="Email"
-              required=""
+              required={true}
               type="email"
+              value=""
             />
           </div>
           <div
@@ -102,9 +130,11 @@ exports[`Correctly renders the LoginPage component  1`] = `
             <input
               className="login__input form__input"
               name="password"
+              onChange={[Function]}
               placeholder="Password"
-              required=""
+              required={true}
               type="password"
+              value=""
             />
           </div>
           <button
@@ -135,3 +165,29 @@ exports[`Correctly renders the LoginPage component  1`] = `
   </main>
 </div>
 `;
+
+exports[`Correctly renders the LoginPage component  when isAuthLoading property is equal true and both isLoggedIn and isAuthError properties are equal
+        false 1`] = `
+<div
+  className="spinner"
+>
+  <div
+    className="spinnerContent"
+  >
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Correctly renders the LoginPage component  when isLoggedIn property is equal true 1`] = `null`;
