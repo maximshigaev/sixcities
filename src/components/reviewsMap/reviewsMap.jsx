@@ -15,15 +15,8 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard, history, isTestMode}) => 
         if(!isTestMode) {
             const offerCoords = [offer.location.latitude, offer.location.longitude];
 
-            const activePin = leaflet.icon({
-                iconUrl: activeIcon,
-                iconSize: [30, 30]
-            });
-
-            const pin = leaflet.icon({
-                iconUrl: icon,
-                iconSize: [30, 30]
-            });
+            const activePin = createIcon(activeIcon);
+            const pin = createIcon(icon);
 
             const zoom = 13;
 
@@ -45,19 +38,11 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard, history, isTestMode}) => 
             if(focusedCard) {
                 focusedHotel = nearbyHotels.find((item) => item.id === focusedCard);
 
-                leaflet.marker(offerCoords, {
-                    icon: pin
-                })
-                    .addTo(map);
+                createMarker(offerCoords, pin, map);
             } else {
-                map.setView(offerCoords, zoom);            
-
-                leaflet.marker(offerCoords, {
-                    icon: activePin,
-                    title: offer.title,
-                    zIndexOffset: 1
-                })
-                    .addTo(map);
+                map.setView(offerCoords, zoom); 
+                
+                createMarker(offerCoords, activePin, map, {title: offer.title, zIndexOffset: 1});
             }
 
             const nearbyHotelsCoords = getHotelsCoords(nearbyHotels);
@@ -68,23 +53,32 @@ const ReviewsMap = ({offer, nearbyHotels, focusedCard, history, isTestMode}) => 
                 ) {
                     map.setView(coords, zoom);
 
-                    leaflet.marker(coords, {
-                        icon: activePin,
-                        zIndexOffset: 1
-                    })
-                        .addTo(map);
+                    createMarker(coords, activePin, map, {zIndexOffset: 1});
                 } else {
-                    leaflet.marker(coords, {
-                        icon: pin,
-                        title: nearbyHotels[ind].title
-                    })
-                        .addTo(map)
+                    createMarker(coords, pin, map, {title: nearbyHotels[ind].title})
                         .addEventListener(`click`, () => history.push(`/offer/${nearbyHotels[ind].id}`));
                 }
             });
             return () => map.remove();
         }
     }, [offer, nearbyHotels, focusedCard, history, isTestMode]);
+
+    const createIcon = (iconUrl) => {
+        return leaflet.icon({
+            iconUrl,
+            iconSize: [30, 30]
+        });
+    }
+
+    const createMarker = (coords, icon, map, options = {}) => {
+        const marker = leaflet.marker(coords, {
+            icon,
+            ...options
+        })
+        .addTo(map);
+
+        return marker;
+    }
 
     return (
         <section className="property__map map">

@@ -31,6 +31,24 @@ class Map extends React.PureComponent {
         }))
     }
 
+    static createIcon = (iconUrl) => {
+        return leaflet.icon({
+            iconUrl,
+            iconSize: [30, 30]
+        });
+    }
+
+    static createMarker = (coords, icon, path, map, options) => {
+        const marker = leaflet.marker(coords, {
+            icon,
+            ...options
+        })
+        .addTo(map)
+        .addEventListener(`click`, () => this.pushPathToHistory(path));
+
+        return marker;
+    }
+
     lastFocusedHotel = null;
 
     componentDidUpdate(prevProps) {
@@ -48,15 +66,8 @@ class Map extends React.PureComponent {
             this.map.remove();
         }
                         
-        const pin = leaflet.icon({
-            iconUrl: icon,
-            iconSize: [30, 30]
-        });
-
-        const activePin = leaflet.icon({
-            iconUrl: activeIcon,
-            iconSize: [30, 30]
-        });
+        const pin = Map.createIcon(icon);
+        const activePin = Map.createIcon(activeIcon);
 
         const zoom = 13;
 
@@ -91,20 +102,12 @@ class Map extends React.PureComponent {
             ) {
                 map.setView(coords, zoom);
 
-                leaflet.marker(coords, {
-                    icon: activePin,
-                    title: this.lastFocusedHotel.title,
-                    zIndexOffset: 1
-                })
-                    .addTo(map)
-                    .addEventListener(`click`, () => this.pushPathToHistory(`/offer/${this.lastFocusedHotel.id}`));
+                Map.createMarker(coords, activePin, `/offer/${this.lastFocusedHotel.id}`, map,
+                    {title: this.lastFocusedHotel.title, zIndexOffset: 1}
+                );
+                    
             } else {
-                leaflet.marker(coords, {
-                    icon: pin,
-                    title: hotels[ind].title
-                })
-                    .addTo(map)
-                    .addEventListener(`click`, () =>this.pushPathToHistory(`/offer/${hotels[ind].id}`));
+                Map.createMarker(coords, pin, `/offer/${hotels[ind].id}`, map,  {title: hotels[ind].title});
             }
         });
 
