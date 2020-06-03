@@ -18,7 +18,7 @@ const LoginPage = ({isLoggedIn, isAuthLoading, fetchAuth, isAuthError}) => {
     }
 
     if(isLoggedIn) {
-        return <Redirect to="/" />;
+        return <Redirect to={`${process.env.PUBLIC_URL}/`} />;
     }
 
     if(isAuthLoading) {

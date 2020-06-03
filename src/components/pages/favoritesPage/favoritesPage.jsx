@@ -20,7 +20,7 @@ const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLogge
     }, [fetchFavorites]);
 
     if(!isLoggedIn) {
-        return <Redirect to="/login" />;
+        return <Redirect to={`${process.env.PUBLIC_URL}/login`} />;
     }
 
     if(isFavoritesLoading) {
@@ -40,7 +40,7 @@ const FavoritesPage = ({favorites, isFavoritesLoading, isFavoritesError, isLogge
             {(favorites.length) ? <FavoritesList favorites={favorites} /> : <FavoritesListEmpty />}
             
             <footer className="footer">
-                <Link to="/" className="footer__logo-link" title="To the main page">
+                <Link to={`${process.env.PUBLIC_URL}/`} className="footer__logo-link" title="To the main page">
                     <img className="footer__logo" src={logo} alt="6 cities logo" width="64" height="33" />
                 </Link>
             </footer>

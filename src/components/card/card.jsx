@@ -18,7 +18,7 @@ const Card = ({offer: {price, is_premium: isPremium, is_favorite: isFavorite, ra
     const infoDivClassName = cn(`place-card__info`, {'favorites__card-info': isFavPage});
 
     return (
-        <Link to={`/offer/${id}`} title={`To the ${title} offer page`} onClick={cardMouseLeaveHandler}>
+        <Link to={`${process.env.PUBLIC_URL}/offer/${id}`} title={`To the ${title} offer page`} onClick={cardMouseLeaveHandler}>
             <article className={articleClassName} onMouseEnter={() => cardMouseEnterHandler(id)}
                 onMouseLeave={cardMouseLeaveHandler}
             >

@@ -17,11 +17,11 @@ const App = ({fetchAuthStatus}) => {
 
 	return (
 		<Switch>
-			<Route path="/" component={MainPage} exact />
-			<Route path="/login" component={LoginPage} exact />
-			<Route path="/favorites" component={FavoritesPage} exact />
-			<Route path="/offer/:id" component={OfferPage} exact />
-			<Redirect to="/" />
+			<Route path={`${process.env.PUBLIC_URL}/`} component={MainPage} exact />
+			<Route path={`${process.env.PUBLIC_URL}/login`} component={LoginPage} exact />
+			<Route path={`${process.env.PUBLIC_URL}/favorites`} component={FavoritesPage} exact />
+			<Route path={`${process.env.PUBLIC_URL}/offer/:id`} component={OfferPage} exact />
+			<Redirect to={`${process.env.PUBLIC_URL}/`} />
 		</Switch>
 	);
 }

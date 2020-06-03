@@ -41,7 +41,7 @@ const OfferPage = ({match, offers, isLoading, history, fetchOffers, isError}) =>
     const offer = offers.find((item) => item.id === +match.params.id);
     
     if(!offer) {
-        return <Redirect to="/" />;
+        return <Redirect to={`${process.env.PUBLIC_URL}/`} />;
     }
     
     return (

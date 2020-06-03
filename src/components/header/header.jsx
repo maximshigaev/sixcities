@@ -18,7 +18,7 @@ const Header = ({isLoggedIn, email, isMain, isAuthStatusLoading, isAuthStatusErr
         );
     } else {
         logoLink = (
-            <Link to="/" className="header__logo-link" title="To the main page">
+            <Link to={`${process.env.PUBLIC_URL}/`} className="header__logo-link" title="To the main page">
                 <img className="header__logo" src={logo} alt="6 cities logo" width="81"height="41" />
             </Link>
         );
@@ -30,7 +30,7 @@ const Header = ({isLoggedIn, email, isMain, isAuthStatusLoading, isAuthStatusErr
         mainLink = <div>Authorization failed. Please, reload the page and try again</div>;
     } else {
         mainLink = (
-            <Link to={(isLoggedIn) ? `/favorites` : `/login`}
+            <Link to={(isLoggedIn) ? `${process.env.PUBLIC_URL}/favorites` : `${process.env.PUBLIC_URL}/login`}
                 title={(isLoggedIn) ? `To the favorites page` : `To the login page`}
                 className="header__nav-link header__nav-link--profile"
             >
