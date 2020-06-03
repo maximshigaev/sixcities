@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/sixcities/static/css/main.3e770f52.chunk.css",
-    "main.js": "/sixcities/static/js/main.c03b0e91.chunk.js",
-    "main.js.map": "/sixcities/static/js/main.c03b0e91.chunk.js.map",
+    "main.css": "/sixcities/static/css/main.4200136a.chunk.css",
+    "main.js": "/sixcities/static/js/main.181beb2d.chunk.js",
+    "main.js.map": "/sixcities/static/js/main.181beb2d.chunk.js.map",
     "runtime-main.js": "/sixcities/static/js/runtime-main.c2599022.js",
     "runtime-main.js.map": "/sixcities/static/js/runtime-main.c2599022.js.map",
-    "static/js/2.ce3e9777.chunk.js": "/sixcities/static/js/2.ce3e9777.chunk.js",
-    "static/js/2.ce3e9777.chunk.js.map": "/sixcities/static/js/2.ce3e9777.chunk.js.map",
+    "static/js/2.32e04c22.chunk.js": "/sixcities/static/js/2.32e04c22.chunk.js",
+    "static/js/2.32e04c22.chunk.js.map": "/sixcities/static/js/2.32e04c22.chunk.js.map",
     "index.html": "/sixcities/index.html",
-    "precache-manifest.7130f6c22dafdf4dc2be8311c8d3da90.js": "/sixcities/precache-manifest.7130f6c22dafdf4dc2be8311c8d3da90.js",
+    "precache-manifest.46b4190276ac0917f87337c5ba82d115.js": "/sixcities/precache-manifest.46b4190276ac0917f87337c5ba82d115.js",
     "service-worker.js": "/sixcities/service-worker.js",
-    "static/css/main.3e770f52.chunk.css.map": "/sixcities/static/css/main.3e770f52.chunk.css.map",
-    "static/js/2.ce3e9777.chunk.js.LICENSE.txt": "/sixcities/static/js/2.ce3e9777.chunk.js.LICENSE.txt",
+    "static/css/main.4200136a.chunk.css.map": "/sixcities/static/css/main.4200136a.chunk.css.map",
+    "static/js/2.32e04c22.chunk.js.LICENSE.txt": "/sixcities/static/js/2.32e04c22.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/sixcities/static/media/logo.052bc629.svg",
-    "static/media/pin-active.svg": "/sixcities/static/media/pin-active.6747ef6e.svg",
-    "static/media/pin.svg": "/sixcities/static/media/pin.19314a0f.svg"
+    "static/media/pin-active.svg": "/sixcities/static/media/pin-active.99262147.svg",
+    "static/media/pin.svg": "/sixcities/static/media/pin.6c26c71c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.c2599022.js",
-    "static/js/2.ce3e9777.chunk.js",
-    "static/css/main.3e770f52.chunk.css",
-    "static/js/main.c03b0e91.chunk.js"
+    "static/js/2.32e04c22.chunk.js",
+    "static/css/main.4200136a.chunk.css",
+    "static/js/main.181beb2d.chunk.js"
   ]
 }
